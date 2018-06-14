@@ -114,7 +114,7 @@ function setEosBalance(ctx){
 
 function loadData(ctx, cb){
  MongoClient.connect(url, function(err, db) {
- var dbo = db.db("heroku_dtfpf2m1");
+ var dbo = db.db("heroku_9472rtd6");
  var findquery = {chatid : ctx.chat.id};
  dbo.collection("customers").findOne(findquery, function(err, result){
   if(result == null){
@@ -131,7 +131,7 @@ function loadData(ctx, cb){
 function saveData(ctx){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-    var dbo = db.db("heroku_dtfpf2m1");
+    var dbo = db.db("heroku_9472rtd6");
  
    var findquery = {chatid : ctx.chat.id};
    dbo.collection("customers").findOne(findquery, function(err, result){
