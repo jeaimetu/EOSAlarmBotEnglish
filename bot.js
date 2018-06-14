@@ -25,9 +25,9 @@ eos = Eos(eosconfig) // 127.0.0.1:8888
 
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.callbackButton('아이디', 'id'),
-  Markup.callbackButton('EOS가격', 'price'),
-  Markup.callbackButton('EOS보유량', 'balance')
+  Markup.callbackButton('Account', 'id'),
+  Markup.callbackButton('Price', 'price'),
+  Markup.callbackButton('Balance', 'balance')
   //Markup.callbackButton('History','history')
   //Markup.callbackButton('Confirm','confirm')
 ], {column: 3})
@@ -38,21 +38,21 @@ function makeMessage(ctx){
   var finalResult;
  
  if(ctx.session.id != "nil"){
-    finalResult = "곧 계정 이력과 주기적 정보 확인 기능이 추가 됩니다.";
+    finalResult = "Proactive alarm function will be released in the near future.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp에 투표해 주세요.";
+  finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp.";
    finalResult += "\n";
   finalResult += "copyright EOS.Cafe Korea";
   
  }
  else{
-  finalResult = "아이디를 눌러서 EOS 아이디를 입력해 주세요.";
+  finalResult = "Touch an account button to register EOS account.";
   finalResult += "\n";
-  finalResult += "다음 버전에서는 계정  변화가 생기면 자동으로 받아보실 수있습니다.";
+  finalResult += "In next version, Chatbot will notify any changes on your account automatically";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp에 투표해 주세요.";
+  finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp.";
    finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
@@ -170,7 +170,7 @@ function stepCheck(ctx){
     ctx.session.id = ctx.message.text;
     saveData(ctx);
     console.log("id",ctx.message.text);
-   msg = ctx.session.id + " 계정 입력이 완료되었습니다.";
+   msg = ctx.session.id + " is successfuly registered";
     ctx.telegram.sendMessage(ctx.from.id, msg)
     //save id to mongo DB
   }else{
@@ -214,19 +214,19 @@ bot.on('message', (ctx) => {
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
 bot.action('id',(ctx) => {
-  ctx.reply("EOS 아이디를 넣어주세요. http://eosflare.io 에서 EOS 퍼블릭키로 조회하실수 있습니다.");
+  ctx.reply("Please input EOS account. You can check your account with EOS public key on http://eosflare.io .");
 
   ctx.session.step = 1;
 });
 
 bot.action('price',(ctx) => {
-  ctx.reply("EOS시세를 조회하고 있습니다...");
+  ctx.reply("Retrieving EOS price...");
       //get price
    (async function () {
   const orderBook = await bithumb.getTicker('EOS')
   console.log(orderBook)
-    msg = "EOS팔때 : " + orderBook.data.sell_price + "\n";
-    msg+= "EOS살때 : " + orderBook.data.buy_price + "\n";
+    msg = "EOS Sell : " + orderBook.data.sell_price + "\n";
+    msg+= "EOS Buy : " + orderBook.data.buy_price + "\n";
     msg += "Provided by Bithumb"
     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
 }())
@@ -237,10 +237,10 @@ bot.action('balance',(ctx) => {
  loadData(ctx, function(id){
   ctx.session.id = id;
  if(ctx.session.id == -1){
-  msg = "계정 정보를 먼저 입력해 주세요";
+  msg = "Please register your EOS account.";
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
  }else{
-  ctx.reply("계정 정보를 조회하고 있습니다...");
+  ctx.reply("Retrieving account balance...");
   
     eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
      console.log(result)
@@ -256,18 +256,18 @@ bot.action('balance',(ctx) => {
       v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
       v4 = result.voter_info.unstaking.split(" ");
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
-      msg = "총 잔고 : ";
+      msg = "Total Balance : ";
       msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]) + parseInt(v4[0]);   
       msg += " EOS\n";
-      msg += "자유로운 거래 가능 양 : " + parseFloat(v3[0]);
+      msg += "Unstaked : " + parseFloat(v3[0]);
       msg += " EOS\n";
-      msg += "CPU에 잠겨있는 양 : "
+      msg += "Staking for CPU : "
       msg += result.self_delegated_bandwidth.cpu_weight;
       msg += "\n";
-      msg += "네트워크에 잠겨있는 양 : "
+      msg += "Staking for Network : "
       msg += result.self_delegated_bandwidth.net_weight;
       msg += "\n";
-      msg += "잠김 해제중인 양 : ";
+      msg += "Refund : ";
       msg += result.voter_info.unstaking;
       ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
      }); //end of get Account
