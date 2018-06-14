@@ -1,7 +1,5 @@
+const CoinMarketCap = require('coinmarketcap-api');
+ 
+const client = new CoinMarketCap();
 
-const coinmarketcap = require('coinmarketcap')
-
-coinmarketcap.tickerByAsset('eos', (result) => {
-  console.log(result);
-});
-
+client.getTicker({currency: ''}).then(console.log).catch(console.error);
