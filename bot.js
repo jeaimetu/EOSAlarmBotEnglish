@@ -184,8 +184,9 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 bot.use(session())
 bot.use(Telegraf.log())
 
-function checkAlarm(account){
- return "test";
+function checkAlarm(account, cb){
+ cb("test");
+ 
 }
 
 function getMessage(ctx){
