@@ -15,7 +15,7 @@ eos = Eos(config) // 127.0.0.1:8888
 //get table row test
 eos.getTableRows({json : true,
                  code : "eosio",
-                 scope: "gyydoojzgige",
+                 scope: "gu4tcmbqguge ",
                  table: "refunds",
                  limit: 500}).then(result => {
  var refund;
