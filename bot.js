@@ -193,7 +193,7 @@ function checkAlarm(account, cb){
    if(result != null){
     cb(result.data);
     var deleteqyery = { block : result.block};
-    dbo.collection("alarm").deleteOne(myquery, function(err, obj) {
+    dbo.collection("alarm").deleteOne(deleteqyery, function(err, obj) {
      if (err) throw err;
      console.log("1 document deleted");
     });
@@ -210,6 +210,7 @@ function getMessage(ctx){
  //console.log("called getMessage", ctx.from.id);
  //ctx.reply('Hello')
  //retrieve database if exist, then send message
+ console.log("calling check alarm for ", ctx.session.id);
  checkAlarm(ctx.session.id, function(result){
   ctx.telegram.sendMessage(ctx.from.id, result);
  });
