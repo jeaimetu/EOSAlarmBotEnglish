@@ -98,4 +98,4 @@ function saveBlockInfo(){
                         
 
 
-//setInterval(saveBlockInfo, 500);
+setInterval(saveBlockInfo, 500);
