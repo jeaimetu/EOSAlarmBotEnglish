@@ -243,7 +243,7 @@ bot.action('balance',(ctx) => {
   ctx.reply("Retrieving account balance...");
   
     eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
-     console.log(result)
+     console.log("getCurrencyBalance", result)
      if(result[0] != undefined && result[0] != 'undefined' && result[0] != null){
       v3 = result[0].split(" ");
      }else{
@@ -251,6 +251,7 @@ bot.action('balance',(ctx) => {
      }
      console.log("calling getAccount", ctx.session.id);
      eos.getAccount(ctx.session.id).then(result => {
+      console.log("getAccount", result);
       console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
       v1 = result.self_delegated_bandwidth.net_weight.split(" ");
       v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
