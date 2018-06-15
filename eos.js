@@ -1,4 +1,7 @@
 Eos = require('eosjs') // Eos = require('./src')
+var msg = require('./bot.js');
+
+msg("Hello World");
 
 var mongo = require('mongodb');
 
