@@ -23,6 +23,11 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
  
 eos = Eos(eosconfig) // 127.0.0.1:8888
 
+module.exports = function(msg){
+ console.log("called from eos.js", msg);
+ ctx.session.transaction = msg;
+}
+
 
 const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Account', 'id'),
@@ -61,6 +66,7 @@ function makeMessage(ctx){
 
 function initMessage(ctx){
  ctx.session.id = 'nil';
+ ctx.session.transaction = 'nil';
 }
 
 function checkData(ctx){
