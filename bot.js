@@ -196,6 +196,7 @@ function checkAlarm(account, cb){
     dbo.collection("alarm").deleteOne(myquery, function(err, obj) {
      if (err) throw err;
      console.log("1 document deleted");
+    });
    }
    //delete current record   
    db.close();
