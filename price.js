@@ -17,13 +17,28 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
-   var myobj = { $set : {exchange : "coinmarketcap", usd : result.data.quotes.USD.price, krw : result.data.quotes.KRW.price}  }
-   dbo.collection("price").updateOne(myobj, function(err, res) {
+   
+   var findquery = { exchange : "coinmarketcap" };
+   dbo.collection("customers").findOne(findquery, function(err, result){
+    if(result == null){
+     //insert
+     var myobj = { exchange : "coinmarketcap", usd : result.data.quotes.USD.price, krw : result.data.quotes.KRW.price }
+     dbo.collection("customers").insertOne(myobj, function(err, res) {
+        if (err) throw err;
+          console.log("1 document inserted");
+              db.close();
+        });
+    }else{
+     //update
+     var myobj = { $set : {exchange : "coinmarketcap", usd : result.data.quotes.USD.price, krw : result.data.quotes.KRW.price}  }
+     dbo.collection("price").updateOne(myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document updated");
               db.close();
-        });
-  });
+        });//end of updateone
+    }//end of else
+   });//end of find query
+  });//end of mongo
    
    
 }).catch(console.error);
