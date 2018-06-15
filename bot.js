@@ -185,8 +185,10 @@ bot.use(session())
 bot.use(Telegraf.log())
 
 function getMessage(ctx){
- console.log("called getMessage", ctx.from.id);
- ctx.reply('Hello')
+ //console.log("called getMessage", ctx.from.id);
+ //ctx.reply('Hello')
+ //retrieve database if exist, then send message 
+ ;
 }
 
 bot.start((ctx) => {
