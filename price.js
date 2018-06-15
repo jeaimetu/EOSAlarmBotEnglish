@@ -6,5 +6,5 @@ const client = new CoinMarketCap();
 
 client.getTicker({id : 1765}).then(result => {
  console.log(result);
- console.log(result.quotes.USD.price);
+ console.log(result.data.quotes.USD.price);
 }).catch(console.error);
