@@ -32,5 +32,5 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
 
 
 //run query per minutes
-setInterval(saveBlockInfo, 1000);
+setInterval(getPrice, 1000);
                                                     
