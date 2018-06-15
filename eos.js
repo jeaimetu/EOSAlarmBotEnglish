@@ -12,6 +12,15 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
  
 eos = Eos(config) // 127.0.0.1:8888
 
+//get table row test
+eos.getTableRows(json : true,
+                 code : "eosio",
+                 scope: "gu4tcmbqguge",
+                 table: "refunds",
+                 limit: 500).then(result => {
+ console.log("refund size", result.rows[0])
+});
+
 //getting starting block id
 var idx = 0;
 eos.getInfo({}).then(result => {
@@ -47,7 +56,6 @@ function saveBlockInfo(){
 
 
 
-return;
 
 /*
 bithumb.ticker('EOS').then(function(response){
