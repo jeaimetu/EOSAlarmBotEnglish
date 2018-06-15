@@ -18,7 +18,13 @@ eos.getTableRows({json : true,
                  scope: "gyydoojzgige",
                  table: "refunds",
                  limit: 500}).then(result => {
- console.log("refund size", result.rows[0])
+ var refund;
+ if(res.rows.length == 0){
+  refund = 0;
+ }else{
+  refund = result.rows[0];
+ }
+ console.log("refund size", refund)
 });
 
 //getting starting block id
