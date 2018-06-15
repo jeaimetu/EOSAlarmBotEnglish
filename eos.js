@@ -26,10 +26,10 @@ eos.getInfo({}).then(result => {
 });
 */
 
-function saveData(account, data){
+function saveData(block, account, data){
   MongoClient.connect(url, function(err, db) {
    var dbo = db.db("heroku_9472rtd6");
-   var myobj = { account : account, data : data };
+   var myobj = { block : block, account : account, data : data };
    dbo.collection("alarm").insertOne(myobj, function(err, res){
     if (err) throw err;
     console.log("1 document inserted");
@@ -62,7 +62,7 @@ function checkAccount(result){
   //save data to proper account or new table?
   if(account != null){
    //save data to database
-   saveData(account, data);
+   saveData(result.block_num, account, data);
   }
  }
  
