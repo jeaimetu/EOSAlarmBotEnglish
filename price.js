@@ -8,3 +8,9 @@ client.getTicker({id : 1765}).then(result => {
  console.log(result);
  console.log(result.data.quotes.USD.price);
 }).catch(console.error);
+
+
+client.getTicker({id : 1765, convert : KRW}).then(result => {
+ console.log(result);
+ console.log(result.data.quotes.USD.price);
+}).catch(console.error);
