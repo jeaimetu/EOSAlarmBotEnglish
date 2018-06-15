@@ -222,15 +222,20 @@ bot.action('id',(ctx) => {
 bot.action('price',(ctx) => {
   ctx.reply("Retrieving EOS price...");
       //get price
-   (async function () {
-  const orderBook = await bithumb.getTicker('EOS')
-  console.log(orderBook)
-    msg = "EOS Sell : " + orderBook.data.sell_price + "\n";
-    msg+= "EOS Buy : " + orderBook.data.buy_price + "\n";
-    msg += "Provided by Bithumb"
-    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
-}())
-  ctx.session.step = 2;
+   MongoClient.connect(url, function(err, db) {
+    var dbo = db.db("heroku_9472rtd6");   
+    var findquery = { exchange : "coinmarketcap" };
+    dbo.collection("price").findOne(findquery, function(err, res){
+     console.log(orderBook)
+     msg = "EOS Price : " + res.usd;
+     msg += "Provided by ";
+     msg += res.exchange;
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+     ctx.session.step = 2;
+     db.close();
+    });
+
+
 });
 
 bot.action('balance',(ctx) => {
@@ -255,10 +260,23 @@ bot.action('balance',(ctx) => {
       console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
       v1 = result.self_delegated_bandwidth.net_weight.split(" ");
       v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
-      v4 = result.voter_info.unstaking.split(" ");
+     eos.getTableRows({json : true,
+                 code : "eosio",
+                 scope: ctx.session.id,
+                 table: "refunds",
+                 limit: 500}).then(res => {
+        var refund;
+       if(res.rows.length == 0){
+        refund = 0;
+       }else{
+       var a = res.rows[0].net_amount.split(" ");
+       var b = res.rows[0].cpu_amount.split(" ");
+       refund = parseFloat(a[0]) + parseFloat(b[0]);
+      }
+ console.log("refund size", refund)
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
       msg = "Total Balance : ";
-      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]) + parseInt(v4[0]);   
+      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]) + refund;   
       msg += " EOS\n";
       msg += "Unstaked : " + parseFloat(v3[0]);
       msg += " EOS\n";
@@ -269,8 +287,9 @@ bot.action('balance',(ctx) => {
       msg += result.self_delegated_bandwidth.net_weight;
       msg += "\n";
       msg += "Refund : ";
-      msg += result.voter_info.unstaking;
+      msg += refund;
       ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+     });//end of getTableRow
      }); //end of get Account
   }); //end of getCurrencyBalance
    }//end if 계정정보
