@@ -19,7 +19,7 @@ eos.getTableRows({json : true,
                  table: "refunds",
                  limit: 500}).then(result => {
  var refund;
- if(res.rows.length == 0){
+ if(result.rows.length == 0){
   refund = 0;
  }else{
   refund = result.rows[0];
