@@ -185,7 +185,8 @@ bot.use(session())
 bot.use(Telegraf.log())
 
 function checkAlarm(account, cb){
- cb("test");
+ //cb("test");
+ ;
  
 }
 
