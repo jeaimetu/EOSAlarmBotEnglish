@@ -226,7 +226,7 @@ bot.action('price',(ctx) => {
     var dbo = db.db("heroku_9472rtd6");   
     var findquery = { exchange : "coinmarketcap" };
     dbo.collection("price").findOne(findquery, function(err, res){
-     console.log(orderBook)
+     console.log(res)
      msg = "EOS Price : " + res.usd;
      msg += "Provided by ";
      msg += res.exchange;
