@@ -227,7 +227,8 @@ bot.action('price',(ctx) => {
     var findquery = { exchange : "coinmarketcap" };
     dbo.collection("price").findOne(findquery, function(err, res){
      console.log(res)
-     msg = "EOS Price : " + res.usd;
+     msg = "EOS Price : " + "$" + res.usd;
+     msg += "\n";
      msg += "Provided by ";
      msg += res.exchange;
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
