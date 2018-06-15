@@ -22,7 +22,9 @@ eos.getTableRows({json : true,
  if(result.rows.length == 0){
   refund = 0;
  }else{
-  refund = result.rows[0];
+  var a = result.rows[0].net_amount.split(" ");
+  var b = result.rows[0].cpu_amount.split(" ");
+  refund = parseFloat(a[0]) + parseFloat(b[0]);
  }
  console.log("refund size", refund)
 });
