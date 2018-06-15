@@ -184,10 +184,18 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 bot.use(session())
 bot.use(Telegraf.log())
 
+function checkAlarm(account){
+ return "test";
+}
+
 function getMessage(ctx){
  //console.log("called getMessage", ctx.from.id);
  //ctx.reply('Hello')
- //retrieve database if exist, then send message 
+ //retrieve database if exist, then send message
+ checkAlarm(ctx.session.id, function(result){
+  ctx.telegram.sendMessage(ctx.from.id, result);
+ });
+ 
  ;
 }
 
