@@ -185,8 +185,23 @@ bot.use(session())
 bot.use(Telegraf.log())
 
 function checkAlarm(account, cb){
- //cb("test");
- ;
+ //check data base
+ MongoClient.connect(url, function(err, db) {
+  var dbo = db.db("heroku_9472rtd6");
+  var findquery = { account : account };
+  dbo.collection("alarm").findOne(findquery, function(err, result){
+   if(result != null){
+    cb(result.data);
+    var deleteqyery = { block : result.block};
+    dbo.collection("alarm").deleteOne(myquery, function(err, obj) {
+     if (err) throw err;
+     console.log("1 document deleted");
+   }
+   //delete current record   
+   db.close();
+  });
+ });
+    
  
 }
 
