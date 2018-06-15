@@ -31,7 +31,7 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
     }else{
      //update
      var myobj = { $set : {exchange : "coinmarketcap", usd : result.data.quotes.USD.price, krw : result.data.quotes.KRW.price}  }
-     dbo.collection("price").updateOne(myobj, function(err, res) {
+     dbo.collection("price").updateOne(findquery, myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document updated");
               db.close();
