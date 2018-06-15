@@ -487,6 +487,7 @@ bot.telegram.getMe().then((bot_informations) => {
 bot.on('/ddd', msg => {
 
     const id = msg.from.id;
+ console.log("Bot On is called");
 
     // Ask user name
     return bot.sendMessage(id, 'What is your email?', {ask: 'email'});
