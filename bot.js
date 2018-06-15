@@ -234,6 +234,7 @@ bot.action('price',(ctx) => {
      ctx.session.step = 2;
      db.close();
     });
+   });
 
 
 });
