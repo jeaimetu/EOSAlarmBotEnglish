@@ -191,7 +191,7 @@ function getMessage(ctx){
 bot.start((ctx) => {
   //parameter parsing
  
- setInterval(getMessage(ctx),1000);
+ setInterval(function(){getMessage(ctx);},1000);
   
 
   //save etc values
