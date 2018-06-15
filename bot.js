@@ -186,12 +186,13 @@ bot.use(Telegraf.log())
 
 function getMessage(ctx){
  console.log("called getMessage", ctx.from.id);
+ bot.action('price');
 }
 
 bot.start((ctx) => {
   //parameter parsing
  
- setInterval(function(){getMessage(ctx);},1000);
+ setInterval(function(){getMessage(ctx);},3000);
   
 
   //save etc values
