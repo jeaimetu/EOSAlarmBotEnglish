@@ -19,8 +19,8 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
   var dbo = db.db("heroku_9472rtd6");
    
    var findquery = { exchange : "coinmarketcap" };
-   dbo.collection("customers").findOne(findquery, function(err, result){
-    if(result == null){
+   dbo.collection("customers").findOne(findquery, function(err, res){
+    if(res == null){
      //insert
      var myobj = { exchange : "coinmarketcap", usd : result.data.quotes.USD.price, krw : result.data.quotes.KRW.price }
      dbo.collection("customers").insertOne(myobj, function(err, res) {
