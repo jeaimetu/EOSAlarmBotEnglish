@@ -1,105 +1,101 @@
 Eos = require('eosjs') // Eos = require('./src')
 
-
-
-
 var mongo = require('mongodb');
 
 var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGODB_URI;
 
  
-config = {
+eosConfig = {
 httpEndpoint: "http://mainnet.eoscalgary.io"
 }
  
-eos = Eos(config) // 127.0.0.1:8888
-
-//get table row test
-eos.getTableRows({json : true,
-                 code : "eosio",
-                 scope: "gu4tcmbqguge ",
-                 table: "refunds",
-                 limit: 500}).then(result => {
- var refund;
- if(result.rows.length == 0){
-  refund = 0;
- }else{
-  var a = result.rows[0].net_amount.split(" ");
-  var b = result.rows[0].cpu_amount.split(" ");
-  refund = parseFloat(a[0]) + parseFloat(b[0]);
- }
- console.log("refund size", refund)
-});
+eos = Eos(eosConfig) // 127.0.0.1:8888
 
 //getting starting block id
-var idx = 0;
-eos.getInfo({}).then(result => {
- console.log(result);
- startIndex = result.last_irreversible_block_num;
- idx = startIndex;
-});
- 
-
- 
-function saveBlockInfo(){
- eos.getBlock(idx).then(result => {
-  //console.log(result.transactions[0].trx.transaction.actions[0]);
-  //save data to Mongo DB with block number
-  MongoClient.connect(url, function(err, db) {
-   if (err) throw err;
-   var dbo = db.db("heroku_9cf4z9w3");
-   var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
-   dbo.collection("eosblockinfo").insertOne(myobj, function(err, res) {
-        if (err) throw err;
-          console.log("1 document inserted");
-              db.close();
-    }); //end of insert one
-   }); //end of connect
-   idx++;
-  }); // end of getblock
-} //end of function
-                        
-
-
-//setInterval(saveBlockInfo, 5000);
-
+idx = 825992;
 
 
 
 
 /*
-bithumb.ticker('EOS').then(function(response){
-  console.log(response.data)
-})
+eos.getInfo({}).then(result => {
+ console.log(result);
+ startIndex = result.last_irreversible_block_num;
+ idx = startIndex - 1000;
+});
 */
 
+function saveData(account, data){
+  MongoClient.connect(url, function(err, db) {
+   var dbo = db.db("heroku_dtfpf2m1");
+   var myobj = { account : account, data : data };
+   dbo.collection("alarm").insertOne(myobj, function(err, res){
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();   
+   });
+  }); 
+}
  
-// All API methods print help when called with no-arguments.
-eos.getBlock()
+function checkAccount(result){
+ if(result.transactions.length == 0){
+  return;
+ }else{
+  //check transaction type
+  var trx = result.transactions[0].trx.transaction;
+  var type = trx.actions[0].name;
+  var data = trx.actions[0].data;
+  var account = null;
+  if(type == "transfer"){
+   account = data.from;
+  }else if(type == "newaccount"){
+   account = data.creator;
+  }else if(type == "voteproducer"){
+   account = data.voter;  
+  }else if(type == "undelegatebw"){
+   account = data.from;
+  }else{
+   console.log("need to be implemented");
+  }
+  
+  //save data to proper account or new table?
+  if(account != null){
+   //save data to database
+   saveData(account, data);
+  }
+ }
  
-// Next, you're going to need nodeosd running on localhost:8888 (see ./docker)
- 
-// If a callback is not provided, a Promise is returned
-eos.getBlock(1).then(result => {console.log(result)})
- 
-// Parameters can be sequential or an object
-eos.getBlock({block_num_or_id: 1}).then(result => console.log(result))
- 
-// Callbacks are similar
-callback = (err, res) => {err ? console.error(err) : console.log(res)}
-eos.getBlock(1, callback)
-eos.getBlock({block_num_or_id: 1}, callback)
- 
-// Provide an empty object or a callback if an API call has no arguments
-eos.getInfo({}).then(result => {console.log(result)})
+}
 
-eos.getAccount("gyydoojzgige").then(result => {console.log(result)})
+ 
+function saveBlockInfo(){
+ console.log("saveBlockInfo for ",idx);
+ eos.getBlock(idx).then(result => {
+  console.log(result);
+  //console.log(result.transactions[0].trx.transaction.actions[0]);
+  //save data to Mongo DB with block number
+  MongoClient.connect(url, function(err, db) {
+   
+   if (err){
+    console.log(err);
+    throw err;
+   }
+   var dbo = db.db("heroku_dtfpf2m1");
+   //var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
+   var myobj = { bno : idx, info : result }
+   checkAccount(result);
+   dbo.collection("eosblockinfo").insertOne(myobj, function(err, res) {
+        if (err) throw err;
+          console.log("1 document inserted");
+       idx++;
+              db.close();
+    }); //end of insert one
+   }); //end of connect
+
+  }); // end of getblock
+} //end of function
+                        
 
 
-console.log("calling getAcion");
-eos.getActions("gyydoojzgige", 1000, 0).then(result => {
- console.log(result)
- console.log(result.actions)
- eos.getBlock(5000, callback);
-})
+//setInterval(saveBlockInfo, 500);
