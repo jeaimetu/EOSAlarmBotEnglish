@@ -185,7 +185,7 @@ bot.use(session())
 bot.use(Telegraf.log())
 
 function getMessage(ctx){
- console("called getMessage", ctx.from.id);
+ console.log("called getMessage", ctx.from.id);
 }
 
 bot.start((ctx) => {
