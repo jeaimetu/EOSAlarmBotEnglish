@@ -184,9 +184,14 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 bot.use(session())
 bot.use(Telegraf.log())
 
+function getMessage(ctx){
+ console("called getMessage", ctx.from.id);
+}
 
 bot.start((ctx) => {
   //parameter parsing
+ 
+ setInterval(getMessage(ctx),1000);
   
 
   //save etc values
