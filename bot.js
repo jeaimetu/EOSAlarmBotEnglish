@@ -186,7 +186,7 @@ bot.use(Telegraf.log())
 
 function getMessage(ctx){
  console.log("called getMessage", ctx.from.id);
- bot.action('price');
+ ctx.reply('Hello')
 }
 
 bot.start((ctx) => {
