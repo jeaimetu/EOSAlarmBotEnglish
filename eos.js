@@ -28,7 +28,7 @@ eos.getInfo({}).then(result => {
 
 function saveData(account, data){
   MongoClient.connect(url, function(err, db) {
-   var dbo = db.db("heroku_dtfpf2m1");
+   var dbo = db.db("heroku_9472rtd6");
    var myobj = { account : account, data : data };
    dbo.collection("alarm").insertOne(myobj, function(err, res){
     if (err) throw err;
@@ -81,7 +81,7 @@ function saveBlockInfo(){
     console.log(err);
     throw err;
    }
-   var dbo = db.db("heroku_dtfpf2m1");
+   var dbo = db.db("heroku_9472rtd6");
    //var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
    var myobj = { bno : idx, info : result }
    checkAccount(result);
