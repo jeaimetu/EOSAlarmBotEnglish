@@ -85,6 +85,6 @@ bithumb.getTicker('EOS', function(result){
 
 
 //run query per minutes
-setInterval(getPrice, 1000);
-setInterval(getPriceBithumb, 1100);
+setInterval(getPrice,getPriceBithumb, 1000);
+
                                                     
