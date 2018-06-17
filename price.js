@@ -63,7 +63,7 @@ bithumb.getTicker('EOS', function(result){
      var myobj = { exchange : "bithumb", krw : result.data.sell_price, krwbuy : result.data.buy_price }
      dbo.collection("price").insertOne(myobj, function(err, res) {
         if (err) throw err;
-          console.log("1 document inserted");
+          console.log("1 document inserted getPriceBithumb");
               db.close();
         });
     }else{
@@ -71,7 +71,7 @@ bithumb.getTicker('EOS', function(result){
      var myobj = { $set : {exchange : "bithumb", krw : result.data.sell_price, krwbuy : result.data.buy_price}  }
      dbo.collection("price").updateOne(findquery, myobj, function(err, res) {
         if (err) throw err;
-          console.log("1 document updated");
+          console.log("1 document updated getPriceBithumb");
               db.close();
         });//end of updateone
     }//end of else
