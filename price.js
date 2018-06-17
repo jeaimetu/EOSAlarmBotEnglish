@@ -4,6 +4,8 @@ const client = new CoinMarketCap();
 const Bithumb = require('bithumb.js')
 const bithumb = new Bithumb('', '');
 
+var debug = false;
+
 //client.getListings().then(console.log).catch(console.error)
 
 var mongo = require('mongodb');
@@ -14,9 +16,11 @@ var url = process.env.MONGODB_URI;
 
 function getPrice(){
 client.getTicker({id : 1765, convert : "KRW"}).then(result => {
+ if(debug == true){
  console.log(result);
  console.log(result.data.quotes.USD.price);
  console.log(result.data.quotes.KRW.price);
+ }
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
@@ -49,9 +53,11 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
 
 function getPriceBithumb(){
 bithumb.getTicker('EOS', function(result){
+  if(debug == true){
  console.log(result);
  console.log(result.data.sell_price);
  console.log(result.data.buy_price );
+  }
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
