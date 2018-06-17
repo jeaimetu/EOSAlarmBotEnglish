@@ -86,7 +86,7 @@ const result = await bithumb.getTicker('EOS')
   });//end of mongo
    
    
-}).catch(console.error);
+})
 }
 
 
