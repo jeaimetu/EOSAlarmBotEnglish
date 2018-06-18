@@ -190,11 +190,13 @@ function checkAlarm(){
   //var findquery = { account : account };
   findquery = { report : false};
   dbo.collection("alarm").find(findquery).toArray(function(err, result){
+   console.log("report array size", result.length);
    if(result.length != 0){
     for(i = 0;i < result.length; i++){
      customerFindQuery = { eosid : result[i].account };
+     console.log("find id table", result[i].account);
      dbo.collection("customers").findOne(customerFindQuery, function(err, res){
-      if(i == result.length)
+      if(res != null){
       if(err) throw err;
        bot.sendMessage(res.chatid, result.data);
       var updatequery = { block : result.block};
@@ -205,6 +207,10 @@ function checkAlarm(){
        if(i == result.length)
         db.close();
       });//end of alarm update
+      }else{
+        if(i == result.length)
+        db.close();
+      }
      }); //end of customer query
     }//end of for
    }//end of if
