@@ -77,7 +77,7 @@ function saveData(block, account, data, type){
   MongoClient.connect(url, function(err, db) {
    var dbo = db.db("heroku_9472rtd6");
    var fData = formatData(data, type);
-   msg.module.exportes.sendAlarm (account, fData);
+   msg.sendAlarm(account, fData);
    var myobj = { block : block, account : account, data : fData, report : false };
    dbo.collection("alarm").insertOne(myobj, function(err, res){
     if (err) throw err;
