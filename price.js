@@ -54,7 +54,8 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
 function getPriceBithumb(){
  console.log("calling getPriceBithumb");
  
-bithumb.ticker('EOS').then(function(result){
+bithumb.ticker('all').then(function(result){
+  console.log(result);
   if(debug == true){
  console.log(result);
  console.log(result.data.data.sell_price);
