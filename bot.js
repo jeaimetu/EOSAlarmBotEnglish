@@ -239,8 +239,8 @@ bot.start((ctx) => {
   //parameter parsing
  
 
-  
-saveData(ctx);
+  //this cause cyclic dependency detected error
+//saveData(ctx);
   //save etc values
   ctx.session.telegram = ctx.message.chat.username;
   ctx.session.language = ctx.message.from.language_code;
