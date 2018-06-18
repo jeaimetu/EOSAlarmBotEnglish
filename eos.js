@@ -87,12 +87,13 @@ function saveData(block, account, data, type){
 }
  
 function checkAccount(result){
+   idx++;
  if(result.transactions.length == 0){
   return;
  }else{
   //check transaction type
   var trx = result.transactions[0].trx.transaction;
-  if(trx.actions == undefined)
+  if(trx == undefined)
    return;
   var type = trx.actions[0].name;
   var data = trx.actions[0].data;
@@ -129,7 +130,7 @@ function saveBlockInfo(){
   //save data to Mongo DB with block number
   console.log("read Block info ", idx);
   checkAccount(result);
-  idx++;
+
   /* save raw data
   MongoClient.connect(url, function(err, db) {
    
