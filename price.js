@@ -58,9 +58,12 @@ bithumb.ticker('all').then(function(result){
   console.log(result.data.data.EOS);
   if(debug == true){
  console.log(result);
- console.log(result.data.data.sell_price);
- console.log(result.data.data.buy_price );
+ console.log(result.data.data.EOS.sell_price);
+ console.log(result.data.data.EOS.buy_price );
   }
+ 
+ sellPrice = result.data.data.EOS.sell_price;
+ buyPrice = result.data.data.EOS.buy_price
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
    if(err) throw err;
@@ -70,7 +73,7 @@ bithumb.ticker('all').then(function(result){
    dbo.collection("price").findOne(findquery, function(err, res){
     if(res == null){
      //insert
-     var myobj = { exchange : "bithumb", krw : result.data.data.sell_price, krwbuy : result.data.data.buy_price }
+     var myobj = { exchange : "bithumb", krw : sellPrice, krwbuy : buyPrice }
      dbo.collection("price").insertOne(myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document inserted getPriceBithumb");
@@ -78,7 +81,7 @@ bithumb.ticker('all').then(function(result){
         });
     }else{
      //update
-     var myobj = { $set : {exchange : "bithumb", krw : result.data.data.sell_price, krwbuy : result.data.data.buy_price}  }
+     var myobj = { $set : {exchange : "bithumb", krw : sellPrice, krwbuy : buyPrice}  }
      dbo.collection("price").updateOne(findquery, myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document updated getPriceBithumb");
