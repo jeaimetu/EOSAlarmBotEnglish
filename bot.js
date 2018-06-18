@@ -191,10 +191,11 @@ function checkAlarm(account, cb){
   dbo.collection("alarm").findOne(findquery, function(err, result){
    if(result != null){
     cb(result.data);
-    var deleteqyery = { block : result.block};
-    dbo.collection("alarm").deleteOne(deleteqyery, function(err, obj) {
+    var updatequery = { block : result.block};
+    var myobj = { $set : { report : true }};
+    dbo.collection("alarm").updateOne(updatequery, function(err, obj) {
      if (err) throw err;
-     console.log("1 document deleted");
+     console.log("1 document updated");
     });
    }
    //delete current record   
