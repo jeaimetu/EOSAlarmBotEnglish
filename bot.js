@@ -187,7 +187,7 @@ function checkAlarm(account, cb){
  MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
   //var findquery = { account : account };
-  findquery = { };
+  findquery = { report : false};
   dbo.collection("alarm").findOne(findquery, function(err, result){
    if(result != null){
     cb(result.data);
