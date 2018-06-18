@@ -196,7 +196,7 @@ bot.on('', msg => {
 module.exports.sendAlarm = function(account, msg){
  //get chatid
  MongoClient.connect(url, function(err, db) {
-  var dbo = db.db("heroku_dtfpf2m1");
+  var dbo = db.db("heroku_9472rtd6");
   var findquery = {eosid : account};
   dbo.collection("customers").findOne(findquery, function(err, result){
    if(result == null){
