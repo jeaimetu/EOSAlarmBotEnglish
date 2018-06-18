@@ -26,10 +26,55 @@ eos.getInfo({}).then(result => {
 });
 */
 
-function saveData(block, account, data){
+function formatData(data, type){
+  if(type == "transfer"){
+   msg = "송금";
+   msg += "\n";
+   msg += "받는 계정 : " + data.to;
+   msg += "\n";
+   msg += "송금 수량 : " + data.quantity;
+   msg += "\n";
+   msg += "송금 메모 : " + data.memo
+  }else if(type == "newaccount"){
+   msg = "신규 계정 생성";
+   msg += "\n";
+   msg += "생성한 계정 : " + data.name;
+  }else if(type == "voteproducer"){
+   msg = "투표";
+   msg += "\n";
+   msg += "투표한 곳"
+   msg += "\n";
+   for(int i = 0;i < data.producers.length;i++){
+    msg += data.producers[i] + "\n";
+   }
+  }else if(type == "undelegatebw"){
+   msg = "EOS 점유 해제";
+   msg += "\n";
+   msg += "점유해제한 네트워크 : " + data.unstake_net_quantity
+   msg += "\n";
+   msg += "점유해제한 CPU : " + data.unstake_cpu_quantity
+   
+  }else if(type == "delegatebw"){
+   msg = "EOS 점유";
+   msg += "\n";
+   msg += "점유한 네트워크 : " + data.stake_net_quantity
+   msg += "\n";
+   msg += "점유한 CPU : " + data.stake_cpu_quantity
+  }else{
+   console.log("need to be implemented");
+   msg = "곧 지원 예정입니다.";
+   msg += data;
+  }
+ 
+ return msg;
+ 
+}
+
+function saveData(block, account, data, type){
   MongoClient.connect(url, function(err, db) {
    var dbo = db.db("heroku_9472rtd6");
-   var myobj = { block : block, account : account, data : data };
+   var fData = formatData(data, type);
+   var myobj = { block : block, account : account, data : fData, report : false };
    dbo.collection("alarm").insertOne(myobj, function(err, res){
     if (err) throw err;
     console.log("1 document inserted");
@@ -55,6 +100,8 @@ function checkAccount(result){
    account = data.voter;  
   }else if(type == "undelegatebw"){
    account = data.from;
+  }else if(type == "delegatebw"){
+   account = data.from;
   }else{
    console.log("need to be implemented");
   }
@@ -62,7 +109,7 @@ function checkAccount(result){
   //save data to proper account or new table?
   if(account != null){
    //save data to database
-   saveData(result.block_num, account, data);
+   saveData(result.block_num, account, data, type);
   }
  }
  
