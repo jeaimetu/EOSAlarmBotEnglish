@@ -117,7 +117,7 @@ function checkAccount(result){
 
  
 function saveBlockInfo(){
- console.log("saveBlockInfo for ",idx);
+ //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
   //console.log(result);
   //console.log(result.transactions[0].trx.transaction.actions[0]);
