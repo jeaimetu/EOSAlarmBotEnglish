@@ -92,6 +92,8 @@ function checkAccount(result){
  }else{
   //check transaction type
   var trx = result.transactions[0].trx.transaction;
+  if(trx.actions == undefined)
+   return;
   var type = trx.actions[0].name;
   var data = trx.actions[0].data;
   var account = null;
