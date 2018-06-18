@@ -258,7 +258,7 @@ function makePriceMessage(res){
  
  msg = "EOS Price : " + "$" + res[0].usd;
  msg += "\n";
- msg = "EOS Price : " + res[0].krw + "KRW";
+ msg = "EOS Price : " + Math.floor(res[0].krw) + "KRW";
  msg += "\n";
  msg += "Provided by ";
  msg += res[0].exchange;
