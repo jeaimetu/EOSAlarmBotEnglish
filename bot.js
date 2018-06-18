@@ -193,7 +193,7 @@ function checkAlarm(account, cb){
     cb(result.data);
     var updatequery = { block : result.block};
     var myobj = { $set : { report : true }};
-    dbo.collection("alarm").updateOne(updatequery, function(err, obj) {
+    dbo.collection("alarm").updateOne(updatequery, myobj, function(err, obj) {
      if (err) throw err;
      console.log("1 document updated");
     });
