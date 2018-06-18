@@ -256,17 +256,18 @@ bot.action('id',(ctx) => {
 
 function makePriceMessage(res){
  
-     msg = "EOS Price : " + "$" + res[0].usd;
-     msg += "\n";
-     msg += "Provided by ";
-     msg += res[0].exchange;
+ msg = "EOS Price : " + "$" + res[0].usd;
  msg += "\n";
- msg += "EOS Selling Price : " + res[1].krw;
+ msg += "Provided by ";
+ msg += res[0].exchange;
  msg += "\n";
- msg += "EOS Buying Price : " + res[1].krwbuy;
+ msg += "EOS Selling Price : " + res[1].krw + "KRW";
+ msg += "\n";
+ msg += "EOS Buying Price : " + res[1].krwbuy + "KRW";
   msg += "\n";
  msg += "Provided by " + res[1].exchange;
- //diff =  res[0].krw - res[1].krw;
+ diff =  res[0].krw - res[1].krw;
+ msg += "Market difference : " + diff + "KRW";
  return msg;
 
  
