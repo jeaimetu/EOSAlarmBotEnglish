@@ -92,7 +92,7 @@ bithumb.ticker('all').then(function(result){
   });//end of mongo
    
    
-})
+}).catch(console.error);
 }
 
 
