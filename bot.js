@@ -248,7 +248,7 @@ bot.start((ctx) => {
   var msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
   
-  //ctx.reply('Hello')
+  ctx.reply('Hello')
 })
 
 bot.help((ctx) => ctx.reply('Help message'))
