@@ -193,7 +193,7 @@ function checkAlarm(){
    if(result.length != 0){
     for(i = 0;i < result.length; i++){
      customerFindQuery = { eosid : result[i].account };
-     dbo.collection("customers").findone(customerFindQuery, function(err, res){
+     dbo.collection("customers").findOne(customerFindQuery, function(err, res){
       if(i == result.length)
       if(err) throw err;
        ctx.telegram.sendMessage(res.chatid, result.data);
