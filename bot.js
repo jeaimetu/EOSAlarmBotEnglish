@@ -205,7 +205,7 @@ function checkAlarm(){
        if(i == result.length)
         db.close();
        )};//end of alarm update
-     }); //end of customer query
+     )}; //end of customer query
     }//end of for
    }//end of if
   });//end of alarm query
