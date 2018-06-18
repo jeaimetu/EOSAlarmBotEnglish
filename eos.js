@@ -2,6 +2,9 @@ Eos = require('eosjs') // Eos = require('./src')
 
 var mongo = require('mongodb');
 
+var msg = require('./bot.js');
+
+
 var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGODB_URI;
 
@@ -74,6 +77,7 @@ function saveData(block, account, data, type){
   MongoClient.connect(url, function(err, db) {
    var dbo = db.db("heroku_9472rtd6");
    var fData = formatData(data, type);
+   msg.module.exportes.sendAlarm (account, fData);
    var myobj = { block : block, account : account, data : fData, report : false };
    dbo.collection("alarm").insertOne(myobj, function(err, res){
     if (err) throw err;
@@ -103,7 +107,7 @@ function checkAccount(result){
   }else if(type == "delegatebw"){
    account = data.from;
   }else{
-   console.log("need to be implemented");
+   console.log("need to be implemented", type);
   }
   
   //save data to proper account or new table?
