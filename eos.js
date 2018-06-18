@@ -127,6 +127,7 @@ function saveBlockInfo(){
   //console.log(result.transactions[0].trx.transaction.actions[0]);
   //save data to Mongo DB with block number
   checkAccount(result);
+  idx++;
   /* save raw data
   MongoClient.connect(url, function(err, db) {
    
