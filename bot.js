@@ -182,46 +182,46 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 bot.use(session())
 bot.use(Telegraf.log())
 
-function checkAlarm(account, cb){
+//check alarm
+function checkAlarm(){
  //check data base
  MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
   //var findquery = { account : account };
   findquery = { report : false};
-  dbo.collection("alarm").findOne(findquery, function(err, result){
-   if(result != null){
-    cb(result.data);
-    var updatequery = { block : result.block};
-    var myobj = { $set : { report : true }};
-    dbo.collection("alarm").updateOne(updatequery, myobj, function(err, obj) {
-     if (err) throw err;
-     console.log("1 document updated");
-    });
-   }
-   //delete current record   
-   db.close();
-  });
- });
-    
- 
-}
+  dbo.collection("alarm").find(findquery).toArray(function(err, result){
+   if(result.length != 0){
+    for(i = 0;i < result.length; i++){
+     customerFindQuery = { eosid : result[i].account };
+     dbo.collection("customers").findone(customerFindQuery, function(err, res){
+      if(i == result.length)
+      if(err) throw err;
+       ctx.telegram.sendMessage(res.chatid, result.data);
+      var updatequery = { block : result.block};
+      var myobj = { $set : { report : true }};
+      dbo.collection("alarm").updateOne(updatequery, myobj, function(err, obj) {
+       if (err) throw err;
+       console.log("1 document updated");
+       if(i == result.length)
+        db.close();
+       )};//end of alarm update
+     }); //end of customer query
+    }//end of for
+   }//end of if
+  });//end of alarm query
+ });//end of Mongo Client
+}//end of function
+   
+  
 
-function getMessage(ctx){
- //console.log("called getMessage", ctx.from.id);
- //ctx.reply('Hello')
- //retrieve database if exist, then send message
- console.log("calling check alarm for ", ctx.session.id);
- checkAlarm(ctx.session.id, function(result){
-  ctx.telegram.sendMessage(ctx.from.id, result);
- });
- 
- ;
-}
+
+//set message check by 1min
+setInterval(function(){checkAlarm();},1000);
 
 bot.start((ctx) => {
   //parameter parsing
  
- setInterval(function(){getMessage(ctx);},3000);
+
   
 
   //save etc values
