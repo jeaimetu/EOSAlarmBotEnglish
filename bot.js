@@ -206,6 +206,7 @@ module.exportes.sendAlarm = function(account, msg){
     bot.telegram.sendMessage(result.chatid, msg);
    }
    db.close();
+  });//end of findOne
    
  });//end of mongoclient
  
