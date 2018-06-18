@@ -30,41 +30,41 @@ eos.getInfo({}).then(result => {
 
 function formatData(data, type){
   if(type == "transfer"){
-   msg = "송금 이벤트 발생";
+   msg = "Transfer Event";
    msg += "\n";
-   msg += "받는 계정 : " + data.to;
+   msg += "To : " + data.to;
    msg += "\n";
-   msg += "송금 수량 : " + data.quantity;
+   msg += "Transfer Amount : " + data.quantity;
    msg += "\n";
-   msg += "송금 메모 : " + data.memo
+   msg += "Memo : " + data.memo
   }else if(type == "newaccount"){
-   msg = "신규 계정 생성 이벤트 발생";
+   msg = "New Account Event";
    msg += "\n";
-   msg += "생성한 계정 : " + data.name;
+   msg += "Created Account : " + data.name;
   }else if(type == "voteproducer"){
-   msg = "투표 이벤트 발생";
+   msg = "Voting Event";
    msg += "\n";
-   msg += "투표한 곳"
+   msg += "Voted to"
    msg += "\n";
    for(i = 0;i < data.producers.length;i++){
     msg += data.producers[i] + ", ";
    }
   }else if(type == "undelegatebw"){
-   msg = "EOS 점유 해제 이벤트 발생";
+   msg = "EOS Unstake Event";
    msg += "\n";
-   msg += "점유해제한 네트워크 : " + data.unstake_net_quantity
+   msg += "Unstaked for Network : " + data.unstake_net_quantity
    msg += "\n";
-   msg += "점유해제한 CPU : " + data.unstake_cpu_quantity
+   msg += "Unstaked for CPU : " + data.unstake_cpu_quantity
    
   }else if(type == "delegatebw"){
-   msg = "EOS 점유 이벤트 발생";
+   msg = "EOS Staking Event";
    msg += "\n";
-   msg += "점유한 네트워크 : " + data.stake_net_quantity
+   msg += "Staked for Network : " + data.stake_net_quantity
    msg += "\n";
-   msg += "점유한 CPU : " + data.stake_cpu_quantity
+   msg += "Staked for CPU : " + data.stake_cpu_quantity
   }else{
    console.log("need to be implemented");
-   msg = "곧 지원 예정입니다.(현재 미지원 이벤트)";
+   msg = "This event will be supported in near future)";
    msg += type;
    msg += "\n";
    msg += data;
