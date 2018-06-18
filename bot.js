@@ -188,6 +188,13 @@ bot.start((ctx) => {
   ctx.reply('Hello')
 })
 
+bot.on('message', (ctx) => {
+  stepCheck(ctx);
+
+  var msg = makeMessage(ctx);
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
+});
+
 bot.action('id',(ctx) => {
   ctx.reply("Please input EOS account. You can check your account with EOS public key on http://eosflare.io .");
 
