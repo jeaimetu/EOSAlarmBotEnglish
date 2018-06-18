@@ -55,7 +55,7 @@ function getPriceBithumb(){
  console.log("calling getPriceBithumb");
  
 bithumb.ticker('btc').then(function(result){
-  if(debug == false){
+  if(debug == true){
  console.log(result);
  console.log(result.data.data.sell_price);
  console.log(result.data.data.buy_price );
@@ -69,7 +69,7 @@ bithumb.ticker('btc').then(function(result){
    dbo.collection("price").findOne(findquery, function(err, res){
     if(res == null){
      //insert
-     var myobj = { exchange : "bithumb", krw : result.data.sell_price, krwbuy : result.data.buy_price }
+     var myobj = { exchange : "bithumb", krw : result.data.data.sell_price, krwbuy : result.data.data.buy_price }
      dbo.collection("price").insertOne(myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document inserted getPriceBithumb");
@@ -77,7 +77,7 @@ bithumb.ticker('btc').then(function(result){
         });
     }else{
      //update
-     var myobj = { $set : {exchange : "bithumb", krw : result.data.sell_price, krwbuy : result.data.buy_price}  }
+     var myobj = { $set : {exchange : "bithumb", krw : result.data.data.sell_price, krwbuy : result.data.data.buy_price}  }
      dbo.collection("price").updateOne(findquery, myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document updated getPriceBithumb");
