@@ -193,49 +193,31 @@ bot.on('', msg => {
 
 });
 
-//check alarm
-function checkAlarm(){
- //ret account list from alarm
- //check data base
+module.exportes.sendAlarm = function(account, msg){
+ //get chatid
  MongoClient.connect(url, function(err, db) {
-  var dbo = db.db("heroku_9472rtd6");
-  //var findquery = { account : account };
-  findquery = { report : false};
-  dbo.collection("alarm").find(findquery).toArray(function(err, result){
-   console.log("report array size", result.length);
-   if(result.length != 0){
-    for(i = 0;i < result.length; i++){
-     customerFindQuery = { eosid : result[i].account };
-     console.log("find id table", result[i].account);
-     dbo.collection("customers").findOne(customerFindQuery, function(err, res){
-      if(res != null){
-      if(err) throw err;
-       bot.telegram.sendMessage(548888468, result.data);
-      var updatequery = { block : result.block};
-      var myobj = { $set : { report : true }};
-      dbo.collection("alarm").updateOne(updatequery, myobj, function(err, obj) {
-       if (err) throw err;
-       console.log("1 document updated");
-       if(i == result.length)
-        db.close();
-      });//end of alarm update
-      }else{
-        if(i == result.length)
-        db.close();
-      }
-     }); //end of customer query
-    }//end of for
-   }//end of if
-  });//end of alarm query
- });//end of Mongo Client
-}//end of function
+  var dbo = db.db("heroku_dtfpf2m1");
+  var findquery = {eosid : account};
+  dbo.collection("customers").findOne(findquery, function(err, result){
+   if(result == null){
+    console.log("no matched account for ", account);
+   }else{
+     //send message
+    bot.telegram.sendMessage(result.chatid, msg);
+   }
+   db.close();
    
+ });//end of mongoclient
+ 
+}
+
+
   
 
 
 //set message check by 1min
 //setInterval(function(){checkAlarm();},1000);
-bot.telegram.sendMessage(548888468, "test messsage");
+//bot.telegram.sendMessage(548888468, "test messsage");
 
 bot.start((ctx) => {
   //parameter parsing
