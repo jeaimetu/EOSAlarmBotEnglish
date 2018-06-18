@@ -193,7 +193,7 @@ bot.on('', msg => {
 
 });
 
-module.exportes.sendAlarm = function(account, msg){
+module.exports.sendAlarm = function(account, msg){
  //get chatid
  MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_dtfpf2m1");
