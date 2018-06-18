@@ -55,7 +55,7 @@ function getPriceBithumb(){
  console.log("calling getPriceBithumb");
  
 bithumb.ticker('all').then(function(result){
-  console.log(result.data.EOS);
+  console.log(result.data.data.EOS);
   if(debug == true){
  console.log(result);
  console.log(result.data.data.sell_price);
