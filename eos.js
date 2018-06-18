@@ -24,7 +24,7 @@ idx = 0;
 //set initial block
 eos.getInfo({}).then(result => {
  console.log(result);
- startIndex = result.last_irreversible_block_num;
+ startIndex = result.head_block_num;
  idx = startIndex - 3;
 });
 
@@ -125,6 +125,7 @@ function saveBlockInfo(){
   //console.log(result);
   //console.log(result.transactions[0].trx.transaction.actions[0]);
   //save data to Mongo DB with block number
+  console.log("read Block info ", idx);
   checkAccount(result);
   idx++;
   /* save raw data
