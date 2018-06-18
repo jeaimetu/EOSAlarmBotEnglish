@@ -196,7 +196,7 @@ function checkAlarm(){
      dbo.collection("customers").findOne(customerFindQuery, function(err, res){
       if(i == result.length)
       if(err) throw err;
-       ctx.telegram.sendMessage(res.chatid, result.data);
+       bot.sendMessage(res.chatid, result.data);
       var updatequery = { block : result.block};
       var myobj = { $set : { report : true }};
       dbo.collection("alarm").updateOne(updatequery, myobj, function(err, obj) {
