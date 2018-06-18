@@ -16,18 +16,17 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
 eos = Eos(eosConfig) // 127.0.0.1:8888
 
 //getting starting block id
-idx = 825992;
+idx = 0;
 
 
 
 
-/*
+//set initial block
 eos.getInfo({}).then(result => {
  console.log(result);
  startIndex = result.last_irreversible_block_num;
- idx = startIndex - 1000;
+ idx = startIndex - 3;
 });
-*/
 
 function formatData(data, type){
   if(type == "transfer"){
