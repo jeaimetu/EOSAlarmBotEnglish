@@ -182,6 +182,17 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 bot.use(session())
 bot.use(Telegraf.log())
 
+
+bot.on('', msg => {
+
+    const id = msg.from.id;
+ console.log("Bot On is called");
+
+    // Ask user name
+  //
+
+});
+
 //check alarm
 function checkAlarm(){
  //check data base
@@ -222,7 +233,7 @@ function checkAlarm(){
 
 
 //set message check by 1min
-setInterval(function(){checkAlarm();},1000);
+//setInterval(function(){checkAlarm();},1000);
 
 bot.start((ctx) => {
   //parameter parsing
