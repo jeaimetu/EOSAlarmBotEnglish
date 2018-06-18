@@ -233,7 +233,7 @@ function checkAlarm(){
 
 
 //set message check by 1min
-setInterval(function(){checkAlarm();},1000);
+//setInterval(function(){checkAlarm();},1000);
 
 bot.start((ctx) => {
   //parameter parsing
