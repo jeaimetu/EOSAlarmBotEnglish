@@ -1,6 +1,6 @@
 # EOS Telegram Bot
 
-##Usage
+## Usage
 1. input your EOS account at first
 2. "price" you can check EOS price from Coinmarketcap and Bithumb
 3. "balance" you can check your EOS balance with Total balance, staked amount and refund
@@ -16,7 +16,7 @@ Currently supported actions are
 
 Others are will be supported in near future(e.g. BuyRam, UpdateAuth)
 
-##Roadmap
+## Roadmap
 1. Supporting Multi Accounts
 2. Supporting more events and actions
 3. Supporting querying account actions history
@@ -26,6 +26,6 @@ Others are will be supported in near future(e.g. BuyRam, UpdateAuth)
 ## Release note
 version 1.0 - Initial release
 
-##Disclaimer
+## Disclaimer
 This is beta version, so some event report can be dropped.
 
