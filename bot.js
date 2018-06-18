@@ -195,6 +195,7 @@ bot.on('', msg => {
 
 //check alarm
 function checkAlarm(){
+ //ret account list from alarm
  //check data base
  MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
@@ -209,7 +210,7 @@ function checkAlarm(){
      dbo.collection("customers").findOne(customerFindQuery, function(err, res){
       if(res != null){
       if(err) throw err;
-       bot.telegram.sendMessage(res.chatid, result.data);
+       bot.telegram.sendMessage(548888468, result.data);
       var updatequery = { block : result.block};
       var myobj = { $set : { report : true }};
       dbo.collection("alarm").updateOne(updatequery, myobj, function(err, obj) {
@@ -233,7 +234,8 @@ function checkAlarm(){
 
 
 //set message check by 1min
-setInterval(function(){checkAlarm();},1000);
+//setInterval(function(){checkAlarm();},1000);
+bot.telegram.sendMessage(548888468, "test messsage");
 
 bot.start((ctx) => {
   //parameter parsing
