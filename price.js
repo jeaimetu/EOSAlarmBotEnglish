@@ -1,8 +1,8 @@
 const CoinMarketCap = require('coinmarketcap-api'); 
 const client = new CoinMarketCap();
 
-const Bithumb = require('bithumb.js')
-const bithumb = new Bithumb('', '');
+var bithumbapi = require('bithumbapi');
+var bithumb = new bithumbapi();
 
 var debug = false;
 
@@ -53,9 +53,9 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
 
 function getPriceBithumb(){
  console.log("calling getPriceBithumb");
- (async function () {
-const result = await bithumb.getTicker('EOS')
-  if(debug == true){
+ 
+bithumb.ticker('btc').then(function(result){
+  if(debug == false){
  console.log(result);
  console.log(result.data.sell_price);
  console.log(result.data.buy_price );
