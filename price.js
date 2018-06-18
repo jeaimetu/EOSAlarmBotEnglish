@@ -52,6 +52,7 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
 }
 
 function getPriceBithumb(){
+ console.log("calling getPriceBithumb");
  (async function () {
 const result = await bithumb.getTicker('EOS')
   if(debug == true){
@@ -61,6 +62,7 @@ const result = await bithumb.getTicker('EOS')
   }
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
+   if(err) throw err;
   var dbo = db.db("heroku_9472rtd6");
    
    var findquery = { exchange : "bithumb" };
