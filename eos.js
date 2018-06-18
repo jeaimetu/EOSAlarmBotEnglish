@@ -4,6 +4,9 @@ var mongo = require('mongodb');
 
 var botClient = require('./bot.js');
 
+var start = 0;
+var pre_start = 0;
+
 
 var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGODB_URI;
@@ -84,6 +87,9 @@ function saveData(block, account, data, type){
     if (err) throw err;
     //console.log("1 document inserted");
     db.close();   
+    console.log("performance on eos ", start - Date.now());
+    console.log("setinterval duration ", start - pre_start);
+    pre_start = start;
    });
   }); 
 }
@@ -124,7 +130,9 @@ function checkAccount(result){
 }
 
  
+
 function saveBlockInfo(){
+ start = Date.now();
  //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
   //console.log(result);
