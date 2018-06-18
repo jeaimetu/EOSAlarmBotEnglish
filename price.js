@@ -95,7 +95,7 @@ const result = await bithumb.getTicker('EOS')
 
 //run query per minutes
 setInterval(getPriceBithumb, 3000);
-setInterval(getPrice, 1000);
+//setInterval(getPrice, 1000);
 
 
                                                     
