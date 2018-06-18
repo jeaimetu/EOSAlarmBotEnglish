@@ -204,8 +204,8 @@ function checkAlarm(){
        console.log("1 document updated");
        if(i == result.length)
         db.close();
-       )};//end of alarm update
-     )}; //end of customer query
+      });//end of alarm update
+     }); //end of customer query
     }//end of for
    }//end of if
   });//end of alarm query
