@@ -44,7 +44,7 @@ function formatData(data, type){
    msg += "\n";
    msg += "투표한 곳"
    msg += "\n";
-   for(int i = 0;i < data.producers.length;i++){
+   for(i = 0;i < data.producers.length;i++){
     msg += data.producers[i] + "\n";
    }
   }else if(type == "undelegatebw"){
