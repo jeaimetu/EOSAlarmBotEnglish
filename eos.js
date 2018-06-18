@@ -45,7 +45,7 @@ function formatData(data, type){
    msg += "투표한 곳"
    msg += "\n";
    for(i = 0;i < data.producers.length;i++){
-    msg += data.producers[i] + "\n";
+    msg += data.producers[i] + ", ";
    }
   }else if(type == "undelegatebw"){
    msg = "EOS 점유 해제";
@@ -119,7 +119,7 @@ function checkAccount(result){
 function saveBlockInfo(){
  console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
-  console.log(result);
+  //console.log(result);
   //console.log(result.transactions[0].trx.transaction.actions[0]);
   //save data to Mongo DB with block number
   MongoClient.connect(url, function(err, db) {
