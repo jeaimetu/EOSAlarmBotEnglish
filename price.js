@@ -57,8 +57,8 @@ function getPriceBithumb(){
 bithumb.ticker('btc').then(function(result){
   if(debug == false){
  console.log(result);
- console.log(result.data.sell_price);
- console.log(result.data.buy_price );
+ console.log(result.data.data.sell_price);
+ console.log(result.data.data.buy_price );
   }
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
