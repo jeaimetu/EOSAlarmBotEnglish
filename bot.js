@@ -254,6 +254,24 @@ bot.action('id',(ctx) => {
   ctx.session.step = 1;
 });
 
+function makePriceMessage(res){
+ 
+     msg = "EOS Price : " + "$" + res[0].usd;
+     msg += "\n";
+     msg += "Provided by ";
+     msg += res[0].exchange;
+ msg += "\n";
+ msg += "EOS Selling Price : " + res[1].krw;
+ msg += "\n";
+ msg += "EOS Buying Price : " + res[1].krwbuy;
+  msg += "\n";
+ msg += "Provided by " + res[1].exchange;
+ //diff =  res[0].krw - res[1].krw;
+ return msg;
+
+ 
+}
+
 bot.action('price',(ctx) => {
   ctx.reply("Retrieving EOS price...");
       //get price
@@ -261,10 +279,7 @@ bot.action('price',(ctx) => {
     var dbo = db.db("heroku_9472rtd6");       
     dbo.collection("price").find().toArray(function(err, res){
      console.log(res)
-     msg = "EOS Price : " + "$" + res[0].usd;
-     msg += "\n";
-     msg += "Provided by ";
-     msg += res[0].exchange;
+     msg = makePriceMessage(res);
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
      ctx.session.step = 2;
      db.close();
