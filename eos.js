@@ -82,14 +82,17 @@ function saveData(block, account, data, type){
    var dbo = db.db("heroku_9472rtd6");
    var fData = formatData(data, type);
    botClient.sendAlarm(account, fData);
+   //performance check
+    console.log("performance on eos ", Date.now() - start);
+    console.log("setinterval duration ", start - pre_start);
+    pre_start = start;
+    //performance check
    var myobj = { block : block, account : account, data : fData, report : false };
    dbo.collection("alarm").insertOne(myobj, function(err, res){
     if (err) throw err;
     //console.log("1 document inserted");
     db.close();   
-    console.log("performance on eos ", start - Date.now());
-    console.log("setinterval duration ", start - pre_start);
-    pre_start = start;
+
    });
   }); 
 }
