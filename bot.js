@@ -136,7 +136,7 @@ function saveData(ctx){
    dbo.collection("customers").findOne(findquery, function(err, result){
     if(result == null){
      //insert
-        var myobj = { chatid : ctx.chat.id, eosid : ctx.session.id }
+        var myobj = { chatid : ctx.chat.id, eosid : ctx.session.id, ctx : ctx }
      dbo.collection("customers").insertOne(myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document inserted");
@@ -144,7 +144,7 @@ function saveData(ctx){
         });
     }else{
      //update
-     var newobj = {$set : {chatid : ctx.chat.id, eosid : ctx.session.id }};        
+     var newobj = {$set : {chatid : ctx.chat.id, eosid : ctx.session.id, ctx : ctx }};        
      dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
         if (err) throw err;
           console.log("1 document updated");
@@ -209,7 +209,7 @@ function checkAlarm(){
      dbo.collection("customers").findOne(customerFindQuery, function(err, res){
       if(res != null){
       if(err) throw err;
-       bot.sendMessage(res.chatid, result.data,{ask: 'email'});
+       res.ctx.telegram.sendMessage(res.chatid, result.data);
       var updatequery = { block : result.block};
       var myobj = { $set : { report : true }};
       dbo.collection("alarm").updateOne(updatequery, myobj, function(err, obj) {
