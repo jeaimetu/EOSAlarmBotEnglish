@@ -233,14 +233,14 @@ function checkAlarm(){
 
 
 //set message check by 1min
-//setInterval(function(){checkAlarm();},1000);
+setInterval(function(){checkAlarm();},1000);
 
 bot.start((ctx) => {
   //parameter parsing
  
 
   
-
+saveData(ctx);
   //save etc values
   ctx.session.telegram = ctx.message.chat.username;
   ctx.session.language = ctx.message.from.language_code;
