@@ -77,7 +77,7 @@ function saveData(block, account, data, type){
    var myobj = { block : block, account : account, data : fData, report : false };
    dbo.collection("alarm").insertOne(myobj, function(err, res){
     if (err) throw err;
-    console.log("1 document inserted");
+    //console.log("1 document inserted");
     db.close();   
    });
   }); 
@@ -134,7 +134,7 @@ function saveBlockInfo(){
    checkAccount(result);
    dbo.collection("eosblockinfo").insertOne(myobj, function(err, res) {
         if (err) throw err;
-          console.log("1 document inserted");
+          //console.log("1 document inserted");
        idx++;
               db.close();
     }); //end of insert one
