@@ -258,14 +258,13 @@ bot.action('price',(ctx) => {
   ctx.reply("Retrieving EOS price...");
       //get price
    MongoClient.connect(url, function(err, db) {
-    var dbo = db.db("heroku_9472rtd6");   
-    var findquery = { exchange : "coinmarketcap" };
-    dbo.collection("price").findOne(findquery, function(err, res){
+    var dbo = db.db("heroku_9472rtd6");       
+    dbo.collection("price").find().toArray(function(err, res){
      console.log(res)
-     msg = "EOS Price : " + "$" + res.usd;
+     msg = "EOS Price : " + "$" + res[0].usd;
      msg += "\n";
      msg += "Provided by ";
-     msg += res.exchange;
+     msg += res[0].exchange;
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
      ctx.session.step = 2;
      db.close();
