@@ -145,9 +145,9 @@ function saveBlockInfo(){
               db.close();
     }); //end of insert one
    }); //end of connect
-
-  }); // end of getblock
   */
+  }); // end of getblock
+
 } //end of function
                         
 
