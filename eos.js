@@ -126,6 +126,8 @@ function saveBlockInfo(){
   //console.log(result);
   //console.log(result.transactions[0].trx.transaction.actions[0]);
   //save data to Mongo DB with block number
+  checkAccount(result);
+  /* save raw data
   MongoClient.connect(url, function(err, db) {
    
    if (err){
@@ -135,7 +137,7 @@ function saveBlockInfo(){
    var dbo = db.db("heroku_9472rtd6");
    //var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
    var myobj = { bno : idx, info : result }
-   checkAccount(result);
+   
    dbo.collection("eosblockinfo").insertOne(myobj, function(err, res) {
         if (err) throw err;
           //console.log("1 document inserted");
@@ -145,6 +147,7 @@ function saveBlockInfo(){
    }); //end of connect
 
   }); // end of getblock
+  */
 } //end of function
                         
 
