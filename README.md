@@ -25,6 +25,7 @@ Others are will be supported in near future(e.g. BuyRam, UpdateAuth)
 
 ## Release note
 version 1.0 - Initial release
+version 1.1 - Total balance sum error fix, Adding real time(in 1 min) event notification, adding many events
 
 ## Disclaimer
 This is beta version, so some event report can be dropped.
