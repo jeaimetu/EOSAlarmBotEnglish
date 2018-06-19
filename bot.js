@@ -36,7 +36,7 @@ function makeMessage(ctx){
   var finalResult;
  
  if(ctx.session.id != "nil"){
-    finalResult = "Proactive alarm function will be released in the near future.";
+    finalResult = "New features will released in near future.";
   finalResult += "\n";
  finalResult += "\n";
   finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp.";
@@ -46,9 +46,6 @@ function makeMessage(ctx){
  }
  else{
   finalResult = "Touch an account button to register EOS account.";
-  finalResult += "\n";
-  finalResult += "In next version, Chatbot will notify any changes on your account automatically";
-  finalResult += "\n";
  finalResult += "\n";
   finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp.";
    finalResult += "\n\n";
@@ -273,7 +270,7 @@ bot.action('balance',(ctx) => {
  console.log("refund size", refund)
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
       msg = "Total Balance : ";
-      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]) + refund;   
+      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseFloat(v3[0]) + refund;   
       msg += " EOS\n";
       msg += "Unstaked : " + parseFloat(v3[0]);
       msg += " EOS\n";
