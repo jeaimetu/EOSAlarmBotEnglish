@@ -85,8 +85,13 @@ function formatData(data, type){
    msg = "You waken PET";
   }else if(type == "createpet"){
    msg = "You created PET ";
-   msg += data.pet_name;
-   
+   msg += data.pet_name;   
+  }else if(type == "refund"){
+   msg = "Refund Event";
+  }else if(type == "updateauth"){
+   msg = "Your Authority Updated";
+   msg += "\n";
+   msg += "Public Key " + data.auth.keys[0].key;
   }else{
    console.log("need to be implemented");
    msg = "This event will be supported in near future)";
@@ -117,8 +122,9 @@ function checkAccount(result){
  if(result.transactions.length == 0){
   return;
  }else{
+  for(i = 0;i<result.transactions.length;i++){
   //check transaction type
-  var trx = result.transactions[0].trx.transaction;
+  var trx = result.transactions[i].trx.transaction;
   if(trx == undefined)
    return;
   var type = trx.actions[0].name;
@@ -140,8 +146,14 @@ function checkAccount(result){
    account = data.bidder;
   }else if(type == "awakepet"){
    account = trx.actions[0].authorization[0].actor;
+  }else if(type == "feedpet"){
+   account = trx.actions[0].authorization[0].actor;
   }else if(type == "createpet"){
    account = trx.actions[0].authorization[0].actor;
+  }else if(type == "refund"){
+   account = data.owner;
+  }else if(type == "updateauth"){
+   account = data.xxxxxxoooooo;
   }else{
    account = "unknown";
    console.log("need to be implemented", type);
@@ -152,7 +164,8 @@ function checkAccount(result){
    //save data to database
    saveData(result.block_num, account, data, type);
   }
- }
+ }//end of for
+ }//end of else
  
 }
 
