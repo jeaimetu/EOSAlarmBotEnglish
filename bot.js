@@ -235,6 +235,7 @@ bot.action('price',(ctx) => {
 
 bot.action('setting',(ctx) => {
   ctx.reply("setting...");
+      var idListString = [];
       //get price
    MongoClient.connect(url, function(err, db) {
     var dbo = db.db("heroku_9472rtd6");     
@@ -242,16 +243,18 @@ bot.action('setting',(ctx) => {
     dbo.collection("customers").find({}).toArray(function(err, res){
      console.log(res)
      //make id array
-     var idListString = []
+
      for(i = 0;i<res.length;i++){
       idListString.push({text : res.eosid, callback_data : res.eosid});
      }
-      var idList = JSON.stringify({
+
+  });
+ 
+          var keyboardStr = JSON.stringify({
       inline_keyboard: [
         idListString
       ]
-  });
- 
+           
   var idList = {reply_markup: JSON.parse(keyboardStr)};
      
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
