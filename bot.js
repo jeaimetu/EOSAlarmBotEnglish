@@ -259,9 +259,8 @@ bot.action('setting',(ctx) => {
   var idList = {reply_markup: JSON.parse(keyboardStr)};
      
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
-     ctx.session.step = 2;
+     //ctx.session.step = 2;
      db.close();
-    });
    });
 });
 
