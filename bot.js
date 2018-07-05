@@ -250,10 +250,11 @@ bot.action('setting',(ctx) => {
 
   });
  
-          var keyboardStr = JSON.stringify({
+  var keyboardStr = JSON.stringify({
       inline_keyboard: [
         idListString
       ]
+   });
            
   var idList = {reply_markup: JSON.parse(keyboardStr)};
      
