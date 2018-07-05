@@ -245,8 +245,8 @@ bot.action('setting',(ctx) => {
      //make id array
 
      for(i = 0;i<res.length;i++){
-      console.log("setting push data", res.eosid);
-      idListString.push({text : res.eosid, callback_data : res.eosid});
+      console.log("setting push data", res[i].eosid);
+      idListString.push({text : res[i].eosid, callback_data : res[i].eosid});
      }
 
   });
