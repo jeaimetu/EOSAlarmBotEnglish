@@ -36,7 +36,7 @@ function makeMessage(ctx){
   var finalResult;
  
  if(ctx.session.id != "nil"){
-    finalResult = "New features will released in near future.";
+    finalResult = "Current account : " + ctx.session.id;
   finalResult += "\n";
  finalResult += "\n";
   finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp.";
@@ -100,7 +100,7 @@ function saveData(ctx){
     if (err) throw err;
     var dbo = db.db("heroku_9472rtd6");
  
-   var findquery = {chatid : ctx.chat.id};
+   var findquery = {chatid : ctx.chat.id, eosid : ctx.session.id};
    dbo.collection("customers").findOne(findquery, function(err, result){
     if(result == null){
      //insert
@@ -110,7 +110,7 @@ function saveData(ctx){
           console.log("1 document inserted");
               db.close();
         });
-    }else{
+    }/*else{
      //update
      var newobj = {$set : {chatid : ctx.chat.id, eosid : ctx.session.id }};        
      dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
@@ -118,7 +118,7 @@ function saveData(ctx){
           console.log("1 document updated");
           db.close();
         });
-    } //end else
+    } //end else*/
    }); //end pf findquery
   }); //end MongoClient
 }
