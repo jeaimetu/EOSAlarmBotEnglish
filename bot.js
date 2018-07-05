@@ -240,7 +240,7 @@ bot.action('setting',(ctx) => {
    MongoClient.connect(url, function(err, db) {
     var dbo = db.db("heroku_9472rtd6");     
     var findquery = {chatid : ctx.chat.id};
-    dbo.collection("customers").find({}).toArray(function(err, res){
+    dbo.collection("customers").find(findquery).toArray(function(err, res){
      console.log(res)
      //make id array
 
