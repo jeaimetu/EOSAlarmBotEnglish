@@ -245,10 +245,13 @@ bot.action('setting',(ctx) => {
      //make id array
 
      for(i = 0;i<res.length;i++){
+      console.log("setting push data", res.eosid);
       idListString.push({text : res.eosid, callback_data : res.eosid});
      }
 
   });
+    
+    console.log("after making", idListString);
  
   var keyboardStr = JSON.stringify({
       inline_keyboard: [
