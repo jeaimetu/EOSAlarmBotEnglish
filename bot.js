@@ -263,6 +263,7 @@ bot.action('setting',(ctx) => {
      
     var msg = "You IDs are";
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
+    ctx.telegram.sendMessage(ctx.from.id, msg, idListString);
      //ctx.session.step = 2;
      db.close();
    });
