@@ -549,7 +549,7 @@ bot.on('callback_query', (ctx) => {
   accountAction(ctx);
  }else if(action == "delete"){
   ctx.session.accountAction = "delete";
-  ccountAction(ctx);
+  accountAction(ctx);
  }else{ 
 
   if(ctx.session.accountAction === "primary"){
