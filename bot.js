@@ -250,10 +250,7 @@ bot.action('setting',(ctx) => {
       console.log("setting push data", res[i].eosid);
       idListString.push({text : res[i].eosid, callback_data : res[i].eosid});
      }
-
-  });
-    
-    console.log("after making", idListString);
+         console.log("after making", idListString);
  
   var keyboardStr = JSON.stringify({
       inline_keyboard: [[ idListString ]]
@@ -270,6 +267,10 @@ bot.action('setting',(ctx) => {
      //ctx.session.step = 2;
      db.close();
    });
+
+
+  });
+    
 });
 
 bot.action('balance',(ctx) => {
