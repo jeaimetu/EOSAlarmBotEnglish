@@ -420,7 +420,7 @@ bot.action('setting',(ctx) => {
 
 bot.on('callback_query', (ctx) => {
  const action = ctx.callbackQuery.data;
- const msg = ctx.callbackQuery.message;
+ //const msg = ctx.callbackQuery.message;
  //console.log("callbackQeury", callbackQuery);
  
  if(action === "price"){
