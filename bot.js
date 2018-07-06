@@ -503,7 +503,7 @@ bot.on('callback_query', (ctx) => {
  //console.log("callbackQeury", callbackQuery);
  
  if(action === "price"){
-  price();
+  price(ctx);
 
  }else if(action === "balance"){
   balance(ctx)
