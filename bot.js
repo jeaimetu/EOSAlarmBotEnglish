@@ -108,7 +108,7 @@ async function getDacBalance(account){
   return null;
 }
 
-async function getTokenBalance(account, tokenCode){
+async function getTokenBalanceEach(account, tokenCode){
  let bal = await eos.getTableRows({json : true,
                       code : tokenCode,
                  scope: account,
@@ -154,10 +154,10 @@ async function getTokenBalance(account, cb){
                         getDacBalance(account), 
                         getCetosBalance(account),
                         getCetBalance(account),
-                        getTokenBalance(account, "ednazztokens"),
-                        getTokenBalance(account, "horustokenio"),
-                        getTokenBalance(account, "eosdactokens"),                
-                        getTokenBalance(account, "eoxeoxeoxeox"),]);
+                        getTokenBalanceEach(account, "ednazztokens"),
+                        getTokenBalanceEach(account, "horustokenio"),
+                        getTokenBalanceEach(account, "eosdactokens"),                
+                        getTokenBalanceEach(account, "eoxeoxeoxeox"),]);
 console.log(addBalance, dacBalance, cetosBalance);
  msg = "Token Balance";
  msg += "\n";
