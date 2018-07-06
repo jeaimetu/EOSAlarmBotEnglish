@@ -81,6 +81,88 @@ function checkData(ctx){
   return true;
 }
 
+//Get token balance
+async function getAddBalance(account){
+ let bal = await eos.getTableRows({json : true,
+                      code : "eosadddddddd",
+                 scope: account,
+                 table: "accounts",
+                 }).catch((err) => {
+  return null});
+ if(bal.rows.length != 0)
+ return bal.rows[0].balance;
+ else
+  return null;
+}
+
+async function getDacBalance(account){
+ let bal = await eos.getTableRows({json : true,
+                      code : "eosdactokens",
+                 scope: account,
+                 table: "accounts",
+                 }).catch((err) => {
+  return null});;
+  if(bal.rows.length != 0)
+ return bal.rows[0].balance;
+ else
+  return null;
+}
+
+async function getCetBalance(account){
+ let bal = await eos.getTableRows({json : true,
+                      code : "eosiochaince",
+                 scope: account,
+                 table: "accounts",
+                 }).catch((err) => {
+  return null});;
+  if(bal.rows.length != 0)
+ return bal.rows[0].balance;
+ else
+  return null;
+}
+
+async function getCetosBalance(account){
+ let bal = await eos.getTableRows({json : true,
+                      code : "gyztomjugage",
+                 scope: account,
+                 table: "accounts",
+                 }).catch((err) => {
+  return null});;
+  if(bal.rows.length != 0)
+ return bal.rows[0].balance;
+ else
+  return null;
+}
+
+
+async function getTokenBalance(account, cb){
+ let [addBalance, dacBalance, cetosBalance,cetBalance] = await Promise.all([getAddBalance(account), getDacBalance(account), getCetosBalance(account),getCetBalance(account)]);
+console.log(addBalance, dacBalance, cetosBalance);
+ msg = "토큰 잔고";
+ msg += "\n";
+ if(addBalance != null)
+ msg += addBalance;
+ else
+  msg += " 0 ADD";
+ msg += "\n";
+ if(dacBalance != null)
+ msg += dacBalance;
+else
+  msg += " 0 EOSDAC";
+  msg += "\n";
+if(cetosBalance != null)
+ msg += cetosBalance;
+else
+  msg += " 0 CETOS";
+  msg += "\n"; 
+ if(cetBalance != null)
+ msg += cetBalance;
+else
+  msg += " 0 CET";
+ cb(msg);
+}
+//Get token balance
+
 function loadData(ctx, cb){
  MongoClient.connect(url, function(err, db) {
  var dbo = db.db("heroku_9472rtd6");
@@ -193,6 +275,17 @@ bot.on('message', (ctx) => {
 
   var msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
+});
+
+bot.action('token',(ctx) => {
+ ctx.reply("Retrieving token balance....");
+ loadData(ctx, function(id){
+  ctx.session.id = id;
+  console.log("Token balance", ctx.session.id);
+  getTokenBalance(ctx.session.id,(result)=>{
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
+   });
+ });
 });
 
 bot.action('id',(ctx) => {
