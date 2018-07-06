@@ -161,7 +161,8 @@ module.exports.sendAlarm = function(account, msg){
   var findquery = {eosid : account};
   dbo.collection("customers").findOne(findquery, function(err, result){
    if(result == null){
-    ;console.log("no matched account for ", account);
+    //console.log("no matched account for ", account);
+    ;
    }else{
      //send message
     bot.telegram.sendMessage(result.chatid, msg);
@@ -256,7 +257,7 @@ bot.action('setting',(ctx) => {
          console.log("after making", idListString);
  
   var keyboardStr = JSON.stringify({
-      inline_keyboard:  idListString
+      inline_keyboard: [ idListString ]
       
    });
            
@@ -265,7 +266,8 @@ bot.action('setting',(ctx) => {
   var idList = {reply_markup: JSON.parse(keyboardStr)};
      
     var msg = "You IDs are";
-     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
+     //ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
+     ctx.telegram.sendMessage(ctx.from.id, msg, JSON.parse(keyboardStr));
     
      //ctx.session.step = 2;
      db.close();
