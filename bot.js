@@ -238,7 +238,7 @@ function saveData(ctx){
    dbo.collection("customers").findOne(findquery, function(err, result){
     if(result == null){
      //insert
-        var myobj = { chatid : ctx.chat.id, eosid : ctx.session.id }
+        var myobj = { chatid : ctx.chat.id, eosid : ctx.session.id, primary : true }
      dbo.collection("customers").insertOne(myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document inserted");
