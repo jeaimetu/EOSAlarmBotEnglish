@@ -41,15 +41,16 @@ function makeMessage(ctx){
     finalResult = "Current account : " + ctx.session.id;
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp.";
+  finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp, acroeos12345.";
    finalResult += "\n";
   finalResult += "copyright EOS.Cafe Korea";
   
  }
  else{
+  finalResult = "Current account : " + ctx.session.id;
   finalResult = "Touch an account button to register EOS account.";
  finalResult += "\n";
-  finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp.";
+  finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp, acroeos12345.";
    finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
@@ -161,6 +162,8 @@ async function getTokenBalance(account, cb){
 console.log(addBalance, dacBalance, cetosBalance);
  msg = "Token Balance";
  msg += "\n";
+ msg += ""Current account : " + ctx.session.id";
+ msg += "\n";
  if(addBalance != null)
  msg += addBalance;
  else
@@ -269,6 +272,9 @@ function setPrimary(ctx, account){
     var pValue = {$set : {primary : true }};
     dbo.collection("customers").updateOne(findquery, pValue, function(err, result){
      console.log("Primary flag update completed", ctx.session.id);
+     msg = account;
+     msg += " is primary account now setted";
+     ctx.telegram.sendMessage(ctx.from.id, msg);
      db.close();  
    }); //end of updateOne
    }); //end of updateMany query
@@ -349,8 +355,10 @@ bot.on('message', (ctx) => {
 
 
 function makePriceMessage(res){
- 
- msg = "EOS Price : " + "$" + res[0].usd;
+
+ msg = ""Current account : " + ctx.session.id";
+   msg += "\n";
+ msg += "EOS Price : " + "$" + res[0].usd;
  msg += "\n";
  msg += "EOS Price : " + Math.floor(res[0].krw) + "KRW";
  msg += "\n";
