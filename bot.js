@@ -263,7 +263,7 @@ function setPrimary(ctx, account){
     var dbo = db.db("heroku_9472rtd6");
  //, eosid : ctx.session.id, primary : true};
    var updateQuery = {chatid : ctx.chat.id };
-   var newvalues = {$set : {primary : fasle}};
+   var newvalues = {$set : {primary : false}};
    dbo.collection("customers").updateMany(updateQuery, newvalues,function(err, res){
     var findquery = {eosid : ctx.session.id};
     var pValue = {$set : {primary : true }};
