@@ -422,7 +422,7 @@ bot.on('callback_query', function onCallbackQuery(callbackQuery) {
  const action = callbackQuery.data;
  const msg = callbackQuery.message;
  
- if(action == "price"){
+ if(action === "price"){
     ctx.reply("Retrieving EOS price...");
       //get price
    MongoClient.connect(url, function(err, db) {
