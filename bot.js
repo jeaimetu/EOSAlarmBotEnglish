@@ -254,7 +254,7 @@ bot.action('setting',(ctx) => {
          console.log("after making", idListString);
  
   var keyboardStr = JSON.stringify({
-      inline_keyboard: [[ idListString ]]
+      inline_keyboard: [ idListString]
       
    });
            
