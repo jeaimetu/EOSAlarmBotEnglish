@@ -365,6 +365,7 @@ function makePriceMessage(res){
  return msg; 
 }
 
+/*
 bot.action('price',(ctx) => {
   ctx.reply("Retrieving EOS price...");
       //get price
@@ -379,6 +380,7 @@ bot.action('price',(ctx) => {
     });
    });
 });
+*/
 
 bot.action('setting',(ctx) => {
   ctx.reply("setting...");
@@ -420,7 +422,24 @@ bot.on('callback_query', function onCallbackQuery(callbackQuery) {
  const action = callbackQuery.data;
  const msg = callbackQuery.message;
  
- console.log("on callback_query", action);
+ if(action == "price"){
+    ctx.reply("Retrieving EOS price...");
+      //get price
+   MongoClient.connect(url, function(err, db) {
+    var dbo = db.db("heroku_9472rtd6");       
+    dbo.collection("price").find().toArray(function(err, res){
+     console.log(res)
+     msg = makePriceMessage(res);
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+     ctx.session.step = 2;
+     db.close();
+    });
+   });
+ }else{
+  
+ 
+ console.log("on callback_query another action", action);
+ }
  
 });
  
