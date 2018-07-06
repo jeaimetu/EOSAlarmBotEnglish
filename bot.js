@@ -221,7 +221,7 @@ function loadData(ctx, cb){
    ctx.telegram.sendMessage(ctx.from.id, msg)
    cb(-1);
     }else{
-     cb.(result.eosid);    
+     cb(result.eosid);    
     }
     db.close();
    });
