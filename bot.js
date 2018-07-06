@@ -221,9 +221,18 @@ function loadData(ctx, cb){
  dbo.collection("customers").findOne(findquery, function(err, result){
   if(result == null){
    //if result is null, then return -1
+   var findqueryInTheLoop = {chatid : ctx.chat.id};
+   dbo.collection("customers").findOne(findquery, function(err, result){
+    if(result == null){
    var msg = "Please set your primary account in setting menu";
    ctx.telegram.sendMessage(ctx.from.id, msg)
    cb(-1);
+    }else{
+     cb.(result.eosid);    
+    }
+    db.close();
+   });
+   
   }else{
    cb(result.eosid);
   }
