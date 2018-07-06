@@ -555,7 +555,7 @@ bot.on('callback_query', (ctx) => {
   if(ctx.session.accountAction === "primary"){
    ctx.session.accountAction = "nil";
    console.log("set primary account case", action);
-   setPrimary(ctx, action){
+   setPrimary(ctx, action);
   }else{
    ctx.session.accountAction = "nil";
    console.log("delete account case", action);
