@@ -30,7 +30,7 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Setting', 'setting')
   //Markup.callbackButton('History','history')
   //Markup.callbackButton('Confirm','confirm')
-], {column: 3})
+], {column: 2})
 
 
 function makeMessage(ctx){
