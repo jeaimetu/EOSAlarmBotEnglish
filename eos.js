@@ -93,7 +93,7 @@ function formatData(data, type){
    msg += "\n";
    msg += "Public Key " + data.auth.keys[0].key;
   }else{
-   console.log("need to be implemented");
+   //console.log("need to be implemented");
    msg = "This event will be supported in near future)";
    msg += type;
    msg += "\n";
