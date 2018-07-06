@@ -156,7 +156,7 @@ function checkAccount(result){
    account = data.xxxxxxoooooo;
   }else{
    account = "unknown";
-   console.log("need to be implemented", type);
+   //console.log("need to be implemented", type);
   }
   
   //save data to proper account or new table?
@@ -176,7 +176,7 @@ function saveBlockInfo(){
   //console.log(result);
   //console.log(result.transactions[0].trx.transaction.actions[0]);
   //save data to Mongo DB with block number
-  console.log("read Block info ", idx);
+  //console.log("read Block info ", idx);
   checkAccount(result);
   previousReadBlock = idx;
 
