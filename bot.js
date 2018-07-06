@@ -14,7 +14,8 @@ var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGODB_URI;
 
 Eos = require('eosjs') // Eos = require('./src')
- 
+
+
 eosconfig = {
 httpEndpoint: "http://mainnet.eoscalgary.io"
 }
@@ -149,7 +150,7 @@ function stepCheck(ctx){
 //bot init
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
 bot.use(session())
-bot.use(Telegraf.log())
+//bot.use(Telegraf.log())
 
 
 
