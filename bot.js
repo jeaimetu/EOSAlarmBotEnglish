@@ -265,7 +265,7 @@ function setPrimary(ctx, account){
    var updateQuery = {chatid : ctx.chat.id };
    var newvalues = {$set : {primary : false}};
    dbo.collection("customers").updateMany(updateQuery, newvalues,function(err, res){
-    var findquery = {eosid : ctx.session.id};
+    var findquery = {eosid : account};
     var pValue = {$set : {primary : true }};
     dbo.collection("customers").updateOne(findquery, pValue, function(err, result){
      console.log("Primary flag update completed", ctx.session.id);
