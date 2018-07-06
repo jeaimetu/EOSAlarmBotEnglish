@@ -356,7 +356,7 @@ bot.on('message', (ctx) => {
 
 function makePriceMessage(res){
 
- msg = ""Current account : " + ctx.session.id";
+ msg = "Current account : " + ctx.session.id;
    msg += "\n";
  msg += "EOS Price : " + "$" + res[0].usd;
  msg += "\n";
