@@ -238,7 +238,7 @@ bot.action('setting',(ctx) => {
       var idListString = [];
       //get price
  console.log("before making ", idListString);
- console.log("setting chat id " : ctx.chat.id;
+ console.log("setting chat id " : ctx.chat.id);
    MongoClient.connect(url, function(err, db) {
     var dbo = db.db("heroku_9472rtd6");     
     var findquery = {chatid : ctx.chat.id};
