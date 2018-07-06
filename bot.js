@@ -28,7 +28,7 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Price', 'price'),
   Markup.callbackButton('Balance', 'balance'),
   Markup.callbackButton('Setting', 'setting')
-  //Markup.callbackButton('History','history')
+  Markup.callbackButton('Token','token')
   //Markup.callbackButton('Confirm','confirm')
 ], {column: 2})
 
