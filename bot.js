@@ -356,9 +356,8 @@ bot.on('message', (ctx) => {
 
 function makePriceMessage(res){
 
- msg = "Current account : " + ctx.session.id;
-   msg += "\n";
- msg += "EOS Price : " + "$" + res[0].usd;
+
+ msg = "EOS Price : " + "$" + res[0].usd;
  msg += "\n";
  msg += "EOS Price : " + Math.floor(res[0].krw) + "KRW";
  msg += "\n";
@@ -384,7 +383,9 @@ function price(ctx){
     var dbo = db.db("heroku_9472rtd6");       
     dbo.collection("price").find().toArray(function(err, res){
      console.log(res)
-     msg = makePriceMessage(res);
+     msg =  msg = "Current account : " + ctx.session.id;
+   msg += "\n";
+     msg += makePriceMessage(res);
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
      ctx.session.step = 2;
      db.close();
