@@ -161,7 +161,7 @@ module.exports.sendAlarm = function(account, msg){
   var findquery = {eosid : account};
   dbo.collection("customers").findOne(findquery, function(err, result){
    if(result == null){
-    console.log("no matched account for ", account);
+    ;console.log("no matched account for ", account);
    }else{
      //send message
     bot.telegram.sendMessage(result.chatid, msg);
@@ -241,10 +241,10 @@ bot.action('setting',(ctx) => {
       var idListString = [];
       //get price
  console.log("before making ", idListString);
- console.log("setting chat id ", ctx.chat.id);
+ console.log("setting chat id ", ctx.from.id);
    MongoClient.connect(url, function(err, db) {
     var dbo = db.db("heroku_9472rtd6");     
-    var findquery = {chatid : ctx.chat.id};
+    var findquery = {chatid : ctx.from.id};
     dbo.collection("customers").find(findquery).toArray(function(err, res){
      console.log(res)
      //make id array
