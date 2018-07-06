@@ -162,7 +162,7 @@ async function getTokenBalance(account, cb){
 console.log(addBalance, dacBalance, cetosBalance);
  msg = "Token Balance";
  msg += "\n";
- msg += ""Current account : " + ctx.session.id";
+ msg += "Current account : " + ctx.session.id";
  msg += "\n";
  if(addBalance != null)
  msg += addBalance;
