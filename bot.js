@@ -359,7 +359,7 @@ bot.start((ctx) => {
   var msg = makeMessage(ctx);
   loadData(ctx, function(id){
    ctx.session.id = id;
-  ctx.telegram.sendMessage(ctx.session.id, msg, Extra.markup(keyboard))
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
   });
   
   ctx.reply('Hello')
