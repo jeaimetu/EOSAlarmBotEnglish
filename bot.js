@@ -215,7 +215,7 @@ function loadData(ctx, cb){
   if(result == null){
    //if result is null, then return -1
    var findqueryInTheLoop = {chatid : ctx.chat.id};
-   dbo.collection("customers").findOne(findquery, function(err, result){
+   dbo.collection("customers").findOne(findqueryInTheLoop, function(err, result){
     if(result == null){
    var msg = "Please set your primary account in setting menu";
    ctx.telegram.sendMessage(ctx.from.id, msg)
