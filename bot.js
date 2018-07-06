@@ -257,6 +257,25 @@ function saveData(ctx){
   }); //end MongoClient
 }
 
+function setPrimary(ctx, account){
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("heroku_9472rtd6");
+ //, eosid : ctx.session.id, primary : true};
+   var updateQuery = {chatid : ctx.chat.id };
+   var newvalues = {$set : {primary : fasle}};
+   dbo.collection("customers").updateMany(updateQuery, newvalues,function(err, res){
+    var findquery = {eosid : ctx.session.id};
+    var pValue = {$set : {primary : true }};
+    dbo.collection("customers").updateOne(findquery, pValue, function(err, result){
+     console.log("Primary flag update completed", ctx.session.id);
+     db.close();  
+   }); //end of updateOne
+   }); //end of updateMany query
+   
+  }); //end MongoClient
+}
+
 //check current step and save value to context
 function stepCheck(ctx){
   if(ctx.session.step == 4){
@@ -327,22 +346,7 @@ bot.on('message', (ctx) => {
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
 });
 
-bot.action('token',(ctx) => {
- ctx.reply("Retrieving token balance....");
- loadData(ctx, function(id){
-  ctx.session.id = id;
-  console.log("Token balance", ctx.session.id);
-  getTokenBalance(ctx.session.id,(result)=>{
-  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
-   });
- });
-});
 
-bot.action('id',(ctx) => {
-  ctx.reply("Please input EOS account. You can check your account with EOS public key on http://eosflare.io .");
-
-  ctx.session.step = 1;
-});
 
 function makePriceMessage(res){
  
@@ -365,9 +369,8 @@ function makePriceMessage(res){
  return msg; 
 }
 
-/*
-bot.action('price',(ctx) => {
-  ctx.reply("Retrieving EOS price...");
+function price(ctx){
+     ctx.reply("Retrieving EOS price...");
       //get price
    MongoClient.connect(url, function(err, db) {
     var dbo = db.db("heroku_9472rtd6");       
@@ -379,74 +382,9 @@ bot.action('price',(ctx) => {
      db.close();
     });
    });
-});
-*/
+}
 
-bot.action('setting',(ctx) => {
-  ctx.reply("setting...");
-      var idListString = [];
-      //get price
- console.log("before making ", idListString);
- console.log("setting chat id ", ctx.from.id);
-   MongoClient.connect(url, function(err, db) {
-    var dbo = db.db("heroku_9472rtd6");     
-    var findquery = {chatid : ctx.from.id};
-    dbo.collection("customers").find(findquery).toArray(function(err, res){
-     console.log(res)
-     //make id array
-
-     for(i = 0;i<res.length;i++){
-      console.log("setting push data", res[i].eosid);
-      idListString.push({text : res[i].eosid, callback_data : res[i].eosid});
-     }
-         console.log("after making", idListString);
- 
-    var keyboardStr = JSON.stringify({
-      inline_keyboard: [ idListString ]
-      
-   });
-     const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});     
-    var msg = "You IDs are";
-     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboardId));
-    
-     //ctx.session.step = 2;
-     db.close();
-   });
-
-
-  });
-    
-});
-
-bot.on('callback_query', (ctx) => {
- const action = ctx.callbackQuery.data;
- //const msg = ctx.callbackQuery.message;
- //console.log("callbackQeury", callbackQuery);
- 
- if(action === "price"){
-    ctx.reply("Retrieving EOS price...");
-      //get price
-   MongoClient.connect(url, function(err, db) {
-    var dbo = db.db("heroku_9472rtd6");       
-    dbo.collection("price").find().toArray(function(err, res){
-     console.log(res)
-     msg = makePriceMessage(res);
-     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
-     ctx.session.step = 2;
-     db.close();
-    });
-   });
- }else{
-  
- 
- console.log("on callback_query another action", action);
- }
- 
-});
- 
- 
-
-bot.action('balance',(ctx) => {
+function balance(ctx){
  loadData(ctx, function(id){
   ctx.session.id = id;
  if(ctx.session.id == -1){
@@ -505,10 +443,83 @@ bot.action('balance',(ctx) => {
 
 //console.log('currency balance', balance);
   ctx.session.step = 3;
-}); //end of bot action
+}
+
+function token(ctx){
+ ctx.reply("Retrieving token balance....");
+ loadData(ctx, function(id){
+  ctx.session.id = id;
+  console.log("Token balance", ctx.session.id);
+  getTokenBalance(ctx.session.id,(result)=>{
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
+   });
+ });
+}
+
+function account(ctx){
+   ctx.reply("Please input EOS account. You can check your account with EOS public key on http://eosflare.io .");
+
+  ctx.session.step = 1;
+}
+
+function setting(ctx){
+  ctx.reply("setting...");
+      var idListString = [];
+      //get price
+ console.log("before making ", idListString);
+ console.log("setting chat id ", ctx.from.id);
+   MongoClient.connect(url, function(err, db) {
+    var dbo = db.db("heroku_9472rtd6");     
+    var findquery = {chatid : ctx.from.id};
+    dbo.collection("customers").find(findquery).toArray(function(err, res){
+     console.log(res)
+     //make id array
+
+     for(i = 0;i<res.length;i++){
+      console.log("setting push data", res[i].eosid);
+      idListString.push({text : res[i].eosid, callback_data : res[i].eosid});
+     }
+         console.log("after making", idListString);
+ 
+    var keyboardStr = JSON.stringify({
+      inline_keyboard: [ idListString ]
+      
+   });
+     const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});     
+    var msg = "You IDs are";
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboardId));
+    
+     //ctx.session.step = 2;
+     db.close();
+   });
 
 
+  });
+}
 
+bot.on('callback_query', (ctx) => {
+ const action = ctx.callbackQuery.data;
+ //const msg = ctx.callbackQuery.message;
+ //console.log("callbackQeury", callbackQuery);
+ 
+ if(action === "price"){
+  price();
+
+ }else if(action === "balance"){
+  balance(ctx)
+ }else if(action === "token"){
+  token(ctx);
+ }else if(action == "id"){
+  account(ctx);
+ }else if(action == "setting"){
+  setting(ctx);
+ }else{ 
+  console.log("set primary account case", action);
+  setPrimary(ctx, action);
+  
+ }
+ 
+});
 // We can get bot nickname from bot informations. This is particularly useful for groups.
 bot.telegram.getMe().then((bot_informations) => {
     bot.options.username = bot_informations.username;
