@@ -24,10 +24,10 @@ eos = Eos(eosconfig) // 127.0.0.1:8888
 
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.callbackButton('Account', 'id'),
-  Markup.callbackButton('Price', 'price'),
+  Markup.callbackButton('Account', 'id');
+  Markup.callbackButton('Price', 'price');
   Markup.callbackButton('Balance', 'balance'),
-  Markup.callbackButton('Setting', 'setting'),
+  Markup.callbackButton('Setting', 'setting');
   Markup.callbackButton('Token','token')
   //Markup.callbackButton('Confirm','confirm')
 ], {column: 2})
@@ -274,7 +274,7 @@ function setPrimary(ctx, account){
      console.log("Primary flag update completed", ctx.session.id);
      msg = account;
      msg += " is primary account now setted";
-     ctx.telegram.sendMessage(ctx.from.id, msg);
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
      db.close();  
    }); //end of updateOne
    }); //end of updateMany query
@@ -290,6 +290,9 @@ function deleteAccount(ctx, account){
   dbo.collection("customers").deleteOne(deleteQuery, function(err, res){
    if(err) throw err;
    console.log("delete account", account);
+   msg = account;
+   msg += " is deleted";
+   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
    db.close
   });
  });
@@ -517,7 +520,7 @@ function accountAction(ctx){
       
    });
      const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});     
-    var msg = "You IDs are";
+    var msg = "Select your account";
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboardId));
     
      //ctx.session.step = 2;
