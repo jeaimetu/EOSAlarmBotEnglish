@@ -282,6 +282,20 @@ function setPrimary(ctx, account){
   }); //end MongoClient
 }
 
+function deleteAccount(ctx, account){
+ MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("heroku_9472rtd6");
+  var deleteQuery = {eosid : account};
+  dbo.collection("customers").deleteOne(deleteQuery, function(err, res){
+   if(err) throw err;
+   console.log("delete account", account);
+   db.close
+  });
+ });
+ 
+}
+
 //check current step and save value to context
 function stepCheck(ctx){
   if(ctx.session.step == 4){
@@ -472,8 +486,16 @@ function account(ctx){
 }
 
 function setting(ctx){
-  ctx.reply("setting...");
-      var idListString = [];
+ const keyboard = Markup.inlineKeyboard([
+  Markup.callbackButton('Set Primary Account', 'primary'),
+  Markup.callbackButton('Delete Account', 'delete')
+], {column: 1});
+ 
+ ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard)); 
+}
+
+function accountAction(ctx){
+  var idListString = [];
       //get price
  console.log("before making ", idListString);
  console.log("setting chat id ", ctx.from.id);
@@ -522,9 +544,23 @@ bot.on('callback_query', (ctx) => {
   account(ctx);
  }else if(action == "setting"){
   setting(ctx);
+ }else if(action == "primary"){
+  ctx.session.accountAction = "primary";
+  accountAction(ctx);
+ }else if(action == "delete"){
+  ctx.session.accountAction = "delete";
+  ccountAction(ctx);
  }else{ 
-  console.log("set primary account case", action);
-  setPrimary(ctx, action);
+
+  if(ctx.session.accountAction === "primary"){
+   ctx.session.accountAction = "nil";
+   console.log("set primary account case", action);
+   setPrimary(ctx, action){
+  }else{
+   ctx.session.accountAction = "nil";
+   console.log("delete account case", action);
+   deleteAccount(ctx, action);
+  }
   
  }
  
