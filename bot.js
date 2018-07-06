@@ -157,7 +157,7 @@ async function getTokenBalance(account, cb){
                         getTokenBalanceEach(account, "ednazztokens"),
                         getTokenBalanceEach(account, "horustokenio"),
                         getTokenBalanceEach(account, "eosdactokens"),                
-                        getTokenBalanceEach(account, "eoxeoxeoxeox"),]);
+                        getTokenBalanceEach(account, "eoxeoxeoxeox")]);
 console.log(addBalance, dacBalance, cetosBalance);
  msg = "Token Balance";
  msg += "\n";
