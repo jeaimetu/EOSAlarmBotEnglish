@@ -272,7 +272,7 @@ bot.action('setting',(ctx) => {
      const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});
      
      
-     console.log("keyboard test", Extra.markup(keyboardId);
+     console.log("keyboard test", Extra.markup(keyboardId));
                  console.log("callbackButton test", Markup.callbackButton('Account', 'id'));
     var msg = "You IDs are";
      //ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
