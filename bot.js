@@ -419,8 +419,9 @@ bot.action('setting',(ctx) => {
 });
 
 bot.on('callback_query', function onCallbackQuery(callbackQuery) {
- const action = callbackQuery.callback_query.data;
- const msg = callbackQuery.callback_query.message;
+ const action = callbackQuery.data;
+ const msg = callbackQuery..message;
+ console.log("callbackQeury", callbackQuery);
  
  if(action === "price"){
     ctx.reply("Retrieving EOS price...");
