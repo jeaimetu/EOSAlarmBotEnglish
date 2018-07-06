@@ -264,19 +264,20 @@ bot.action('setting',(ctx) => {
     console.log("keyboardStr ", keyboardStr);
     console.log("JSON parse", JSON.parse(keyboardStr));
   var idList = {reply_markup: JSON.parse(keyboardStr)};
-     /*
-     const keyboardId = Markup.inlineKeyboard([
-  Markup.callbackButton('Account', 'id'),
-  Markup.callbackButton('Price', 'price'),
-  Markup.callbackButton('Balance', 'balance'),
-  Markup.callbackButton('Setting', 'setting')
-  //Markup.callbackButton('History','history')
-  //Markup.callbackButton('Confirm','confirm')
-], {column: 3})
-     */
+     
+     //making test
+     
+
+     
+     const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});
+     
+     
+     console.log("keyboard test", Extra.markup(keyboardId);
+                 console.log("callbackButton test", Markup.callbackButton('Account', 'id'));
     var msg = "You IDs are";
      //ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboardId));
     
      //ctx.session.step = 2;
      db.close();
