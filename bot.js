@@ -357,7 +357,10 @@ bot.start((ctx) => {
   ctx.session.language = ctx.message.from.language_code;
   initMessage(ctx);
   var msg = makeMessage(ctx);
-  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
+  loadData(ctx, function(id){
+   ctx.session.id = id;
+  ctx.telegram.sendMessage(ctx.session.id, msg, Extra.markup(keyboard))
+  }
   
   ctx.reply('Hello')
 })
@@ -493,7 +496,7 @@ function setting(ctx){
   Markup.callbackButton('Set Primary Account', 'primary'),
   Markup.callbackButton('Delete Account', 'delete')
 ], {column: 1});
- 
+ msg = "Please select the operation";
  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard)); 
 }
 
