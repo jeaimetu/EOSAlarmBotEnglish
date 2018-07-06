@@ -108,6 +108,19 @@ async function getDacBalance(account){
   return null;
 }
 
+async function getTokenBalance(account, tokenCode){
+ let bal = await eos.getTableRows({json : true,
+                      code : tokenCode,
+                 scope: account,
+                 table: "accounts",
+                 }).catch((err) => {
+  return null});;
+  if(bal.rows.length != 0)
+ return bal.rows[0].balance;
+ else
+  return null;
+}
+
 async function getCetBalance(account){
  let bal = await eos.getTableRows({json : true,
                       code : "eosiochaince",
@@ -136,15 +149,50 @@ async function getCetosBalance(account){
 
 
 async function getTokenBalance(account, cb){
- let [addBalance, dacBalance, cetosBalance,cetBalance] = await Promise.all([getAddBalance(account), getDacBalance(account), getCetosBalance(account),getCetBalance(account)]);
+ let [addBalance, dacBalance, cetosBalance,cetBalance, ednaBalance, horusBalance, eosdacBalance, eoxbalance] = 
+     await Promise.all([getAddBalance(account), 
+                        getDacBalance(account), 
+                        getCetosBalance(account),
+                        getCetBalance(account),
+                        getTokenBalance(account, "ednazztokens"),
+                        getTokenBalance(account, "horustokenio"),
+                        getTokenBalance(account, "eosdactokens"),                
+                        getTokenBalance(account, "eoxeoxeoxeox"),]);
 console.log(addBalance, dacBalance, cetosBalance);
- msg = "토큰 잔고";
+ msg = "Token Balance";
  msg += "\n";
  if(addBalance != null)
  msg += addBalance;
  else
   msg += " 0 ADD";
  msg += "\n";
+ 
+  if(ednaBalance != null)
+ msg += ednaBalance;
+ else
+  msg += " 0 EDNA";
+ msg += "\n";
+ 
+   if(horusBalance != null)
+ msg += horusBalance;
+ else
+  msg += " 0 HORUS";
+ msg += "\n";
+ 
+    if(eosdacBalance != null)
+ msg += eosdacBalance;
+ else
+  msg += " 0 EOSDAC";
+ msg += "\n";
+ 
+     if(eoxbalance != null)
+ msg += eoxbalance;
+ else
+  msg += " 0 EOX";
+ msg += "\n";
+ 
+ 
+ 
  if(dacBalance != null)
  msg += dacBalance;
 else
