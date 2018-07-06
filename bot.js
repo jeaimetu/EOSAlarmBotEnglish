@@ -360,7 +360,7 @@ bot.start((ctx) => {
   loadData(ctx, function(id){
    ctx.session.id = id;
   ctx.telegram.sendMessage(ctx.session.id, msg, Extra.markup(keyboard))
-  }
+  });
   
   ctx.reply('Hello')
 })
