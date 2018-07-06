@@ -215,6 +215,8 @@ function makePriceMessage(res){
   msg += "\n";
  msg += "Provided by " + res[1].exchange;
  //diff =  res[0].krw - res[1].krw;
+ 
+ 
  //msg += "Market difference : " + diff + "KRW";
  return msg; 
 }
@@ -254,7 +256,7 @@ bot.action('setting',(ctx) => {
          console.log("after making", idListString);
  
   var keyboardStr = JSON.stringify({
-      inline_keyboard: [ idListString]
+      inline_keyboard:  idListString
       
    });
            
