@@ -395,7 +395,7 @@ bot.action('setting',(ctx) => {
 
      for(i = 0;i<res.length;i++){
       console.log("setting push data", res[i].eosid);
-      idListString.push({text : res[i].eosid, callback_data : "idSelection"});
+      idListString.push({text : res[i].eosid, callback_data : res[i].eosid});
      }
          console.log("after making", idListString);
  
@@ -415,6 +415,16 @@ bot.action('setting',(ctx) => {
   });
     
 });
+
+bot.on('callback_query', function onCallbackQuery(callbackQuery) {
+ const action = callbackQuery.data;
+ const msg = callbackQuery.message;
+ 
+ console.log("on callback_query", action);
+ 
+}
+ 
+ 
 
 bot.action('balance',(ctx) => {
  loadData(ctx, function(id){
