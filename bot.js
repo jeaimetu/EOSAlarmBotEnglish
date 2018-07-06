@@ -214,10 +214,12 @@ else
 function loadData(ctx, cb){
  MongoClient.connect(url, function(err, db) {
  var dbo = db.db("heroku_9472rtd6");
- var findquery = {chatid : ctx.chat.id};
+ var findquery = {chatid : ctx.chat.id, primary : true};
  dbo.collection("customers").findOne(findquery, function(err, result){
   if(result == null){
    //if result is null, then return -1
+   var msg = "Please set your primary account in setting menu";
+   ctx.telegram.sendMessage(ctx.from.id, msg)
    cb(-1);
   }else{
    cb(result.eosid);
@@ -232,7 +234,7 @@ function saveData(ctx){
     if (err) throw err;
     var dbo = db.db("heroku_9472rtd6");
  
-   var findquery = {chatid : ctx.chat.id, eosid : ctx.session.id};
+   var findquery = {chatid : ctx.chat.id, eosid : ctx.session.id, primary : true};
    dbo.collection("customers").findOne(findquery, function(err, result){
     if(result == null){
      //insert
@@ -280,7 +282,7 @@ function stepCheck(ctx){
 //bot init
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
 bot.use(session())
-//bot.use(Telegraf.log())
+bot.use(Telegraf.log())
 
 
 
@@ -393,31 +395,16 @@ bot.action('setting',(ctx) => {
 
      for(i = 0;i<res.length;i++){
       console.log("setting push data", res[i].eosid);
-      idListString.push({text : res[i].eosid, callback_data : res[i].eosid});
+      idListString.push({text : res[i].eosid, callback_data : "idSelection"});
      }
          console.log("after making", idListString);
  
-  var keyboardStr = JSON.stringify({
+    var keyboardStr = JSON.stringify({
       inline_keyboard: [ idListString ]
       
    });
-           
-    console.log("keyboardStr ", keyboardStr);
-    console.log("JSON parse", JSON.parse(keyboardStr));
-  var idList = {reply_markup: JSON.parse(keyboardStr)};
-     
-     //making test
-     
-
-     
-     const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});
-     
-     
-     console.log("keyboard test", Extra.markup(keyboardId));
-                 console.log("callbackButton test", Markup.callbackButton('Account', 'id'));
+     const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});     
     var msg = "You IDs are";
-     //ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
-     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboardId));
     
      //ctx.session.step = 2;
