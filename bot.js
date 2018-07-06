@@ -422,7 +422,7 @@ bot.on('callback_query', function onCallbackQuery(callbackQuery) {
  
  console.log("on callback_query", action);
  
-}
+});
  
  
 
