@@ -237,6 +237,8 @@ bot.action('setting',(ctx) => {
   ctx.reply("setting...");
       var idListString = [];
       //get price
+ console.log("before making ", idListString);
+ console.log("setting chat id " : ctx.chat.id;
    MongoClient.connect(url, function(err, db) {
     var dbo = db.db("heroku_9472rtd6");     
     var findquery = {chatid : ctx.chat.id};
@@ -254,16 +256,17 @@ bot.action('setting',(ctx) => {
     console.log("after making", idListString);
  
   var keyboardStr = JSON.stringify({
-      inline_keyboard: 
-        idListString
+      inline_keyboard: [[ idListString ]]
       
    });
            
+    console.log("keyboardStr ", keyboardStr);
+    console.log("JSON parse", JSON.parse(keyboardStr));
   var idList = {reply_markup: JSON.parse(keyboardStr)};
      
     var msg = "You IDs are";
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(idList));
-    ctx.telegram.sendMessage(ctx.from.id, msg, idListString);
+    
      //ctx.session.step = 2;
      db.close();
    });
