@@ -244,7 +244,7 @@ eos.getTableRows({json : true,
  msg = "RAM Price : ";
  msg += res;
  console.log(res);
- console.log(res[0].base);
+ console.log(res.base);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
 });
 }
