@@ -28,7 +28,8 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Price', 'price'),
   Markup.callbackButton('Balance', 'balance'),
   Markup.callbackButton('Setting', 'setting'),
-  Markup.callbackButton('Token','token')
+  Markup.callbackButton('Token','token'),
+  Markup.callbackButton('RAM Price','ram')
   //Markup.callbackButton('Confirm','confirm')
 ], {column: 2})
 
@@ -234,6 +235,19 @@ function loadData(ctx, cb){
  });
 }
 
+function getRamPrice(ctx){
+eos.getTableRows({json : true,
+                 code : "eosio",
+                 scope: "eosio",
+                 table: "rammarket",
+                 limit: 10}).then(res => {
+ msg = "RAM Price : ";
+ msg += res;
+ console.log(res);
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+});
+}
+
 function saveData(ctx){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
@@ -294,6 +308,7 @@ function deleteAccount(ctx, account){
    console.log("delete account", account);
    msg = account;
    msg += " is deleted";
+   ctx.session.id = "nil";
    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
    db.close
   });
@@ -550,6 +565,8 @@ bot.on('callback_query', (ctx) => {
   token(ctx);
  }else if(action == "id"){
   account(ctx);
+ }else if(action == "ram"){
+  getRamPrice(ctx);
  }else if(action == "setting"){
   setting(ctx);
  }else if(action == "primary"){
