@@ -242,10 +242,14 @@ eos.getTableRows({json : true,
                  table: "rammarket",
                  limit: 10}).then(res => {
  msg = "RAM Price : ";
- msg += res;
+ msg += (res.rows[0].quote / res.rows[0].base) * 1024;
+ msg += "EOS per KiB";
+ /*
  console.log(res);
  console.log(res.rows[0].base);
  console.log(res.rows[0].quote);
+ */
+ 
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
 });
 }
