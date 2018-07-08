@@ -245,6 +245,7 @@ eos.getTableRows({json : true,
  msg += res;
  console.log(res);
  console.log(res.rows[0].base);
+ console.log(res.rows[0].quote);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
 });
 }
