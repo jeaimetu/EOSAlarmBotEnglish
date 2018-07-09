@@ -482,7 +482,7 @@ function balance(ctx){
       }
  console.log("refund size", refund)
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
-      msg = "<b1>Total Balance : </b1>";
+      msg = "<b>Total Balance : </b>";
       msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseFloat(v3[0]) + refund;   
       msg += " EOS\n";
       msg += " Total RAM : " + result.ram_quota + " byte" + "\n";
