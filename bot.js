@@ -31,7 +31,7 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Token','token'),
   Markup.callbackButton('RAM Price','ram')
   //Markup.callbackButton('Confirm','confirm')
-], {parse_mode : "HTML"})
+])
 
 
 function makeMessage(ctx){
@@ -51,7 +51,7 @@ function makeMessage(ctx){
   finalResult = "Current account : " + ctx.session.id;
   finalResult = "Touch an account button to register EOS account.";
  finalResult += "\n";
-  finalResult += "<b>Please vote eoscafeblock</b>, eosyskoreabp, eosnodeonebp, acroeos12345.";
+  finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp, acroeos12345.";
    finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
@@ -301,7 +301,7 @@ function setPrimary(ctx, account){
     dbo.collection("customers").updateOne(findquery, pValue, function(err, result){
      console.log("Primary flag update completed", ctx.session.id);
      msg = account;
-     msg += " is primary account now setted";
+     msg += "**is primary account now setted**";
      ctx.session.id = account;
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
      db.close();  
