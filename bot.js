@@ -485,8 +485,10 @@ function balance(ctx){
       msg = "<b>Total Balance : </b>";
       msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseFloat(v3[0]) + refund;   
       msg += " EOS\n";
-      msg += " Total RAM : " + result.ram_quota + " byte" + "\n";
-      msg += " RAM Used : " + result.ram_usage + " byte" + "\n"
+      msg += "Total RAM : " + result.ram_quota + " byte" + "\n";
+      msg += "RAM Used : " + result.ram_usage + " byte" + "\n"
+      var ramSellSize = result.ram_quota - result.ram_usage - 4096;
+      msg += "You can sell RAM safely : " + ramSellSize + "\n"
       msg += "Unstaked : " + parseFloat(v3[0]);
       msg += " EOS\n";
       msg += "Staking for CPU : "
