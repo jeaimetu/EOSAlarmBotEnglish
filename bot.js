@@ -244,7 +244,8 @@ eos.getTableRows({json : true,
  msg = "RAM Price : ";
  var a1 = res.rows[0].quote.balance.split(" ");
  var a2 = res.rows[0].base.balance.split(" ");
- msg += (parseFloat(a1[0]) / parseFloat(a2[0])) * 1024;
+ var a3 = (parseFloat(a1[0]) / parseFloat(a2[0])) * 1024;
+ msg += a3.toFixed(8);
  msg += " EOS per KiB";
 
  //console.log(res);
