@@ -302,6 +302,7 @@ function setPrimary(ctx, account){
      console.log("Primary flag update completed", ctx.session.id);
      msg = account;
      msg += " is primary account now setted";
+     ctx.session.id = account;
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
      db.close();  
    }); //end of updateOne
