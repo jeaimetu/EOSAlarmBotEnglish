@@ -482,9 +482,11 @@ function balance(ctx){
       }
  console.log("refund size", refund)
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
-      msg = "Total Balance : ";
+      msg = "<b1>Total Balance : </b1>";
       msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseFloat(v3[0]) + refund;   
       msg += " EOS\n";
+      msg += " Total RAM : " + result.ram_quota + " byte" + "\n";
+      msg += " RAM Used : " + result.ram_usage + " byte" + "\n"
       msg += "Unstaked : " + parseFloat(v3[0]);
       msg += " EOS\n";
       msg += "Staking for CPU : "
