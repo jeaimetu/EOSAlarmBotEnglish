@@ -354,7 +354,7 @@ function stepCheck(ctx){
 //bot init
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
 bot.use(session())
-bot.use(Telegraf.log())
+//bot.use(Telegraf.log())
 
 
 
