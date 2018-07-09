@@ -92,6 +92,14 @@ function formatData(data, type){
    msg = "Your Authority Updated";
    msg += "\n";
    msg += "Public Key " + data.auth.keys[0].key;
+  }else if(type == "sellram"){
+   msg = "You sell RAM";
+   msg += "\n";
+   msg += "Amount " + data.bytes;
+  }else if(type == "buyram"){
+   msg = "You buy RAM";
+   msg += "\n";
+   msg += "Amount " + data.quant + " to " + data.receiver;
   }else{
    //console.log("need to be implemented");
    msg = "This event will be supported in near future)";
@@ -156,8 +164,12 @@ function checkAccount(result){
    account = trx.actions[0].authorization[0].actor;
   }else if(type == "refund"){
    account = data.owner;
+  }else if(type == "buyram"){
+   account = data.payer;
+  }else if(type == "sellram"){
+   account = data.account;
   }else if(type == "updateauth"){
-   account = data.xxxxxxoooooo;
+   account = data.account;
   }else{
    account = "unknown";
    //console.log("need to be implemented", type);
