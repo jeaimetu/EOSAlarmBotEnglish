@@ -42,7 +42,7 @@ function makeMessage(ctx){
     finalResult = "Current account : " + ctx.session.id;
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "**Please vote eoscafeblock**, eosyskoreabp, eosnodeonebp, acroeos12345.";
+  finalResult += "<b>Please vote eoscafeblock</b>, eosyskoreabp, eosnodeonebp, acroeos12345.";
    finalResult += "\n";
   finalResult += "copyright EOS.Cafe Korea";
   
@@ -51,7 +51,7 @@ function makeMessage(ctx){
   finalResult = "Current account : " + ctx.session.id;
   finalResult = "Touch an account button to register EOS account.";
  finalResult += "\n";
-  finalResult += "**Please vote eoscafeblock**, eosyskoreabp, eosnodeonebp, acroeos12345.";
+  finalResult += "<b>Please vote eoscafeblock</b>, eosyskoreabp, eosnodeonebp, acroeos12345.";
    finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
@@ -301,9 +301,9 @@ function setPrimary(ctx, account){
     dbo.collection("customers").updateOne(findquery, pValue, function(err, result){
      console.log("Primary flag update completed", ctx.session.id);
      msg = account;
-     msg += "**is primary account now setted**";
+     msg += "<b>is primary account now setted</b>";
      ctx.session.id = account;
-     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.Markdown().markup(keyboard))
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
      db.close();  
    }); //end of updateOne
    }); //end of updateMany query
@@ -391,7 +391,7 @@ bot.start((ctx) => {
   var msg = makeMessage(ctx);
   loadData(ctx, function(id){
    ctx.session.id = id;
-  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.Markdown().markup(keyboard))
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
   });
   
   ctx.reply('Hello')
