@@ -24,9 +24,9 @@ eos = Eos(eosconfig) // 127.0.0.1:8888
 
 
 const keyboard = Markup.inlineKeyboard([[
-  Markup.callbackButton('Account', 'id'),
-  Markup.callbackButton('Price', 'price'),
-  Markup.callbackButton('Balance', 'balance')],
+  Markup.callbackButton('Add Account', 'id'),
+  Markup.callbackButton('EOS Price', 'price')],
+  Markup.callbackButton('Balance', 'balance'),
   [Markup.callbackButton('Setting', 'setting'),
   Markup.callbackButton('Token','token'),
   Markup.callbackButton('RAM Price','ram')
@@ -488,20 +488,21 @@ function balance(ctx){
       msg += " EOS\n";      
       msg += "Unstaked : " + parseFloat(v3[0]);
       msg += " EOS\n";
-      msg += "Staking for CPU     : "
+      msg += "Staking for CPU : "
       msg += result.self_delegated_bandwidth.cpu_weight;
       msg += "\n";
-      msg += "Staking for Network : "
+      msg += "Staking for NET : "
       msg += result.self_delegated_bandwidth.net_weight;
       msg += "\n";
       msg += "Refund              : ";
-      msg += refund + "EOS";
-      
+      msg += refund + " EOS";
+      msg += "\n";
+      msg += "\n";
       msg += "<b> RAM Information </b>" + "\n";
-      msg += "Total RAM     : " + result.ram_quota + " bytes" + "\n";
-      msg += "RAM Used      : " + result.ram_usage + " bytes" + "\n"
-      var ramSellSize = result.ram_quota - result.ram_usage - 4096;
-      msg += "Safe Selling Amount : " + ramSellSize + "bytes" + "\n"
+      msg += "Total RAM : " + result.ram_quota + " bytes" + "\n";
+      msg += "Used RAM : " + result.ram_usage + " bytes" + "\n"
+      var ramSellSize = result.ram_quota - result.ram_usage - 2048;
+      msg += "Safe Selling Amount : " + ramSellSize + " bytes" + "\n"
       ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
      });//end of getTableRow
      }); //end of get Account
