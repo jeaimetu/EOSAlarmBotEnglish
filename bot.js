@@ -256,7 +256,7 @@ eos.getTableRows({json : true,
 
  ctx.telegram.sendMessage(ctx.from.id, msg)
  msg = makeMessage(ctx);
-  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
 });
 }
 
@@ -438,7 +438,7 @@ function price(ctx){
      msg =  msg = "Current account : " + ctx.session.id;
    msg += "\n";
      msg += makePriceMessage(res);
-     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
      ctx.session.step = 2;
      db.close();
     });
@@ -450,7 +450,7 @@ function balance(ctx){
   ctx.session.id = id;
  if(ctx.session.id == -1){
   msg = "Please register your EOS account.";
-  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
  }else{
   ctx.reply("Retrieving account balance...");
   
@@ -495,7 +495,7 @@ function balance(ctx){
       msg += "\n";
       msg += "Refund : ";
       msg += refund;
-      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
      });//end of getTableRow
      }); //end of get Account
   }); //end of getCurrencyBalance
@@ -529,7 +529,7 @@ function setting(ctx){
   Markup.callbackButton('Delete Account', 'delete')
 ], {column: 1});
  msg = "Please select the operation";
- ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard)); 
+ ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard)); 
 }
 
 function accountAction(ctx){
@@ -556,7 +556,7 @@ function accountAction(ctx){
    });
      const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});     
     var msg = "Select your account";
-     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboardId));
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboardId));
     
      //ctx.session.step = 2;
      db.close();
