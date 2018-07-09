@@ -23,7 +23,7 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
 eos = Eos(eosconfig) // 127.0.0.1:8888
 
 
-const keyboard = Markup.inlineKeyboard([
+const keyboard = Markup.inlineKeyboard([[
   Markup.callbackButton('Account', 'id'),
   Markup.callbackButton('Price', 'price'),
   Markup.callbackButton('Balance', 'balance')],
@@ -31,7 +31,7 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Token','token'),
   Markup.callbackButton('RAM Price','ram')
   //Markup.callbackButton('Confirm','confirm')
-])
+]])
 
 
 function makeMessage(ctx){
