@@ -51,7 +51,7 @@ function makeMessage(ctx){
   finalResult = "Current account : " + ctx.session.id;
   finalResult = "Touch an account button to register EOS account.";
  finalResult += "\n";
-  finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp, acroeos12345.";
+  finalResult += "**Please vote eoscafeblock**, eosyskoreabp, eosnodeonebp, acroeos12345.";
    finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
@@ -303,7 +303,7 @@ function setPrimary(ctx, account){
      msg = account;
      msg += "**is primary account now setted**";
      ctx.session.id = account;
-     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
+     ctx.telegram.sendMessage(ctx.from.id, msg, parse_mode = "Markdown", Extra.HTML().markup(keyboard))
      db.close();  
    }); //end of updateOne
    }); //end of updateMany query
