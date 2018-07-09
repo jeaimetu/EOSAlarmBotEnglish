@@ -31,7 +31,7 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Token','token'),
   Markup.callbackButton('RAM Price','ram')
   //Markup.callbackButton('Confirm','confirm')
-], {column: 2})
+])
 
 
 function makeMessage(ctx){
