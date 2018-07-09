@@ -244,11 +244,11 @@ eos.getTableRows({json : true,
  msg = "RAM Price : ";
  msg += (parseFloat(res.rows[0].quote) / parseFloat(res.rows[0].base)) * 1024;
  msg += " EOS per KiB";
- /*
- console.log(res);
+
+ //console.log(res);
  console.log(res.rows[0].base);
  console.log(res.rows[0].quote);
- */
+
  
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
 });
