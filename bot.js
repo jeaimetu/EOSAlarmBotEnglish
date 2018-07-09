@@ -429,7 +429,7 @@ function makePriceMessage(res){
 }
 
 function price(ctx){
-     ctx.reply("Retrieving EOS price...");
+
       //get price
    MongoClient.connect(url, function(err, db) {
     var dbo = db.db("heroku_9472rtd6");       
@@ -452,7 +452,7 @@ function balance(ctx){
   msg = "Please register your EOS account.";
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
  }else{
-  ctx.reply("Retrieving account balance...");
+  
   
     eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
      console.log("getCurrencyBalance", result)
@@ -482,23 +482,26 @@ function balance(ctx){
       }
  console.log("refund size", refund)
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
-      msg = "<b>Total Balance : </b>";
-      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseFloat(v3[0]) + refund;   
-      msg += " EOS\n";
-      msg += "Total RAM : " + result.ram_quota + " byte" + "\n";
-      msg += "RAM Used : " + result.ram_usage + " byte" + "\n"
-      var ramSellSize = result.ram_quota - result.ram_usage - 4096;
-      msg += "You can sell RAM safely : " + ramSellSize + "\n"
+      msg = "<b>EOS Information</b>" + "\n";
+      msg += "Total Balance : ";
+      msg += (parseFloat(v1[0]) + parseFloat(v2[0]) + parseFloat(v3[0]) + refund).toFixed(4);
+      msg += " EOS\n";      
       msg += "Unstaked : " + parseFloat(v3[0]);
       msg += " EOS\n";
-      msg += "Staking for CPU : "
+      msg += "Staking for CPU     : "
       msg += result.self_delegated_bandwidth.cpu_weight;
       msg += "\n";
       msg += "Staking for Network : "
       msg += result.self_delegated_bandwidth.net_weight;
       msg += "\n";
-      msg += "Refund : ";
-      msg += refund;
+      msg += "Refund              : ";
+      msg += refund + "EOS";
+      
+      msg += "<b> RAM Information </b>" + "\n";
+      msg += "Total RAM     : " + result.ram_quota + " bytes" + "\n";
+      msg += "RAM Used      : " + result.ram_usage + " bytes" + "\n"
+      var ramSellSize = result.ram_quota - result.ram_usage - 4096;
+      msg += "Safe Selling Amount : " + ramSellSize + "bytes" + "\n"
       ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
      });//end of getTableRow
      }); //end of get Account
@@ -511,7 +514,7 @@ function balance(ctx){
 }
 
 function token(ctx){
- ctx.reply("Retrieving token balance....");
+
  loadData(ctx, function(id){
   ctx.session.id = id;
   console.log("Token balance", ctx.session.id);
@@ -530,10 +533,47 @@ function account(ctx){
 function setting(ctx){
  const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Set Primary Account', 'primary'),
-  Markup.callbackButton('Delete Account', 'delete')
+  Markup.callbackButton('Delete Account', 'delete'),
+  Markup.callbackButton('List Accounts', 'list')
 ], {column: 1});
  msg = "Please select the operation";
  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard)); 
+}
+
+function listAccounts(ctx){
+  var idListString = [];
+      //get price
+ console.log("before making ", idListString);
+ console.log("setting chat id ", ctx.from.id);
+   MongoClient.connect(url, function(err, db) {
+    var dbo = db.db("heroku_9472rtd6");     
+    var findquery = {chatid : ctx.from.id};
+    dbo.collection("customers").find(findquery).toArray(function(err, res){
+     console.log(res)
+     //make id array
+
+     for(i = 0;i<res.length;i++){
+      console.log("setting push data", res[i].eosid);
+      idListString.push({text : res[i].eosid, callback_data : res[i].eosid});
+     }
+         console.log("after making", idListString);
+ 
+    var keyboardStr = JSON.stringify({
+      inline_keyboard: [ idListString ]
+      
+   });
+     const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});     
+    var msg = "Your registered accounts";
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboardId));
+      msg = makeMessage(ctx);
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
+    
+     //ctx.session.step = 2;
+     db.close();
+   });
+
+
+  });
 }
 
 function accountAction(ctx){
@@ -576,11 +616,15 @@ bot.on('callback_query', (ctx) => {
  //console.log("callbackQeury", callbackQuery);
  
  if(action === "price"){
+  ctx.reply("Retrieving EOS price...");
   price(ctx);
+  
 
  }else if(action === "balance"){
+  ctx.reply("Retrieving Account balance...");
   balance(ctx)
  }else if(action === "token"){
+  ctx.reply("Retrieving token balance...");
   token(ctx);
  }else if(action == "id"){
   account(ctx);
@@ -593,7 +637,10 @@ bot.on('callback_query', (ctx) => {
   accountAction(ctx);
  }else if(action == "delete"){
   ctx.session.accountAction = "delete";
-  accountAction(ctx);
+  accountAction(ctx);  
+ else if(action == "list"){
+  listAccounts(ctx);  
+ }
  }else{ 
 
   if(ctx.session.accountAction === "primary"){
