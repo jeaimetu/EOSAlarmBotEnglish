@@ -13,19 +13,26 @@ Currently supported actions are
 - unstaking
 - staking
 - voting
+- and so forth!
 
 Others are will be supported in near future(e.g. BuyRam, UpdateAuth)
 
 ## Roadmap
-1. Supporting Multi Accounts
-2. Supporting more events and actions
-3. Supporting querying account actions history
-4. Price from more exchanges
+1. Supporting Multi Accounts - Completed
+2. Supporting more events and actions - In progress
+3. Supporting querying account actions history - In progress
+4. Price from more exchanges - In progress
 5. Anything what you want
 
 ## Release note
 version 1.0 - Initial release
 version 1.1 - Total balance sum error fix, Adding real time(in 1 min) event notification, adding many events
+version 1.2
+- Multiple account support : Observing for all registered accounts, Querying balance of EOS and TOKEN for the primary account.
+- Adding parsing mechanism for all transaction and actions
+- Adding issue event for Token airdrop
+- Bug fix : A single account observation for multiple telegram IDs (Thanks for the creator of Jungle Net)
+- Adding HTML text 
 
 ## Disclaimer
 This is beta version, so some event report can be dropped.
