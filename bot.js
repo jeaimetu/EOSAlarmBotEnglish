@@ -363,13 +363,15 @@ module.exports.sendAlarm = function(account, msg){
  MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
   var findquery = {eosid : account};
-  dbo.collection("customers").findOne(findquery, function(err, result){
-   if(result == null){
+  dbo.collection("customers").find(findquery).toArray(function(err, result){
+   if(result.length == 0){
     //console.log("no matched account for ", account);
     ;
    }else{
      //send message
-    bot.telegram.sendMessage(result.chatid, msg);
+    for(int i = 0;i < result.length; i++){
+     bot.telegram.sendMessage(result[i].chatid, msg);
+    }
    }
    db.close();
   });//end of findOne
