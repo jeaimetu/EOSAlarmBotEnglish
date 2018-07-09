@@ -245,7 +245,7 @@ eos.getTableRows({json : true,
  var a1 = res.rows[0].quote.balance.split(" ");
  var a2 = res.rows[0].base.balance.split(" ");
  var a3 = (parseFloat(a1[0]) / parseFloat(a2[0])) * 1024;
- msg += a3.toFixed(8);
+ msg += a3.toFixed(4);
  msg += " EOS per KiB";
 
  //console.log(res);
@@ -254,7 +254,8 @@ eos.getTableRows({json : true,
  
 
 
- 
+ ctx.telegram.sendMessage(ctx.from.id, msg)
+ msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
 });
 }
