@@ -42,7 +42,7 @@ function makeMessage(ctx){
     finalResult = "Current account : " + ctx.session.id;
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "Please vote eoscafeblock, eosyskoreabp, eosnodeonebp, acroeos12345.";
+  finalResult += "**Please vote eoscafeblock**, eosyskoreabp, eosnodeonebp, acroeos12345.";
    finalResult += "\n";
   finalResult += "copyright EOS.Cafe Korea";
   
@@ -391,7 +391,7 @@ bot.start((ctx) => {
   var msg = makeMessage(ctx);
   loadData(ctx, function(id){
    ctx.session.id = id;
-  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
+  ctx.telegram.sendMessage(ctx.from.id, msg, parse_mode = "Markdown", Extra.markup(keyboard))
   });
   
   ctx.reply('Hello')
