@@ -127,7 +127,7 @@ function checkAccount(result){
   var trx = result.transactions[i].trx.transaction;
   if(trx == undefined)
    return;
-   for(j=0;j<actions.length;j++){
+   for(j=0;j<trx.actions.length;j++){
     
   var type = trx.actions[j].name;
   var data = trx.actions[j].data;
