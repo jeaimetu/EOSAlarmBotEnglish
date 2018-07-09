@@ -37,3 +37,8 @@ version 1.2
 ## Disclaimer
 This is beta version, so some event report can be dropped.
 
+## Donation
+If you like this software and think this is helpful, then you can help us for donating EOS to "eoscafekorea".
+To maintain this service, we need server operation expense. Small help will make big output. Thanks.
+
+
