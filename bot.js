@@ -369,7 +369,7 @@ module.exports.sendAlarm = function(account, msg){
     ;
    }else{
      //send message
-    for(int i = 0;i < result.length; i++){
+    for(i = 0;i < result.length; i++){
      bot.telegram.sendMessage(result[i].chatid, msg);
     }
    }
