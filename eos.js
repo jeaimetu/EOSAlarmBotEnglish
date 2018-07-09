@@ -127,13 +127,17 @@ function checkAccount(result){
   var trx = result.transactions[i].trx.transaction;
   if(trx == undefined)
    return;
-  var type = trx.actions[0].name;
-  var data = trx.actions[0].data;
+   for(j=0;j<actions.length;j++){
+    
+  var type = trx.actions[j].name;
+  var data = trx.actions[j].data;
   var account = null;
   if(type == "transfer"){
    account = data.from;
   }else if(type == "newaccount"){
    account = data.creator;
+  }else if(type == "issue"){
+   account = data.to;
   }else if(type == "voteproducer"){
    account = data.voter;  
   }else if(type == "undelegatebw"){
@@ -164,7 +168,8 @@ function checkAccount(result){
    //save data to database
    saveData(result.block_num, account, data, type);
   }
- }//end of for
+   }//end of for, actions
+ }//end of for of transaction
  }//end of else
  
 }
