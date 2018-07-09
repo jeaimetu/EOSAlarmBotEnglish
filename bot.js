@@ -242,7 +242,7 @@ eos.getTableRows({json : true,
                  table: "rammarket",
                  limit: 10}).then(res => {
  msg = "RAM Price : ";
- msg += (parseFloat(res.rows[0].quote) / parsetFloat(res.rows[0].base)) * 1024;
+ msg += (parseFloat(res.rows[0].quote) / parseFloat(res.rows[0].base)) * 1024;
  msg += " EOS per KiB";
  /*
  console.log(res);
