@@ -638,7 +638,7 @@ bot.on('callback_query', (ctx) => {
  }else if(action == "delete"){
   ctx.session.accountAction = "delete";
   accountAction(ctx);  
- else if(action == "list"){
+ }else if(action == "list"){
   listAccounts(ctx);  
  }
  }else{ 
