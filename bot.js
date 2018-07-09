@@ -303,7 +303,7 @@ function setPrimary(ctx, account){
      msg = account;
      msg += "**is primary account now setted**";
      ctx.session.id = account;
-     ctx.telegram.sendMessage(ctx.from.id, msg, parse_mode = "Markdown", Extra.HTML().markup(keyboard))
+     ctx.telegram.sendMessage(ctx.from.id, msg,"Markdown", Extra.HTML().markup(keyboard))
      db.close();  
    }); //end of updateOne
    }); //end of updateMany query
@@ -391,7 +391,7 @@ bot.start((ctx) => {
   var msg = makeMessage(ctx);
   loadData(ctx, function(id){
    ctx.session.id = id;
-  ctx.telegram.sendMessage(ctx.from.id, msg, parse_mode = "Markdown", Extra.markup(keyboard))
+  ctx.telegram.sendMessage(ctx.from.id, msg, "Markdown", Extra.markup(keyboard))
   });
   
   ctx.reply('Hello')
