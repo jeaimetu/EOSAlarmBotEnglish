@@ -25,14 +25,16 @@ Others are will be supported in near future(e.g. BuyRam, UpdateAuth)
 5. Anything what you want
 
 ## Release note
-version 1.0 - Initial release
-version 1.1 - Total balance sum error fix, Adding real time(in 1 min) event notification, adding many events
+version 1.0 - Initial release <BR>
+version 1.1 - Total balance sum error fix, Adding real time(in 1 min) event notification, adding many events<BR>
 version 1.2
 - Multiple account support : Observing for all registered accounts, Querying balance of EOS and TOKEN for the primary account.
 - Adding parsing mechanism for all transaction and actions
 - Adding issue event for Token airdrop
 - Bug fix : A single account observation for multiple telegram IDs (Thanks for the creator of Jungle Net)
 - Adding HTML text 
+- Adding RAM price and your own RAM size
+- Safe RAM size to sell
 
 ## Disclaimer
 This is beta version, so some event report can be dropped.
