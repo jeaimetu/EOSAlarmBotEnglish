@@ -17,7 +17,7 @@ Eos = require('eosjs') // Eos = require('./src')
 
 
 eosconfig = {
-httpEndpoint: "http://mainnet.eoscalgary.io"
+ httpEndpoint: "https://mainnet.eoscalgary.io"
 }
  
 eos = Eos(eosconfig) // 127.0.0.1:8888
