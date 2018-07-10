@@ -23,11 +23,11 @@ eos = Eos(eosconfig)
 // Menu
 const keyboard = Markup.inlineKeyboard([
  [ Markup.callbackButton('😎 Add Account', 'id'),
-   Markup.callbackButton('💰 Show Balance', 'balance') ],
+   Markup.callbackButton('💰 EOS Balance', 'balance') ],
  [ Markup.callbackButton('📈 EOS Price', 'price'),
-   Markup.callbackButton('🔮 Token','token'),
+   Markup.callbackButton('🔮 Token Balance','token'),
    Markup.callbackButton('💾 RAM Price','ram'),
-   Markup.callbackButton('🔧 Setting', 'setting') ]
+   Markup.callbackButton('🔧 Settings', 'setting') ]
 ])
 
 // Reset
