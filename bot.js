@@ -151,14 +151,17 @@ async function getCetosBalance(account){
 
 
 async function getTokenBalance(account, cb){
- let [addBalance, dacBalance, cetosBalance,cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance] = 
+ let [addBalance, dacBalance, cetosBalance,cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance, atdBalance] = 
      await Promise.all([getAddBalance(account), 
                         getDacBalance(account), 
                         getCetosBalance(account),
                         getCetBalance(account),
                         getTokenBalanceEach(account, "ednazztokens"),
                         getTokenBalanceEach(account, "horustokenio"),            
-                        getTokenBalanceEach(account, "eoxeoxeoxeox")]);
+                        getTokenBalanceEach(account, "eoxeoxeoxeox"),
+                        getTokenBalanceEach(account, "eosvrtokenss"),
+                        getTokenBalanceEach(account, "esbcointoken"),
+                        getTokenBalanceEach(account, "eosatidiumio")]);
 console.log(addBalance, dacBalance, cetosBalance);
  msg = "Current account : " + account;
  msg += "\n";
@@ -201,6 +204,13 @@ console.log(addBalance, dacBalance, cetosBalance);
  msg += t[1] + " : " + t[0];}
 else
   msg += "CET : 0";
+   msg += "\n"; 
+ 
+  if(atdBalance != null){
+    t = atdBalance.split(" ");
+   msg += t[1] + " : " + t[0];}
+ else
+  msg += "ATD : 0";
    msg += "\n"; 
  
    if(ednaBalance != null){
