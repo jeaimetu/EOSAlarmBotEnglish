@@ -24,12 +24,12 @@ eos = Eos(eosconfig) // 127.0.0.1:8888
 
 
 const keyboard = Markup.inlineKeyboard([[
-  Markup.callbackButton('Add Account', 'id'),
-  Markup.callbackButton('EOS Price', 'price')],
-  [Markup.callbackButton('Balance', 'balance'),
-  Markup.callbackButton('Setting', 'setting'),
-  Markup.callbackButton('Token','token'),
-  Markup.callbackButton('RAM Price','ram')
+  Markup.callbackButton('😎 Add Account', 'id'),
+  Markup.callbackButton('📈 EOS Price', 'price')],
+  [Markup.callbackButton('💰 Balance', 'balance'),
+  Markup.callbackButton('🔧 Setting', 'setting'),
+  Markup.callbackButton('🔮 Token','token'),
+  Markup.callbackButton('💾 RAM Price','ram')
   //Markup.callbackButton('Confirm','confirm')
 ]])
 
@@ -494,15 +494,15 @@ function balance(ctx){
       msg += "Staking for NET : "
       msg += result.self_delegated_bandwidth.net_weight;
       msg += "\n";
-      msg += "Refund              : ";
+      msg += "Refund : ";
       msg += refund + " EOS";
       msg += "\n";
       msg += "\n";
-      msg += "<b> RAM Information </b>" + "\n";
+      msg += "<b>RAM Information </b>" + "\n";
       msg += "Total RAM : " + result.ram_quota + " bytes" + "\n";
       msg += "Used RAM : " + result.ram_usage + " bytes" + "\n"
       var ramSellSize = result.ram_quota - result.ram_usage - 2048;
-      msg += "Safe Selling Amount : " + ramSellSize + " bytes" + "\n"
+      msg += "Safe Selling : " + ramSellSize + " bytes" + "\n"
       ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
      });//end of getTableRow
      }); //end of get Account
@@ -533,9 +533,9 @@ function account(ctx){
 
 function setting(ctx){
  const keyboard = Markup.inlineKeyboard([
-  Markup.callbackButton('Set Primary Account', 'primary'),
-  Markup.callbackButton('Delete Account', 'delete'),
-  Markup.callbackButton('List Accounts', 'list')
+  Markup.callbackButton('📝 Set Primary Account', 'primary'),
+  Markup.callbackButton('♻️ Delete Account', 'delete'),
+  Markup.callbackButton('🆔 List Accounts', 'list')
 ], {column: 1});
  msg = "Please select the operation";
  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard)); 
