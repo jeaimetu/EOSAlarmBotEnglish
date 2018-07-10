@@ -25,11 +25,11 @@ eos = Eos(eosconfig) // 127.0.0.1:8888
 
 const keyboard = Markup.inlineKeyboard([[
   Markup.callbackButton('😎 Add Account', 'id'),
-  Markup.callbackButton('📈 EOS Price', 'price')],
-  [Markup.callbackButton('💰 Balance', 'balance'),
-  Markup.callbackButton('🔧 Setting', 'setting'),
-  Markup.callbackButton('🔮 Token','token'),
-  Markup.callbackButton('💾 RAM Price','ram')
+  Markup.callbackButton('💰 Show Balance', 'balance')],
+  [Markup.callbackButton('📈 EOS Price', 'price'),
+   Markup.callbackButton('🔮 Token','token'),
+  Markup.callbackButton('💾 RAM Price','ram'),
+   Markup.callbackButton('🔧 Setting', 'setting')
   //Markup.callbackButton('Confirm','confirm')
 ]])
 
