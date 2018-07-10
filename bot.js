@@ -7,37 +7,35 @@ const Composer = require('telegraf/composer')
 const WizardScene = require('telegraf/scenes/wizard')
 const Stage = require('telegraf/stage')
 
+// Mongo
+let mongo = require('mongodb');
+let MongoClient = require('mongodb').MongoClient;
+let url = process.env.MONGODB_URI;
 
-var mongo = require('mongodb');
-
-var MongoClient = require('mongodb').MongoClient;
-var url = process.env.MONGODB_URI;
-
-Eos = require('eosjs') // Eos = require('./src')
-
-
+// EOS
+Eos = require('eosjs')
 eosconfig = {
  httpEndpoint: "https://mainnet.eoscalgary.io"
 }
- 
-eos = Eos(eosconfig) // 127.0.0.1:8888
+eos = Eos(eosconfig)
 
-
-const keyboard = Markup.inlineKeyboard([[
-  Markup.callbackButton('😎 Add Account', 'id'),
-  Markup.callbackButton('💰 Show Balance', 'balance')],
-  [Markup.callbackButton('📈 EOS Price', 'price'),
+// Menu
+const keyboard = Markup.inlineKeyboard([
+ [ Markup.callbackButton('😎 Add Account', 'id'),
+   Markup.callbackButton('💰 Show Balance', 'balance') ],
+ [ Markup.callbackButton('📈 EOS Price', 'price'),
    Markup.callbackButton('🔮 Token','token'),
    Markup.callbackButton('💾 RAM Price','ram'),
-   Markup.callbackButton('🔧 Setting', 'setting')
-]])
+   Markup.callbackButton('🔧 Setting', 'setting') ]
+])
 
-
-function initMessage(ctx){
+// Reset
+function reset(ctx){
  ctx.session.id = 'nil';
  ctx.session.transaction = 'nil';
 }
 
+// Initialization Message
 function makeMessage(ctx){
   return `${ctx.session.id == 'nil' 
                ? 'Current account: ' + ctx.session.id 
@@ -47,7 +45,7 @@ function makeMessage(ctx){
 © EOS Cafe Korea`
 }
 
-//Get token balance
+// Get token balance
 async function getAddBalance(account){
  let bal = await eos.getTableRows({json : true,
                       code : "eosadddddddd",
@@ -388,54 +386,42 @@ module.exports.sendAlarm = function(account, msg){
 
 
 bot.start((ctx) => {
-
-  //save etc values
-  ctx.session.telegram = ctx.message.chat.username;
-  ctx.session.language = ctx.message.from.language_code;
-  initMessage(ctx);
-  var msg = makeMessage(ctx);
-  loadData(ctx, function(id){
+ 
+  // Save etc values
+  ctx.session.telegram = ctx.message.chat.username
+  ctx.session.language = ctx.message.from.language_code
+ 
+  reset(ctx)
+  let msg = makeMessage(ctx)
+  
+  loadData(ctx, id => {
    ctx.session.id = id;
-  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
-  });
+   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
+  })
   
   ctx.reply('Hello')
 })
 
-bot.on('message', (ctx) => {
+bot.on('message', ctx => {
   stepCheck(ctx);
 
-  var msg = makeMessage(ctx);
+  let msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
 });
 
-
-
 function makePriceMessage(res){
+ return `EOS Price: $${res[0].usd}
+         EOS Price: ${Math.floor(res[0].krw)}KRW
+         Provided by: ${res[0].exchange}
 
-
- msg = "EOS Price : " + "$" + res[0].usd;
- msg += "\n";
- msg += "EOS Price : " + Math.floor(res[0].krw) + "KRW";
- msg += "\n";
- msg += "Provided by ";
- msg += res[0].exchange;
- msg += "\n";
- msg += "EOS Selling Price : " + res[1].krw + "KRW";
- msg += "\n";
- msg += "EOS Buying Price : " + res[1].krwbuy + "KRW";
-  msg += "\n";
- msg += "Provided by " + res[1].exchange;
- //diff =  res[0].krw - res[1].krw;
- 
- 
- //msg += "Market difference : " + diff + "KRW";
- return msg; 
+         EOS Selling Price: ${res[1].krw}
+         EOS Buying Price: ${res[1].krwbuy}KRW
+         Provided by: ${res[1].exchange}`
 }
 
 function price(ctx){
 
-      //get price
+   // Get price
    MongoClient.connect(url, function(err, db) {
     var dbo = db.db("heroku_9472rtd6");       
     dbo.collection("price").find().toArray(function(err, res){
