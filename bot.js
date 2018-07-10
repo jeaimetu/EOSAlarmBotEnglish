@@ -410,13 +410,13 @@ bot.on('message', ctx => {
 });
 
 function makePriceMessage(res){
- return `EOS Price: $${(res[0].usd).toFixed(2)}
-        EOS Price: ${Math.floor(res[0].krw)}KRW
-        Provided by: ${res[0].exchange}
+ return stripIndents`EOS Price: $${(res[0].usd).toFixed(2)}
+                     EOS Price: ${Math.floor(res[0].krw)}KRW
+                     Provided by: ${res[0].exchange}
 
-        EOS Selling Price: ${res[1].krw}
-        EOS Buying Price: ${res[1].krwbuy}KRW
-        Provided by: ${res[1].exchange}`.replace(/^(\s{2})+/gm, '')
+                     EOS Selling Price: ${res[1].krw}
+                     EOS Buying Price: ${res[1].krwbuy}KRW
+                     Provided by: ${res[1].exchange}`
 }
 
 function price(ctx){
