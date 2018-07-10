@@ -35,8 +35,8 @@ const keyboard = Markup.inlineKeyboard([[
 
 
 function makeMessage(ctx){
-  return `${ctx.sessionid == 'nil' 
-               ? 'Current account: ' + ctx.sessionid 
+  return `${ctx.session.id == 'nil' 
+               ? 'Current account: ' + ctx.session.id 
                : 'Click Add Account button to get started.'}
 
           <b>Please vote for eoscafeblock</b>, eosyskoreabp, eosnodeonebp, and acroeos12345.
