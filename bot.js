@@ -1,11 +1,12 @@
-const Telegraf = require('telegraf');   // Module to use Telegraf API.
-const config = require('./config'); // Configuration file that holds telegraf_token API key.
-const session = require('telegraf/session')
-const Extra = require('telegraf/extra')
-const Markup = require('telegraf/markup')
-const Composer = require('telegraf/composer')
-const WizardScene = require('telegraf/scenes/wizard')
-const Stage = require('telegraf/stage')
+import Telegraf from 'telegraf' // Module to use Telegraf API.
+import config from './config' // Configuration file that holds telegraf_token API key.
+import session from 'telegraf/session'
+import Extra from 'telegraf/extra'
+import Markup from 'telegraf/markup'
+import Composer from 'telegraf/composer'
+import WizardScene from 'telegraf/scenes/wizard'
+import Stage from 'telegraf/stage'
+import { stripIndents } from 'common-tags'
 
 // Mongo
 let mongo = require('mongodb');
