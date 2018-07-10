@@ -1,12 +1,12 @@
-import Telegraf from 'telegraf' // Module to use Telegraf API.
-import config from './config' // Configuration file that holds telegraf_token API key.
-import session from 'telegraf/session'
-import Extra from 'telegraf/extra'
-import Markup from 'telegraf/markup'
-import Composer from 'telegraf/composer'
-import WizardScene from 'telegraf/scenes/wizard'
-import Stage from 'telegraf/stage'
-import { stripIndents } from 'common-tags'
+const Telegraf = require('telegraf');   // Module to use Telegraf API.
+const config = require('./config'); // Configuration file that holds telegraf_token API key.
+const session = require('telegraf/session')
+const Extra = require('telegraf/extra')
+const Markup = require('telegraf/markup')
+const Composer = require('telegraf/composer')
+const WizardScene = require('telegraf/scenes/wizard')
+const Stage = require('telegraf/stage')
+const tl = require('common-tags')
 
 // Mongo
 let mongo = require('mongodb');
@@ -411,13 +411,13 @@ bot.on('message', ctx => {
 });
 
 function makePriceMessage(res){
- return stripIndents`EOS Price: $${(res[0].usd).toFixed(2)}
-                     EOS Price: ${Math.floor(res[0].krw)}KRW
-                     Provided by: ${res[0].exchange}
+ return tl.stripIndents`EOS Price: $${(res[0].usd).toFixed(2)}
+                        EOS Price: ${Math.floor(res[0].krw)}KRW
+                        Provided by: ${res[0].exchange}
 
-                     EOS Selling Price: ${res[1].krw}
-                     EOS Buying Price: ${res[1].krwbuy}KRW
-                     Provided by: ${res[1].exchange}`
+                        EOS Selling Price: ${res[1].krw}
+                        EOS Buying Price: ${res[1].krwbuy}KRW
+                        Provided by: ${res[1].exchange}`
 }
 
 function price(ctx){
