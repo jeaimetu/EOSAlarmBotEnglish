@@ -218,18 +218,22 @@ else
   msg += "HORUS : 0";
  msg += "\n";
  
- if(dacBalance != null){
-    t = dacBalance.split(" ");
- msg += t[1] + " : " + t[0];}
-else
-  msg += "EOSDAC : 0";
-  msg += "\n";
+
 if(cetosBalance != null){
 
     t = cetosBalance.split(" ");
  msg += t[1] + " : " + t[0];}
 else
   msg += "CETOS : 0";
+ 
+    msg += "\n";
+ 
+ if(dacBalance != null){
+    t = dacBalance.split(" ");
+ msg += t[1] + " : " + t[0];}
+else
+  msg += "EOSDAC : 0";
+
 
  cb(msg);
 }
