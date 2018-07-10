@@ -53,7 +53,7 @@ function checkData(ctx){
     !ctx.session.email || !ctx.session.etw || !ctx.session.bts || !ctx.session.ncafe) {
     return false;
   } else {
-    return true:
+    return true;
   }
 }
 
