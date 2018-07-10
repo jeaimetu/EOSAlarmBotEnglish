@@ -164,56 +164,56 @@ console.log(addBalance, dacBalance, cetosBalance);
  msg += "\n";
  msg += "<b>Token Balance</b>"; 
  msg += "\n";
- if(addBalance != null)
+ if(addBalance != null){
   t = addBalance.split(" ");
- msg += t[1] + " : " + t[0];
+ msg += t[1] + " : " + t[0];}
  else
   msg += "ADD : 0";
  msg += "\n";
  
-  if(ednaBalance != null)
+  if(ednaBalance != null){
    t = ednaBalance.split(" ");
- msg += t[1] + " : " + t[0];
+ msg += t[1] + " : " + t[0];}
  else
   msg += "EDNA : 0";
  msg += "\n";
  
-   if(horusBalance != null)
+   if(horusBalance != null){
 
     t = horusBalance.split(" ");
- msg += t[1] + " : " + t[0];
+ msg += t[1] + " : " + t[0];}
  else
   msg += "HORUS : 0";
  msg += "\n";
  
-     if(eoxbalance != null)
+     if(eoxbalance != null){
 
     t = eoxbalance.split(" ");
- msg += t[1] + " : " + t[0];
+ msg += t[1] + " : " + t[0];}
  else
   msg += "EOX : 0";
  msg += "\n";
  
  
  
- if(dacBalance != null)
+ if(dacBalance != null){
 
     t = dacBalance.split(" ");
- msg += t[1] + " : " + t[0];
+ msg += t[1] + " : " + t[0];}
 else
   msg += "EOSDAC : 0";
   msg += "\n";
-if(cetosBalance != null)
+if(cetosBalance != null){
 
     t = cetosBalance.split(" ");
- msg += t[1] + " : " + t[0];
+ msg += t[1] + " : " + t[0];}
 else
   msg += "CETOS : 0";
   msg += "\n"; 
- if(cetBalance != null)
+ if(cetBalance != null){
 
     t = cetBalance.split(" ");
- msg += t[1] + " : " + t[0];
+ msg += t[1] + " : " + t[0];}
 else
   msg += "CET : 0";
  cb(msg);
