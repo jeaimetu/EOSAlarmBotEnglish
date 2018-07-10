@@ -28,33 +28,23 @@ const keyboard = Markup.inlineKeyboard([[
   Markup.callbackButton('💰 Show Balance', 'balance')],
   [Markup.callbackButton('📈 EOS Price', 'price'),
    Markup.callbackButton('🔮 Token','token'),
-  Markup.callbackButton('💾 RAM Price','ram'),
+   Markup.callbackButton('💾 RAM Price','ram'),
    Markup.callbackButton('🔧 Setting', 'setting')
-  //Markup.callbackButton('Confirm','confirm')
 ]])
 
-
-function makeMessage(ctx){
-  return `${ctx.session.id == 'nil' 
-               ? 'Current account: ' + ctx.session.id 
-               : 'Click Add Account button to get started.'}
-
-          <b>Please vote for eoscafeblock</b>, eosyskoreabp, eosnodeonebp, and acroeos12345.
-          © EOS Cafe Korea`
-}
 
 function initMessage(ctx){
  ctx.session.id = 'nil';
  ctx.session.transaction = 'nil';
 }
 
-function checkData(ctx){
-  if(ctx.session.email === "nil" || ctx.session.etw === "nil" || ctx.session.bts === "nil" || ctx.session.ncafe === "nil" ||
-    !ctx.session.email || !ctx.session.etw || !ctx.session.bts || !ctx.session.ncafe) {
-    return false;
-  } else {
-    return true;
-  }
+function makeMessage(ctx){
+  return `${ctx.session.id == 'nil' 
+               ? 'Current account: ' + ctx.session.id 
+               : 'Click Add Account button to get started.'}
+
+<b>Please vote for eoscafeblock</b>, eosyskoreabp, eosnodeonebp, and acroeos12345.
+© EOS Cafe Korea`
 }
 
 //Get token balance
