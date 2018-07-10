@@ -410,30 +410,28 @@ bot.on('message', ctx => {
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
 });
 
-function makePriceMessage(res){
- return tl.stripIndents`EOS Price: $${(res[0].usd).toFixed(2)}
-                        EOS Price: ${Math.floor(res[0].krw)}KRW
-                        Provided by: ${res[0].exchange}
-
-                        EOS Selling Price: ${res[1].krw}
-                        EOS Buying Price: ${res[1].krwbuy}KRW
-                        Provided by: ${res[1].exchange}`
-}
-
 function price(ctx){
 
    // Get price
-   MongoClient.connect(url, function(err, db) {
-    var dbo = db.db("heroku_9472rtd6");       
-    dbo.collection("price").find().toArray(function(err, res){
-     console.log(res)
-     msg =  msg = "Current account : " + ctx.session.id;
-   msg += "\n";
-     msg += makePriceMessage(res);
-     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
-     ctx.session.step = 2;
-     db.close();
-    });
+   MongoClient.connect(url, function(err, connection) {
+     let dbo = connection.db("heroku_9472rtd6");
+    
+     dbo.collection("price").find().toArray(function(err, res){
+   
+       let message = tl.stripIndents`Current Account: ${ctx.session.id ? ctx.session.id : 'None Selected'}
+
+                                     EOS Price: $${(res[0].usd).toFixed(2)}
+                                     EOS Price: ${Math.floor(res[0].krw)}KRW
+                                     Provided by: ${res[0].exchange}
+
+                                     EOS Selling Price: ${res[1].krw}KRW
+                                     EOS Buying Price: ${res[1].krwbuy}KRW
+                                     Provided by: ${res[1].exchange}`
+
+       ctx.telegram.sendMessage(ctx.from.id, message, Extra.HTML().markup(keyboard));
+       ctx.session.step = 2;
+       db.close();
+     });
    });
 }
 
