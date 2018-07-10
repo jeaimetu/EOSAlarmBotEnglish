@@ -603,56 +603,58 @@ function accountAction(ctx){
 
 bot.on('callback_query', (ctx) => {
  const action = ctx.callbackQuery.data;
- //const msg = ctx.callbackQuery.message;
- //console.log("callbackQeury", callbackQuery);
- 
- if(action === "price"){
-  ctx.reply("Retrieving EOS price...");
-  price(ctx);
-  
 
- }else if(action === "balance"){
-  ctx.reply("Retrieving Account balance...");
-  balance(ctx)
- }else if(action === "token"){
-  ctx.reply("Retrieving token balance...");
-  token(ctx);
- }else if(action == "id"){
-  account(ctx);
- }else if(action == "ram"){
-  getRamPrice(ctx);
- }else if(action == "setting"){
-  setting(ctx);
- }else if(action == "primary"){
-  ctx.session.accountAction = "primary";
-  accountAction(ctx);
- }else if(action == "delete"){
-  ctx.session.accountAction = "delete";
-  accountAction(ctx);  
- }else if(action == "list"){
-  listAccounts(ctx);  
- }else{ 
-
-  if(ctx.session.accountAction === "primary"){
-   ctx.session.accountAction = "nil";
-   console.log("set primary account case", action);
-   setPrimary(ctx, action);
-  }else{
-   ctx.session.accountAction = "nil";
-   console.log("delete account case", action);
-   deleteAccount(ctx, action);
-  }
-  
+ switch(action) {
+     case "price":
+         ctx.reply("Retrieving EOS price...")
+         price(ctx)
+         break
+     case "balance":
+         ctx.reply("Retrieving Account balance...")
+         balance(ctx)
+         break
+     case "token":
+         ctx.reply("Retrieving token balance...")
+         token(ctx)
+         break
+     case "id":
+         account(ctx);
+         break
+     case "ram":
+         getRamPrice(ctx);
+         break
+     case "setting":
+         setting(ctx)
+         break
+     case "primary":
+         ctx.session.accountAction = "primary"
+         accountAction(ctx)
+         break
+     case "delete":
+         ctx.session.accountAction = "delete"
+         accountAction(ctx)
+         break
+     case "list":
+         listAccounts(ctx);
+         break
+     default:
+         if (ctx.session.accountAction === "primary") {
+           ctx.session.accountAction = "nil";
+           console.log("set primary account case", action);
+           setPrimary(ctx, action);
+         } else {
+           ctx.session.accountAction = "nil";
+           console.log("delete account case", action);
+           deleteAccount(ctx, action);
+         }
  }
- 
 });
+
 // We can get bot nickname from bot informations. This is particularly useful for groups.
 bot.telegram.getMe().then((bot_informations) => {
     bot.options.username = bot_informations.username;
     console.log("Server has initialized bot nickname. Nick: "+bot_informations.username);
 });
-
-
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
