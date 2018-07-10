@@ -414,9 +414,9 @@ function price(ctx){
 
    // Get price
    MongoClient.connect(url, function(err, connection) {
-     let dbo = connection.db("heroku_9472rtd6");
+     let db = connection.db("heroku_9472rtd6")
     
-     dbo.collection("price").find().toArray(function(err, res){
+     db.collection("price").find().toArray(function(err, res){
    
        let message = tl.stripIndents`Current Account: ${ctx.session.id ? ctx.session.id : 'None Selected'}
 
@@ -428,11 +428,13 @@ function price(ctx){
                                      EOS Buying Price: ${res[1].krwbuy}KRW
                                      Provided by: ${res[1].exchange}`
 
-       ctx.telegram.sendMessage(ctx.from.id, message, Extra.HTML().markup(keyboard));
-       ctx.session.step = 2;
-       db.close();
-     });
-   });
+       ctx.telegram.sendMessage(ctx.from.id, message, Extra.HTML().markup(keyboard))
+       ctx.session.step = 2
+      
+       // Close connection
+       connection.close()
+     })
+   })
 }
 
 function balance(ctx){
