@@ -1,29 +1,21 @@
-Eos = require('eosjs') // Eos = require('./src')
+const Eos = require('eosjs') // Eos = require('./src')
+const mongo = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+const botClient = require('./bot.js');
+const url = rocess.env.MONGODB_URI;
 
-var mongo = require('mongodb');
-
-var botClient = require('./bot.js');
-
-
-var MongoClient = require('mongodb').MongoClient;
-var url = process.env.MONGODB_URI;
-
- 
+// EOS
 eosConfig = {
-httpEndpoint: "http://mainnet.eoscalgary.io"
+ httpEndpoint: "https://mainnet.eoscalgary.io"
 }
- 
 eos = Eos(eosConfig) // 127.0.0.1:8888
 
-//getting starting block id
+// Getting starting block id
 idx = 0;
-
 var previousReadBlock = -1;
-
 
 //set initial block
 function getLatestBlock(){
- 
  eos.getInfo({}).then(result => {
   //console.log(result);
   startIndex = result.head_block_num;
@@ -35,8 +27,8 @@ function getLatestBlock(){
    ;//do nothing
   }
  });
- 
 }
+
 function formatData(data, type){
   if(type == "transfer"){
    msg = "Transfer Event";
