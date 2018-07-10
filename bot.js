@@ -171,20 +171,7 @@ console.log(addBalance, dacBalance, cetosBalance);
   msg += "ADD : 0";
  msg += "\n";
  
-  if(ednaBalance != null){
-   t = ednaBalance.split(" ");
- msg += t[1] + " : " + t[0];}
- else
-  msg += "EDNA : 0";
- msg += "\n";
- 
-   if(horusBalance != null){
 
-    t = horusBalance.split(" ");
- msg += t[1] + " : " + t[0];}
- else
-  msg += "HORUS : 0";
- msg += "\n";
  
  if(eoxBalance != null){
   t = eoxBalance.split(" ");
@@ -206,11 +193,32 @@ console.log(addBalance, dacBalance, cetosBalance);
  else
   msg += "ESB : 0";
  msg += "\n";
-
  
+
+ if(cetBalance != null){
+
+    t = cetBalance.split(" ");
+ msg += t[1] + " : " + t[0];}
+else
+  msg += "CET : 0";
+   msg += "\n"; 
+ 
+   if(ednaBalance != null){
+   t = ednaBalance.split(" ");
+ msg += t[1] + " : " + t[0];}
+ else
+  msg += "EDNA : 0";
+ msg += "\n";
+ 
+   if(horusBalance != null){
+
+    t = horusBalance.split(" ");
+ msg += t[1] + " : " + t[0];}
+ else
+  msg += "HORUS : 0";
+ msg += "\n";
  
  if(dacBalance != null){
-
     t = dacBalance.split(" ");
  msg += t[1] + " : " + t[0];}
 else
@@ -222,13 +230,7 @@ if(cetosBalance != null){
  msg += t[1] + " : " + t[0];}
 else
   msg += "CETOS : 0";
-  msg += "\n"; 
- if(cetBalance != null){
 
-    t = cetBalance.split(" ");
- msg += t[1] + " : " + t[0];}
-else
-  msg += "CET : 0";
  cb(msg);
 }
 //Get token balance
