@@ -134,8 +134,10 @@ function checkAccount(result){
   //check transaction type
   var trx = result.transactions[i].trx.transaction;
   if(trx == undefined)
-   return;
+   continue;
    for(j=0;j<trx.actions.length;j++){
+    if(trx.actions[j] ==  undefined)
+     continue;
     
   var type = trx.actions[j].name;
   var data = trx.actions[j].data;
@@ -186,10 +188,12 @@ function checkAccount(result){
  
 }
 
+var retryCount = 0;
  
 function saveBlockInfo(){
  //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
+  retryCount = 0;
   //console.log(result);
   //console.log(result.transactions[0].trx.transaction.actions[0]);
   //save data to Mongo DB with block number
@@ -218,7 +222,12 @@ function saveBlockInfo(){
   */
   })
  .catch((err) => {
-  idx++;
+  idx;
+  retryCount++;
+  if(retryCount == 10){
+   retryCount = 0;
+   idx++;
+  }
   console.log(err);
  }); // end of getblock
 
