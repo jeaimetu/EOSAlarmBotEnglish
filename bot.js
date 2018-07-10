@@ -35,27 +35,12 @@ const keyboard = Markup.inlineKeyboard([[
 
 
 function makeMessage(ctx){
-  
-  var finalResult;
- 
- if(ctx.session.id != "nil"){
-    finalResult = "Current account : " + ctx.session.id;
-  finalResult += "\n";
- finalResult += "\n";
-  finalResult += "<b>Please vote eoscafeblock</b>, eosyskoreabp, eosnodeonebp, acroeos12345.";
-   finalResult += "\n";
-  finalResult += "copyright EOS.Cafe Korea";
-  
- }
- else{
-  finalResult = "Current account : " + ctx.session.id;
-  finalResult = "Touch an account button to register EOS account.";
- finalResult += "\n";
-  finalResult += "<b>Please vote eoscafeblock</b>, eosyskoreabp, eosnodeonebp, acroeos12345.";
-   finalResult += "\n\n";
-    finalResult += "copyright EOS.Cafe Korea";
- }
-  return finalResult;
+  return `${ctx.sessionid == 'nil' 
+               ? 'Current account: ' + ctx.sessionid 
+               : 'Click Add Account button to get started.'}
+
+          <b>Please vote for eoscafeblock</b>, eosyskoreabp, eosnodeonebp, and acroeos12345.
+          © EOS Cafe Korea`
 }
 
 function initMessage(ctx){
@@ -64,23 +49,12 @@ function initMessage(ctx){
 }
 
 function checkData(ctx){
-  if(ctx.session.email == "nil")
+  if(ctx.session.email === "nil" || ctx.session.etw === "nil" || ctx.session.bts === "nil" || ctx.session.ncafe === "nil" ||
+    !ctx.session.email || !ctx.session.etw || !ctx.session.bts || !ctx.session.ncafe) {
     return false;
-  if(ctx.session.etw == "nil")
-    return false;
-  if(ctx.session.bts == "nil")
-    return false;
-  if(ctx.session.ncafe == "nil")
-    return false;
-  if(ctx.session.email == null)
-    return false;
-  if(ctx.session.etw == null)
-    return false;
-  if(ctx.session.bts == null)
-    return false;
-  if(ctx.session.ncafe == null)
-    return false;
-  return true;
+  } else {
+    return true:
+  }
 }
 
 //Get token balance
