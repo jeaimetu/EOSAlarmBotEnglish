@@ -160,32 +160,32 @@ async function getTokenBalance(account, cb){
                         getTokenBalanceEach(account, "horustokenio"),            
                         getTokenBalanceEach(account, "eoxeoxeoxeox")]);
 console.log(addBalance, dacBalance, cetosBalance);
- msg = "Token Balance";
+ msg = "Current account : " + account;
  msg += "\n";
- msg += "Current account : " + account;
+ msg += "<b>Token Balance</b>"; 
  msg += "\n";
  if(addBalance != null)
  msg += addBalance;
  else
-  msg += " 0 ADD";
+  msg += "0 ADD";
  msg += "\n";
  
   if(ednaBalance != null)
  msg += ednaBalance;
  else
-  msg += " 0 EDNA";
+  msg += "0 EDNA";
  msg += "\n";
  
    if(horusBalance != null)
  msg += horusBalance;
  else
-  msg += " 0 HORUS";
+  msg += "0 HORUS";
  msg += "\n";
  
      if(eoxbalance != null)
  msg += eoxbalance;
  else
-  msg += " 0 EOX";
+  msg += "0 EOX";
  msg += "\n";
  
  
@@ -193,17 +193,17 @@ console.log(addBalance, dacBalance, cetosBalance);
  if(dacBalance != null)
  msg += dacBalance;
 else
-  msg += " 0 EOSDAC";
+  msg += "0 EOSDAC";
   msg += "\n";
 if(cetosBalance != null)
  msg += cetosBalance;
 else
-  msg += " 0 CETOS";
+  msg += "0 CETOS";
   msg += "\n"; 
  if(cetBalance != null)
  msg += cetBalance;
 else
-  msg += " 0 CET";
+  msg += "0 CET";
  cb(msg);
 }
 //Get token balance
