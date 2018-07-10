@@ -14,7 +14,8 @@
     "etherscan-api": "8.0.4",
     "eosjs" : "15.0.3",
     "bithumbapi" : "1.0.0",
-    "coinmarketcap-api" : "2.3.2"
+    "coinmarketcap-api" : "2.3.2",
+    "common-tags": "^1.8.0"
   },
   "devDependencies": {},
   "repository": {
