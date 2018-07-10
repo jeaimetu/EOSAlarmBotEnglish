@@ -25,9 +25,9 @@ Others are will be supported in near future(e.g. BuyRam, UpdateAuth)
 5. Anything what you want
 
 ## Release note
-version 1.0 - Initial release <BR>
-version 1.1 - Total balance sum error fix, Adding real time(in 1 min) event notification, adding many events<BR>
-version 1.2
+**version 1.0** - Initial release <BR>
+**version 1.1** - Total balance sum error fix, Adding real time(in 1 min) event notification, adding many events<BR>
+**version 1.2**
 - Multiple account support : Observing for all registered accounts, Querying balance of EOS and TOKEN for the primary account.
 - Adding parsing mechanism for all transaction and actions
 - Adding issue event for Token airdrop
@@ -35,6 +35,12 @@ version 1.2
 - Adding HTML text 
 - Adding RAM price and your own RAM size
 - Safe RAM size to sell
+  
+**Version 1.3**
+- GUI and text format change
+- Adding all airdrop tokens
+- Adding list accounts menu
+- Minor bug fix
 
 ## Disclaimer
 This is beta version, so some event report can be dropped.
