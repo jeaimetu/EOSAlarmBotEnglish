@@ -172,7 +172,9 @@ function checkAccount(result){
   //save data to proper account or new table?
   if(account != null){
    //save data to database
-   saveData(result.block_num, account, data, type);
+   ;
+   //Due to free MongoDb limitation, temporal commenting out.
+   //saveData(result.block_num, account, data, type);
   }
    }//end of for, actions
  }//end of for of transaction
