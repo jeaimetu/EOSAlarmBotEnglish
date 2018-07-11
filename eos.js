@@ -104,6 +104,9 @@ function formatData(data, type){
  
 }
 function saveData(block, account, data, type){
+  var fData = formatData(data, type);
+  botClient.sendAlarm(account, fData);
+ /* Temporary disable saving data to MongoDB due to the size limit
   MongoClient.connect(url, function(err, db) {
    var dbo = db.db("heroku_9472rtd6");
    var fData = formatData(data, type);
@@ -115,6 +118,7 @@ function saveData(block, account, data, type){
     db.close();   
    });
   }); 
+  */
 }
  
 function checkAccount(result){
@@ -171,10 +175,8 @@ function checkAccount(result){
   
   //save data to proper account or new table?
   if(account != null){
-   //save data to database
-   ;
-   //Due to free MongoDb limitation, temporal commenting out.
-   //saveData(result.block_num, account, data, type);
+   //save data to database and sending notification message to telegram client
+   saveData(result.block_num, account, data, type);
   }
    }//end of for, actions
  }//end of for of transaction
