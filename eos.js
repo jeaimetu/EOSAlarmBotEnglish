@@ -215,7 +215,7 @@ function saveBlockInfo(idx){
  .catch((err) => {
 
   if(chainLogging == true)
-   console.log("getblockfailed", idx, retryCount);
+   console.log("getblockfailed");
 
   console.log(err);
   setTimeout(getLatestBlock, 50);
