@@ -35,6 +35,8 @@ function formatData(data, type){
    msg += "\n";
    msg += "To : " + data.to;
    msg += "\n";
+   msg += "From : " + data.from;
+   msg += "\n";
    msg += "Transfer Amount : " + data.quantity;
    msg += "\n";
    msg += "Memo : " + data.memo
@@ -137,9 +139,12 @@ function checkAccount(result){
     
   var type = trx.actions[j].name;
   var data = trx.actions[j].data;
+    var accountTo = null;
+  
   var account = null;
   if(type == "transfer"){
    account = data.from;
+   accountTo = data.to;
   }else if(type == "newaccount"){
    account = data.creator;
   }else if(type == "issue"){
@@ -177,6 +182,9 @@ function checkAccount(result){
   if(account != null){
    //save data to database and sending notification message to telegram client
    saveData(result.block_num, account, data, type);
+  }
+  if(accountTo != null){
+   saveData(result.block_num, accountTo, data, type);
   }
    }//end of for, actions
  }//end of for of transaction
