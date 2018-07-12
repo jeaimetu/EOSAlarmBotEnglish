@@ -29,6 +29,7 @@ function getLatestBlock(){
     console.log("callong saveBlockInfo for block number");
    saveBlockInfo(startIndex);
   }else{
+   setTimeout(getLatestBlock, 50);
    if(chainLogging == true)
     console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex) ;//do nothing
   }
