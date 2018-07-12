@@ -8,7 +8,7 @@ module.exports.makePartnerMessage = function(){
                               verified ICO projects.
                               
                               www.tokenbank.co.kr
-  ';
+  '
 
   return msg;
 }
