@@ -24,7 +24,7 @@ function getLatestBlock(){
    //read block
    saveBlockInfo();
   }else{
-   console.log("Do nothing", "previousReadBlock", "startIndex",previousReadBlock,startIndex ;//do nothing
+   console.log("Do nothing", "previousReadBlock", "startIndex",previousReadBlock,startIndex) ;//do nothing
   }
  });
 }
