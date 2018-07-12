@@ -115,7 +115,8 @@ async function getCetosBalance(account){
 
 
 async function getTokenBalance(account, cb){
- let [addBalance, dacBalance, cetosBalance,cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance, atdBalance] = 
+ let [addBalance, dacBalance, cetosBalance,cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance, atdBalance,
+      octBalance, iqBalance, pglBalance, poorBalance] = 
      await Promise.all([getAddBalance(account), 
                         getDacBalance(account), 
                         getCetosBalance(account),
@@ -125,7 +126,12 @@ async function getTokenBalance(account, cb){
                         getTokenBalanceEach(account, "eoxeoxeoxeox"),
                         getTokenBalanceEach(account, "eosvrtokenss"),
                         getTokenBalanceEach(account, "esbcointoken"),
-                        getTokenBalanceEach(account, "eosatidiumio")]);
+                        getTokenBalanceEach(account, "eosatidiumio"),
+                        getTokenBalanceEach(account, "octtothemoon"),
+                        getTokenBalanceEach(account, "everipediaiq"),
+                        getTokenBalanceEach(account, "prospectorsg"),
+                        getTokenBalanceEach(account, "poormantoken")
+                       ]);
 console.log(addBalance, dacBalance, cetosBalance);
  msg = "Current account : " + account;
  msg += "\n";
@@ -139,6 +145,26 @@ console.log(addBalance, dacBalance, cetosBalance);
  msg += "\n";
  
 
+  if(iqBalance != null){
+  t = iqBalance.split(" ");
+  msg += t[1] + " : " + t[0];}
+ else
+  msg += "IQ : 0";
+ msg += "\n";
+ 
+   if(octBalance != null){
+  t = octBalanceOCT.split(" ");
+  msg += t[1] + " : " + t[0];}
+ else
+  msg += "OCT : 0";
+ msg += "\n";
+ 
+   if(pglBalance != null){
+  t = pglBalance.split(" ");
+  msg += t[1] + " : " + t[0];}
+ else
+  msg += "PGL : 0";
+ msg += "\n";
  
  if(eoxBalance != null){
   t = eoxBalance.split(" ");
@@ -183,6 +209,14 @@ else
  else
   msg += "EDNA : 0";
  msg += "\n";
+ 
+    if(poorBalance != null){
+   t = poorBalance.split(" ");
+ msg += t[1] + " : " + t[0];}
+ else
+  msg += "POOR : 0";
+ msg += "\n";
+ 
  
    if(horusBalance != null){
 
