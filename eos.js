@@ -239,6 +239,6 @@ function saveBlockInfo(){
 
 } //end of function
                         
- setInterval(getLatestBlock, 100);
+ setInterval(getLatestBlock, 300);
 
 
