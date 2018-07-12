@@ -12,7 +12,7 @@ eosConfig = {
 eos = Eos(eosConfig) // 127.0.0.1:8888
 
 // Getting starting block id
-var idx = 0;
+//var idx = 0;
 var previousReadBlock = -1;
 
 //set initial block
@@ -27,7 +27,7 @@ function getLatestBlock(){
    //read block
    if(chainLogging == true)
     console.log("callong saveBlockInfo for block number", idx);
-   saveBlockInfo();
+   saveBlockInfo(startIndex);
   }else{
    if(chainLogging == true)
     console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex, idx) ;//do nothing
@@ -200,7 +200,7 @@ function checkAccount(result){
 
 
  
-function saveBlockInfo(){
+function saveBlockInfo(idx){
  //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
   retryCount = 0;
