@@ -7,6 +7,7 @@ const Composer = require('telegraf/composer')
 const WizardScene = require('telegraf/scenes/wizard')
 const Stage = require('telegraf/stage')
 const tl = require('common-tags')
+const partner = require(./partner.js);
 
 // Mongo
 let mongo = require('mongodb');
@@ -417,7 +418,8 @@ function price(ctx){
      let db = connection.db("heroku_9472rtd6")
     
      db.collection("price").find().toArray(function(err, res){
-   
+       let partnetMessage = partner.makePartnerMessage();
+       ctx.telegram.sendMessage(ctx.from.id, partnetMessage, Extra.HTML());
        let message = tl.stripIndents`Current Account: ${ctx.session.id ? ctx.session.id : 'None Selected'}
 
                                      EOS Price: $${(res[0].usd).toFixed(2)}
