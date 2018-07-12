@@ -205,34 +205,12 @@ function saveBlockInfo(){
  //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
   retryCount = 0;
-  //console.log(result);
-  //console.log(result.transactions[0].trx.transaction.actions[0]);
-  //save data to Mongo DB with block number
-  //console.log("read Block info ", idx);
+
+  console.log("read block suceess for block number", idx);
   checkAccount(result);
   //saving the latest success block number.
   previousReadBlock = idx;
   idx++;
-
-  /* save raw data
-  MongoClient.connect(url, function(err, db) {
-   
-   if (err){
-    console.log(err);
-    throw err;
-   }
-   var dbo = db.db("heroku_dtfpf2m1");
-   //var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
-   var myobj = { bno : idx, info : result }
-   
-   dbo.collection("eosblockinfo").insertOne(myobj, function(err, res) {
-        if (err) throw err;
-          //console.log("1 document inserted");
-       idx++;
-              db.close();
-    }); //end of insert one
-   }); //end of connect
-  */
   })
  .catch((err) => {
   retryCount++;
@@ -243,7 +221,6 @@ function saveBlockInfo(){
   }
   console.log(err);
  }); // end of getblock
-
 } //end of function
                         
  setInterval(getLatestBlock, 250);
