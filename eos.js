@@ -21,16 +21,16 @@ function getLatestBlock(){
   startIndex = result.head_block_num;
 
   if(chainLogging == true)
-   console.log("getinfo block", previousReadBlock, idx);
+   console.log("getinfo block", previousReadBlock);
   if(previousReadBlock <  startIndex){
    //idx = startIndex;
    //read block
    if(chainLogging == true)
-    console.log("callong saveBlockInfo for block number", idx);
+    console.log("callong saveBlockInfo for block number");
    saveBlockInfo(startIndex);
   }else{
    if(chainLogging == true)
-    console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex, idx) ;//do nothing
+    console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex) ;//do nothing
   }
  });
 }
