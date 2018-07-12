@@ -39,10 +39,10 @@ function reset(ctx){
 
 // Initialization Message
 function makeMessage(ctx){
-  return `${ctx.session.id == 'nil' 
+  return `${ctx.session.id != 'nil' 
                ? 'Current account: ' + ctx.session.id 
                : 'Click Add Account button to get started.'}
-
+<br>
 <b>Please vote for eoscafeblock</b>, eosyskoreabp, eosnodeonebp, and acroeos12345.
 © EOS Cafe Korea`
 }
