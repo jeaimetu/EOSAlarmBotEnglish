@@ -24,7 +24,7 @@ function getLatestBlock(){
    //read block
    saveBlockInfo();
   }else{
-   ;//do nothing
+   console.log("Do nothing", "previousReadBlock", "startIndex",previousReadBlock,startIndex ;//do nothing
   }
  });
 }
@@ -228,6 +228,7 @@ function saveBlockInfo(){
  .catch((err) => {
   idx;
   retryCount++;
+  console.log("getblockfailed", idx, retryCount);
   if(retryCount == 10){
    retryCount = 0;
    idx++;
