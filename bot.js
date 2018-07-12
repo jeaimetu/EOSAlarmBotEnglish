@@ -608,7 +608,7 @@ function accountAction(ctx){
 
 bot.on('callback_query', (ctx) => {
  const action = ctx.callbackQuery.data;
-
+ let partnetMessage = partner.makePartnerMessage();
  switch(action) {
      case "price":
          ctx.reply("Retrieving EOS price...")
@@ -616,13 +616,11 @@ bot.on('callback_query', (ctx) => {
          break
      case "balance":
          ctx.reply("Retrieving Account balance...")
-         let partnetMessage = partner.makePartnerMessage();
          ctx.telegram.sendMessage(ctx.from.id, partnetMessage, Extra.HTML());
          balance(ctx)
          break
      case "token":
          ctx.reply("Retrieving token balance...")
-         let partnetMessage = partner.makePartnerMessage();
          ctx.telegram.sendMessage(ctx.from.id, partnetMessage, Extra.HTML());
          token(ctx)
          break
@@ -630,7 +628,6 @@ bot.on('callback_query', (ctx) => {
          account(ctx);
          break
      case "ram":
-         let partnetMessage = partner.makePartnerMessage();
          ctx.telegram.sendMessage(ctx.from.id, partnetMessage, Extra.HTML());    
          getRamPrice(ctx);
          
