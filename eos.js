@@ -11,7 +11,7 @@ eosConfig = {
 eos = Eos(eosConfig) // 127.0.0.1:8888
 
 // Getting starting block id
-idx = 0;
+var idx = 0;
 var previousReadBlock = -1;
 
 //set initial block
@@ -19,13 +19,19 @@ function getLatestBlock(){
  eos.getInfo({}).then(result => {
   //console.log(result);
   startIndex = result.head_block_num;
-  console.log("getinfo block", previousReadBlock, startIndex);
-  if(previousReadBlock < startIndex){
+  if(idx == 0){
    idx = startIndex;
+  }else{
+   ;//do nothing, using previous value
+  }
+  console.log("getinfo block", previousReadBlock, idx);
+  if(previousReadBlock < idx && idx <= startIndex){
+   //idx = startIndex;
    //read block
+   console.log("callong saveBlockInfo for block number", idx);
    saveBlockInfo();
   }else{
-   console.log("Do nothing", "previousReadBlock", "startIndex",previousReadBlock,startIndex) ;//do nothing
+   console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex, idx) ;//do nothing
   }
  });
 }
@@ -204,6 +210,7 @@ function saveBlockInfo(){
   //save data to Mongo DB with block number
   //console.log("read Block info ", idx);
   checkAccount(result);
+  //saving the latest success block number.
   previousReadBlock = idx;
 
   /* save raw data
@@ -227,7 +234,6 @@ function saveBlockInfo(){
   */
   })
  .catch((err) => {
-  idx;
   retryCount++;
   console.log("getblockfailed", idx, retryCount);
   if(retryCount == 10){
@@ -239,6 +245,6 @@ function saveBlockInfo(){
 
 } //end of function
                         
- setInterval(getLatestBlock, 300);
+ setInterval(getLatestBlock, 150);
 
 
