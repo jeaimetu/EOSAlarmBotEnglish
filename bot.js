@@ -259,10 +259,10 @@ eos.getTableRows({json : true,
  
 
 
- ctx.telegram.sendMessage(ctx.from.id, msg, function(err, data){
+ ctx.telegram.sendMessage(ctx.from.id, msg).then(payload => {
   msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
-  )};
+ });
 });
 }
 
