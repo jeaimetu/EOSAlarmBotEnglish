@@ -4,6 +4,8 @@ const MongoClient = require('mongodb').MongoClient;
 const botClient = require('./bot.js');
 const url = process.env.MONGODB_URI;
 
+const chainLogging = false;
+
 // EOS
 eosConfig = {
  httpEndpoint: "https://mainnet.eoscalgary.io"
@@ -17,21 +19,23 @@ var previousReadBlock = -1;
 //set initial block
 function getLatestBlock(){
  eos.getInfo({}).then(result => {
-  //console.log(result);
   startIndex = result.head_block_num;
   if(idx == 0){
    idx = startIndex;
   }else{
    ;//do nothing, using previous value
   }
-  console.log("getinfo block", previousReadBlock, idx);
+  if(chainLogging == true)
+   console.log("getinfo block", previousReadBlock, idx);
   if(previousReadBlock < idx && idx <= startIndex){
    //idx = startIndex;
    //read block
-   console.log("callong saveBlockInfo for block number", idx);
+   if(chainLogging == true)
+    console.log("callong saveBlockInfo for block number", idx);
    saveBlockInfo();
   }else{
-   console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex, idx) ;//do nothing
+   if(chainLogging == true)
+    console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex, idx) ;//do nothing
   }
  });
 }
@@ -205,8 +209,8 @@ function saveBlockInfo(){
  //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
   retryCount = 0;
-
-  console.log("read block suceess for block number", idx);
+  if(chainLogging == true)
+   console.log("read block suceess for block number", idx);
   checkAccount(result);
   //saving the latest success block number.
   previousReadBlock = idx;
@@ -214,7 +218,8 @@ function saveBlockInfo(){
   })
  .catch((err) => {
   retryCount++;
-  console.log("getblockfailed", idx, retryCount);
+  if(chainLogging == true)
+   console.log("getblockfailed", idx, retryCount);
   if(retryCount == 10){
    retryCount = 0;
    idx++;
