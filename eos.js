@@ -210,6 +210,7 @@ function saveBlockInfo(idx){
   //saving the latest success block number.
   previousReadBlock = idx;
   idx++;
+  setTimeout(getLatestBlock, 50);
   })
  .catch((err) => {
 
@@ -217,9 +218,10 @@ function saveBlockInfo(idx){
    console.log("getblockfailed", idx, retryCount);
 
   console.log(err);
+  setTimeout(getLatestBlock, 50);
  }); // end of getblock
 } //end of function
                         
- setInterval(getLatestBlock, 150);
+ setTimeout(getLatestBlock, 50);
 
 
