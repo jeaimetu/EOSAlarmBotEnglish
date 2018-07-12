@@ -212,6 +212,7 @@ function saveBlockInfo(){
   checkAccount(result);
   //saving the latest success block number.
   previousReadBlock = idx;
+  idx++;
 
   /* save raw data
   MongoClient.connect(url, function(err, db) {
