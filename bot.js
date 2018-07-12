@@ -7,7 +7,7 @@ const Composer = require('telegraf/composer')
 const WizardScene = require('telegraf/scenes/wizard')
 const Stage = require('telegraf/stage')
 const tl = require('common-tags')
-const partner = require(./partner.js);
+const partner = require('./partner.js');
 
 // Mongo
 let mongo = require('mongodb');
