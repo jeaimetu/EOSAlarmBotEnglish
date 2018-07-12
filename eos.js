@@ -19,6 +19,7 @@ function getLatestBlock(){
  eos.getInfo({}).then(result => {
   //console.log(result);
   startIndex = result.last_irreversible_block_num;
+  console.log("getinfo block", startIndex
   if(previousReadBlock < startIndex){
    idx = startIndex;
    //read block
