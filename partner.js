@@ -7,7 +7,8 @@ module.exports.makePartnerMessage = function(){
                               that links cryptocurrency investors with
                               verified ICO projects.
                               
-                              www.tokenbank.co.kr';
+                              www.tokenbank.co.kr
+  ';
 
   return msg;
 }
