@@ -137,6 +137,15 @@ console.log(addBalance, dacBalance, cetosBalance);
  msg += "\n";
  msg += "<b>Token Balance</b>"; 
  msg += "\n";
+ 
+ 
+   if(iqBalance != null){
+  t = iqBalance.split(" ");
+  msg += t[1] + " : " + t[0];}
+ else
+  msg += "IQ : 0";
+ msg += "\n";
+ 
  if(addBalance != null){
   t = addBalance.split(" ");
  msg += t[1] + " : " + t[0];}
@@ -144,29 +153,23 @@ console.log(addBalance, dacBalance, cetosBalance);
   msg += "ADD : 0";
  msg += "\n";
  
+   if(atdBalance != null){
+    t = atdBalance.split(" ");
+   msg += t[1] + " : " + t[0];}
+ else
+  msg += "ATD : 0";
+   msg += "\n"; 
+ 
+  if(cetBalance != null){
+    t = cetBalance.split(" ");
+   msg += t[1] + " : " + t[0];}
+  else
+   msg += "CET : 0";
+   msg += "\n"; 
+ 
 
-  if(iqBalance != null){
-  t = iqBalance.split(" ");
-  msg += t[1] + " : " + t[0];}
- else
-  msg += "IQ : 0";
- msg += "\n";
  
-   if(octBalance != null){
-  t = octBalanceOCT.split(" ");
-  msg += t[1] + " : " + t[0];}
- else
-  msg += "OCT : 0";
- msg += "\n";
- 
-   if(pglBalance != null){
-  t = pglBalance.split(" ");
-  msg += t[1] + " : " + t[0];}
- else
-  msg += "PGL : 0";
- msg += "\n";
- 
- if(eoxBalance != null){
+if(eoxBalance != null){
   t = eoxBalance.split(" ");
   msg += t[1] + " : " + t[0];}
  else
@@ -188,20 +191,24 @@ console.log(addBalance, dacBalance, cetosBalance);
  msg += "\n";
  
 
- if(cetBalance != null){
 
-    t = cetBalance.split(" ");
- msg += t[1] + " : " + t[0];}
-else
-  msg += "CET : 0";
-   msg += "\n"; 
+
  
-  if(atdBalance != null){
-    t = atdBalance.split(" ");
-   msg += t[1] + " : " + t[0];}
+   if(octBalance != null){
+  t = octBalanceOCT.split(" ");
+  msg += t[1] + " : " + t[0];}
  else
-  msg += "ATD : 0";
-   msg += "\n"; 
+  msg += "OCT : 0";
+ msg += "\n";
+ 
+   if(pglBalance != null){
+  t = pglBalance.split(" ");
+  msg += t[1] + " : " + t[0];}
+ else
+  msg += "PGL : 0";
+ msg += "\n";
+ 
+ 
  
    if(ednaBalance != null){
    t = ednaBalance.split(" ");
@@ -217,24 +224,22 @@ else
   msg += "POOR : 0";
  msg += "\n";
  
- 
-   if(horusBalance != null){
-
-    t = horusBalance.split(" ");
- msg += t[1] + " : " + t[0];}
- else
-  msg += "HORUS : 0";
- msg += "\n";
- 
-
-if(cetosBalance != null){
-
+ if(cetosBalance != null){
     t = cetosBalance.split(" ");
  msg += t[1] + " : " + t[0];}
 else
-  msg += "CETOS : 0";
- 
+  msg += "CETOS : 0"; 
     msg += "\n";
+ 
+   if(horusBalance != null){
+    t = horusBalance.split(" ");
+    msg += t[1] + " : " + t[0];}
+   else
+    msg += "HORUS : 0";
+   msg += "\n";
+ 
+
+
  
  if(dacBalance != null){
     t = dacBalance.split(" ");
