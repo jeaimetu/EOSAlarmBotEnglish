@@ -259,9 +259,10 @@ eos.getTableRows({json : true,
  
 
 
- ctx.telegram.sendMessage(ctx.from.id, msg)
- msg = makeMessage(ctx);
+ ctx.telegram.sendMessage(ctx.from.id, msg, function(err, data){
+  msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
+  )};
 });
 }
 
@@ -615,17 +616,24 @@ bot.on('callback_query', (ctx) => {
          break
      case "balance":
          ctx.reply("Retrieving Account balance...")
+         let partnetMessage = partner.makePartnerMessage();
+         ctx.telegram.sendMessage(ctx.from.id, partnetMessage, Extra.HTML());
          balance(ctx)
          break
      case "token":
          ctx.reply("Retrieving token balance...")
+         let partnetMessage = partner.makePartnerMessage();
+         ctx.telegram.sendMessage(ctx.from.id, partnetMessage, Extra.HTML());
          token(ctx)
          break
      case "id":
          account(ctx);
          break
      case "ram":
+         let partnetMessage = partner.makePartnerMessage();
+         ctx.telegram.sendMessage(ctx.from.id, partnetMessage, Extra.HTML());    
          getRamPrice(ctx);
+         
          break
      case "setting":
          setting(ctx)
