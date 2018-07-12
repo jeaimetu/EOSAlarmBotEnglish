@@ -19,14 +19,10 @@ var previousReadBlock = -1;
 function getLatestBlock(){
  eos.getInfo({}).then(result => {
   startIndex = result.head_block_num;
-  if(idx == 0){
-   idx = startIndex;
-  }else{
-   ;//do nothing, using previous value
-  }
+
   if(chainLogging == true)
    console.log("getinfo block", previousReadBlock, idx);
-  if(previousReadBlock < idx && idx <= startIndex){
+  if(previousReadBlock <  startIndex){
    //idx = startIndex;
    //read block
    if(chainLogging == true)
@@ -202,7 +198,7 @@ function checkAccount(result){
  
 }
 
-var retryCount = 0;
+
  
 function saveBlockInfo(){
  //console.log("saveBlockInfo for ",idx);
@@ -216,13 +212,10 @@ function saveBlockInfo(){
   idx++;
   })
  .catch((err) => {
-  retryCount++;
+
   if(chainLogging == true)
    console.log("getblockfailed", idx, retryCount);
-  if(retryCount == 10){
-   retryCount = 0;
-   idx++;
-  }
+
   console.log(err);
  }); // end of getblock
 } //end of function
