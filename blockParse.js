@@ -21,5 +21,5 @@ function getAccountInfo(data){
 
 
 //Exporting functions
-modulee.exports.getAccountInfo = getAccountInfo;
+module.exports.getAccountInfo = getAccountInfo;
 
