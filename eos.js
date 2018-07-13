@@ -5,6 +5,7 @@ var botClient = require('./bot.js');
 var url = process.env.MONGODB_URI;
 
 const chainLogging = false;
+const runTimer = 350;
 
 // EOS
 eosConfig = {
@@ -30,7 +31,7 @@ function getLatestBlock(){
     console.log("callong saveBlockInfo for block number");
    saveBlockInfo(startIndex);
   }else{
-   setTimeout(getLatestBlock, 50);
+   setTimeout(getLatestBlock, runTimer);
    if(chainLogging == true)
     console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex) ;//do nothing
   }
@@ -223,7 +224,7 @@ function saveBlockInfo(idx){
   //saving the latest success block number.
   previousReadBlock = idx;
   idx++;
-  setTimeout(getLatestBlock, 50);
+  setTimeout(getLatestBlock, runTimer);
   })
  .catch((err) => {
 
@@ -231,10 +232,10 @@ function saveBlockInfo(idx){
    console.log("getblockfailed");
 
   console.log(err);
-  setTimeout(getLatestBlock, 50);
+  setTimeout(getLatestBlock, runTimer);
  }); // end of getblock
 } //end of function
                         
- setTimeout(getLatestBlock, 50);
+ setTimeout(getLatestBlock, runTimer);
 
 
