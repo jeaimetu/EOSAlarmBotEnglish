@@ -200,7 +200,7 @@ function checkAccount(result){
   //save data to proper account or new table?
   if(account != null){
    //save data to database and sending notification message to telegram client
-   if(chainLogging == true)
+
    console.log("calling sendalarm in eosjs", account);
    saveData(result.block_num, account, data, type);
    account = null;
