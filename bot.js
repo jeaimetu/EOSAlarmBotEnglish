@@ -414,7 +414,7 @@ bot.use(session())
 
 module.exports.sendAlarm = function(account, msg){
  
- console.log("Memory heap usage ", process.memoryUsage().healTotal/(1024*1024));
+ console.log("Memory heap usage ", process.memoryUsage().heapTotal/(1024*1024));
  console.log("Memory rss usage ", process.memoryUsage().rss/(1024*1024));
  //get chatid
  console.log("account msg",account, msg);
