@@ -413,8 +413,8 @@ bot.use(session())
 
 
 module.exports.sendAlarm = function(account, msg){
- const used = process.memoryUsage() / 1024 / 1024;
- console.log("Memory usage ", used);
+ 
+ console.log("Memory usage ", process.memoryUsage()/(1024*1024));
  //get chatid
  console.log("account msg",account, msg);
  MongoClient.connect(url, function(err, db) {
