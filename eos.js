@@ -144,6 +144,7 @@ function checkAccount(result){
  if(result.transactions.length == 0){
   return;
  }else{
+  if(chainLogging == true)
   console.log("transaction length ", result.transactions.length);
   for(i = 0;i<result.transactions.length;i++){
   //check transaction type
@@ -151,6 +152,7 @@ function checkAccount(result){
   if(trx == undefined)
    continue;
    for(j=0;j<trx.actions.length;j++){
+    if(chainLogging == true)
     console.log("action length", trx.actions.length);
     if(trx.actions[j] ==  undefined)
      continue;
@@ -198,6 +200,7 @@ function checkAccount(result){
   //save data to proper account or new table?
   if(account != null){
    //save data to database and sending notification message to telegram client
+   if(chainLogging == true)
    console.log("calling sendalarm in eosjs", account);
    saveData(result.block_num, account, data, type);
    account = null;
