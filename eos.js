@@ -114,7 +114,7 @@ function formatData(data, type){
    msg += "Event type : " + type;
    msg += "\n";
    //json object to stringfy
-   const buf = Buffer.from(JSON.stringify(data));
+   var buf = Buffer.from(JSON.stringify(data));
    msg += buf;
   }
  
