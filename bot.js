@@ -429,8 +429,9 @@ module.exports.sendAlarm = function(account, msg){
      }catch(error){
       console.log(error);
       console.log("remove user with chatid ", result[i].chatid);
-     }
-   }
+     }//end of catch
+    }//end of for
+   }//end of else
    db.close();
   });//end of findOne
    
