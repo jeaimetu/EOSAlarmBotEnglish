@@ -424,12 +424,11 @@ module.exports.sendAlarm = function(account, msg){
    }else{
      //send message
     for(i = 0;i < result.length; i++){
-     try{
-     bot.telegram.sendMessage(result[i].chatid, msg)
-     }catch(error){
+     bot.telegram.sendMessage(result[i].chatid, msg).catch((error) => {
       console.log(error);
       console.log("remove user with chatid ", result[i].chatid);
-     }//end of catch
+     });
+
     }//end of for
    }//end of else
    db.close();
