@@ -22,7 +22,10 @@ function testBlock(){
       console.log("authorization field exist");
   });
     
-testBlock();
+
   
   
 }
+
+
+testBlock();
