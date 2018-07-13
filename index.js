@@ -1,7 +1,7 @@
 require('./bot');
 require('./eos');
 require('./price');
-require('./blockParse');
+//require('./blockParse');
 var http = require('http'); 
 
 // Create a function to handle every HTTP request
