@@ -3,7 +3,7 @@ const Eos = require('eosjs') // Eos = require('./src')
 const botClient = require('./bot.js');
 const url = process.env.MONGODB_URI;
 
-const chainLogging = true;
+const chainLogging = false;
 
 // EOS
 eosConfig = {
