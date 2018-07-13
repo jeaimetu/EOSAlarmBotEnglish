@@ -414,6 +414,7 @@ bot.use(session())
 
 module.exports.sendAlarm = function(account, msg){
  //get chatid
+ console.log("account msg",account, msg);
  MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
   var findquery = {eosid : account};
