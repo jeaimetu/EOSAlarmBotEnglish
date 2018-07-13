@@ -427,7 +427,7 @@ module.exports.sendAlarm = function(account, msg){
      bot.telegram.sendMessage(result[i].chatid, msg).catch((err) => {
       console.log(e);
       console.log("remove user ", result[i].chatid);
-    }
+    });
    }
    db.close();
   });//end of findOne
