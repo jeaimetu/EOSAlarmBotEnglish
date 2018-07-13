@@ -425,6 +425,7 @@ module.exports.sendAlarm = function(account, msg){
    }else{
      //send message
     for(i = 0;i < result.length; i++){
+     console.log("try to send message to ", result[i].chatid);
      bot.telegram.sendMessage(result[i].chatid, msg).catch((error) => {
       console.log(error);
       console.log("remove user with chatid ", result[i].chatid);
