@@ -1,18 +1,18 @@
-const Telegraf = require('telegraf');   // Module to use Telegraf API.
-const config = require('./config'); // Configuration file that holds telegraf_token API key.
-const session = require('telegraf/session')
-const Extra = require('telegraf/extra')
-const Markup = require('telegraf/markup')
-const Composer = require('telegraf/composer')
-const WizardScene = require('telegraf/scenes/wizard')
-const Stage = require('telegraf/stage')
-const tl = require('common-tags')
-const partner = require('./partner.js');
+var Telegraf = require('telegraf');   // Module to use Telegraf API.
+var config = require('./config'); // Configuration file that holds telegraf_token API key.
+var session = require('telegraf/session')
+var Extra = require('telegraf/extra')
+var Markup = require('telegraf/markup')
+var Composer = require('telegraf/composer')
+var WizardScene = require('telegraf/scenes/wizard')
+var Stage = require('telegraf/stage')
+var tl = require('common-tags')
+var partner = require('./partner.js');
 
 // Mongo
-let mongo = require('mongodb');
-let MongoClient = require('mongodb').MongoClient;
-let url = process.env.MONGODB_URI;
+var mongo = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
+var url = process.env.MONGODB_URI;
 
 // EOS
 Eos = require('eosjs')
@@ -133,7 +133,7 @@ async function getTokenBalance(account, cb){
                         getTokenBalanceEach(account, "poormantoken"),
                         getTokenBalanceEach(account, "challengedac")
                        ]);
-console.log(addBalance, dacBalance, cetosBalance);
+//console.log(addBalance, dacBalance, cetosBalance);
  msg = "Current account : " + account;
  msg += "\n";
  msg += "<b>Token Balance</b>"; 
@@ -417,7 +417,7 @@ module.exports.sendAlarm = function(account, msg){
  console.log("Memory heap usage ", process.memoryUsage().heapTotal/(1024*1024));
  console.log("Memory rss usage ", process.memoryUsage().rss/(1024*1024));
  //get chatid
- console.log("account msg",account, msg);
+ //console.log("account msg",account, msg);
  MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
   var findquery = {eosid : account};
