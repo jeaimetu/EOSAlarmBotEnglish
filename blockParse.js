@@ -16,7 +16,7 @@ function getAccountInfo(data){
  if(("poster" in data) == 0)
   account = data.poster;
  
- rturn account; 
+ return account; 
 }
 
 
