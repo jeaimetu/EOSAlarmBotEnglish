@@ -150,6 +150,7 @@ function checkAccount(result){
   if(trx == undefined)
    continue;
    for(j=0;j<trx.actions.length;j++){
+    console.log("action length", trx.actions.length);
     if(trx.actions[j] ==  undefined)
      continue;
     
@@ -173,11 +174,11 @@ function checkAccount(result){
   }else if(type == "bidname"){
    account = data.bidder;
   }else if(type == "awakepet"){
-   account = trx.actions[0].authorization[0].actor;
+   account = trx.actions[j].authorization[0].actor;
   }else if(type == "feedpet"){
-   account = trx.actions[0].authorization[0].actor;
+   account = trx.actions[j].authorization[0].actor;
   }else if(type == "createpet"){
-   account = trx.actions[0].authorization[0].actor;
+   account = trx.actions[j].authorization[0].actor;
   }else if(type == "refund"){
    account = data.owner;
   }else if(type == "buyram"){
@@ -187,15 +188,16 @@ function checkAccount(result){
   }else if(type == "updateauth"){
    account = data.account;
   }else{
-   account = trx.actions[j].account //always exist
+   //account = trx.actions[j].account //always exist
    //setting accountto from data with testing.
-   accountTo = blockParse.getAccountInfo (data);
+   account = blockParse.getAccountInfo (data);
    //console.log("need to be implemented", type);
   }
   
   //save data to proper account or new table?
   if(account != null){
    //save data to database and sending notification message to telegram client
+   console.log("calling sendalarm in eosjs", account);
    saveData(result.block_num, account, data, type);
    account = null;
   }
