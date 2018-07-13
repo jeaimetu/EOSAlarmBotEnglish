@@ -1,4 +1,5 @@
 const Eos = require('eosjs') // Eos = require('./src')
+const blockParse = require('./blockParse');
 
 const botClient = require('./bot.js');
 const url = process.env.MONGODB_URI;
@@ -76,6 +77,11 @@ function formatData(data, type){
    msg = "DDOS Event";
    msg += "\n";
    msg += "Memo : " + data.memo
+  }else if(type == "issue"){
+   msg = "Issue Event";
+   msg += "\n";
+   msg += "Quantity" + data.quantity;
+   msg += "Memo : " + data.memo
   }else if(type == "bidname"){
    msg = "Account Bidding Event";
    msg += "\n";
@@ -103,10 +109,13 @@ function formatData(data, type){
    msg += "Amount " + data.quant + " to " + data.receiver;
   }else{
    //console.log("need to be implemented");
-   msg = "This event will be supported in near future)";
-   msg += type;
+   msg = "This event will be supported in near future";
    msg += "\n";
-   msg += data;
+   msg += "Event type : " + type;
+   msg += "\n";
+   //json object to stringfy
+   const buf = Buffer.from(JSON.stringify(data));
+   msg += buf;
   }
  
  return msg;
@@ -181,7 +190,9 @@ function checkAccount(result){
   }else if(type == "updateauth"){
    account = data.account;
   }else{
-   account = "unknown";
+   account = trx.actions[j].account //always exist
+   //setting accountto from data with testing.
+   accountTo = blockParse.getAccountInfo (data);
    //console.log("need to be implemented", type);
   }
   
