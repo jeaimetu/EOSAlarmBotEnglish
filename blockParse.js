@@ -20,6 +20,7 @@ function testBlock(){
       console.log("authorization field exist");
     if(("authorization" in trx) == 0)
       console.log("authorization field exist");
+  });
     
 
   
