@@ -424,10 +424,12 @@ module.exports.sendAlarm = function(account, msg){
    }else{
      //send message
     for(i = 0;i < result.length; i++){
-     bot.telegram.sendMessage(result[i].chatid, msg).catch((err) => {
-      console.log(err);
-      console.log("remove user ", result[i].chatid);
-    });
+     try{
+     bot.telegram.sendMessage(result[i].chatid, msg)
+     }catch(error){
+      console.log(error);
+      console.log("remove user with chatid ", result[i].chatid);
+     }
    }
    db.close();
   });//end of findOne
