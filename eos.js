@@ -154,13 +154,10 @@ function checkAccount(result){
      continue;
     
   var type = trx.actions[j].name;
-  var data = trx.actions[j].data;
-    var accountTo = null;
-  
+  var data = trx.actions[j].data; 
   var account = null;
   if(type == "transfer"){
-   account = data.from;
-   accountTo = data.to;
+   account = data.to;
   }else if(type == "newaccount"){
    account = data.creator;
   }else if(type == "issue"){
@@ -200,9 +197,7 @@ function checkAccount(result){
   if(account != null){
    //save data to database and sending notification message to telegram client
    saveData(result.block_num, account, data, type);
-  }
-  if(accountTo != null){
-   saveData(result.block_num, accountTo, data, type);
+   account = null;
   }
    }//end of for, actions
  }//end of for of transaction
