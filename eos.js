@@ -4,7 +4,7 @@ var blockParse = require('./blockParse.js');
 var botClient = require('./bot.js');
 var url = process.env.MONGODB_URI;
 
-const chainLogging = true;
+const chainLogging = false;
 const runTimer = 350;
 
 // EOS
@@ -73,10 +73,6 @@ function formatData(data, type){
    msg += "Staked for Network : " + data.stake_net_quantity
    msg += "\n";
    msg += "Staked for CPU : " + data.stake_cpu_quantity
-  }else if(type == "ddos"){
-   msg = "DDOS Event";
-   msg += "\n";
-   msg += "Memo : " + data.memo
   }else if(type == "issue"){
    msg = "Issue Event";
    msg += "\n";
@@ -159,6 +155,9 @@ function checkAccount(result){
     
   			var type = trx.actions[j].name;
   			var data = trx.actions[j].data; 
+      //filtering malicious event
+      if(type == "ddos" || type == "tweet")
+       continue;
   			var account = null;
   			if(type == "transfer" || type == "issue" ){
   				account = data.to;
@@ -184,9 +183,8 @@ function checkAccount(result){
    				account = blockParse.getAccountInfo(data);
   			}//end of else
   
-  			//if(account != null && type != ddos && type != tweet){
-      if(account != null){
-   				console.log("calling sendalarm in eosjs", account);
+  			if(account != null && type != "ddos" && type != "tweet"){     
+   				//console.log("calling sendalarm in eosjs", account);
    				saveData(result.block_num, account, data, type);
    				account = null;
  			  }//end of if
