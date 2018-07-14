@@ -422,9 +422,10 @@ module.exports.sendAlarm = function(account, msg){
   var dbo = db.db("heroku_9472rtd6");
   var findquery = {eosid : account};
   dbo.collection("customers").find(findquery).toArray(function(err, result){
-   if(result == null){
+   if(result == null || result.length == 0){
     //console.log("no matched account for ", account);
-    ;
+    db.close();
+    return true;
    }else{
      //send message
     for(i = 0;i < result.length; i++){
@@ -432,14 +433,13 @@ module.exports.sendAlarm = function(account, msg){
      bot.telegram.sendMessage(result[i].chatid, msg).catch((error) => {
       console.log(error);
      });
-
     }//end of for
+    db.close();
+    return false;
    }//end of else
-   db.close();
   });//end of findOne
    
- });//end of mongoclient
- 
+ });//end of mongoclient 
 }
 
 
