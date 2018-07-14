@@ -3,23 +3,20 @@ var config = require('./config'); // Configuration file that holds telegraf_toke
 var session = require('telegraf/session')
 var Extra = require('telegraf/extra')
 var Markup = require('telegraf/markup')
-var Composer = require('telegraf/composer')
-var WizardScene = require('telegraf/scenes/wizard')
-var Stage = require('telegraf/stage')
 var tl = require('common-tags')
 var partner = require('./partner.js');
 
 // Mongo
-var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGODB_URI;
 
 // EOS
-Eos = require('eosjs')
+Eos = require('eosjs-api')
 eosconfig = {
  httpEndpoint: "https://mainnet.eoscalgary.io"
 }
-eos = Eos(eosconfig)
+
+eos = EosApi(eosconfig)
 
 // Menu
 const keyboard = Markup.inlineKeyboard([
