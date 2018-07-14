@@ -184,7 +184,8 @@ function checkAccount(result){
    				account = blockParse.getAccountInfo(data);
   			}//end of else
   
-  			if(account != null && type != ddos && type != tweet){
+  			//if(account != null && type != ddos && type != tweet){
+      if(account != null){
    				console.log("calling sendalarm in eosjs", account);
    				saveData(result.block_num, account, data, type);
    				account = null;
