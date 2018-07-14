@@ -413,6 +413,14 @@ module.exports.sendAlarm = function(account, msg){
  
  console.log("Memory heap usage ", process.memoryUsage().heapTotal/(1024*1024));
  console.log("Memory rss usage ", process.memoryUsage().rss/(1024*1024));
+ if(process.memoryUsage().heapTotal > (500*1024*1024){
+    const restart = require('make-it-restart');
+    let restartor = restart('npm start');
+	restartor();
+}
+  
+  
+    
  //get chatid
  //console.log("account msg",account, msg);
  MongoClient.connect(url, function(err, db) {
