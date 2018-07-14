@@ -27,8 +27,7 @@ function getLatestBlock(){
   if(previousReadBlock <  startIndex){
    //idx = startIndex;
    //read block
-   if(chainLogging == true)
-    console.log("callong saveBlockInfo for block number");
+   console.log("callong saveBlockInfo for block number");
    saveBlockInfo(startIndex);
   }else{
    setTimeout(getLatestBlock, runTimer);
@@ -143,74 +142,57 @@ function saveData(block, account, data, type){
 function checkAccount(result){
    //idx++;
  if(result.transactions.length == 0){
-  return;
+ 	return;
  }else{
-  if(chainLogging == true)
-  console.log("transaction length ", result.transactions.length);
-  for(i = 0;i<result.transactions.length;i++){
-  //check transaction type
-  var trx = result.transactions[i].trx.transaction;
-  if(trx == undefined)
-   continue;
-   for(j=0;j<trx.actions.length;j++){
-    if(chainLogging == true)
-    console.log("action length", trx.actions.length);
-    if(trx.actions[j] ==  undefined)
-     continue;
+ 	if(chainLogging == true)
+  		console.log("transaction length ", result.transactions.length);
+  	for(i = 0;i<result.transactions.length;i++){
+  	//check transaction type
+  		var trx = result.transactions[i].trx.transaction;
+  		if(trx == undefined)
+   			continue;
+   		for(j=0;j<trx.actions.length;j++){
+    			if(chainLogging == true)
+    				console.log("action length", trx.actions.length);
+    			if(trx.actions[j] ==  undefined)
+     				continue;
     
-  var type = trx.actions[j].name;
-  var data = trx.actions[j].data; 
-  var account = null;
-  if(type == "transfer"){
-   account = data.to;
-  }else if(type == "newaccount"){
-   account = data.creator;
-  }else if(type == "issue"){
-   account = data.to;
-  }else if(type == "voteproducer"){
-   account = data.voter;  
-  }else if(type == "undelegatebw"){
-   account = data.from;
-  }else if(type == "delegatebw"){
-   account = data.from;
-  }else if(type == "ddos"){
-   account = trx.actions[0].account;
-  }else if(type == "bidname"){
-   account = data.bidder;
-  }else if(type == "awakepet"){
-   account = trx.actions[j].authorization[0].actor;
-  }else if(type == "feedpet"){
-   account = trx.actions[j].authorization[0].actor;
-  }else if(type == "createpet"){
-   account = trx.actions[j].authorization[0].actor;
-  }else if(type == "refund"){
-   account = data.owner;
-  }else if(type == "buyram"){
-   account = data.payer;
-  }else if(type == "sellram"){
-   account = data.account;
-  }else if(type == "updateauth"){
-   account = data.account;
-  }else{
-   //account = trx.actions[j].account //always exist
-   //setting accountto from data with testing.
-   account = blockParse.getAccountInfo (data);
-   //console.log("need to be implemented", type);
-  }
+  			var type = trx.actions[j].name;
+  			var data = trx.actions[j].data; 
+  			var account = null;
+  			if(type == "transfer" || type == "issue" ){
+  				account = data.to;
+  			}else if(type == "newaccount"){
+  				account = data.creator;
+  			}else if(type == "voteproducer"){
+  				account = data.voter;  
+  			}else if(type == "undelegatebw" || type == "delegatebw"){
+  				account = data.from;
+  			}else if(type == "ddos"){
+  				account = trx.actions[0].account;
+  			}else if(type == "bidname"){
+  				account = data.bidder;
+  			}else if(type == "awakepet" || type == "feedpet" || type == "createpet"){
+  				account = trx.actions[j].authorization[0].actor;
+  			}else if(type == "refund"){
+  				account = data.owner;
+  			}else if(type == "buyram"){
+  				account = data.payer;
+  			}else if(type == "sellram" || type == "updateauth"){
+  				account = data.account;
+  			}else{
+   				account = blockParse.getAccountInfo (data);
+  			}//end of else
   
-  //save data to proper account or new table?
-  if(account != null){
-   //save data to database and sending notification message to telegram client
-
-   console.log("calling sendalarm in eosjs", account);
-   saveData(result.block_num, account, data, type);
-   account = null;
-  }
-   }//end of for, actions
- }//end of for of transaction
- }//end of else
- 
-}
+  			if(account != null){
+   				console.log("calling sendalarm in eosjs", account);
+   				saveData(result.block_num, account, data, type);
+   				account = null;
+ 			}//end of if
+   		}//end of for, actions
+ 	}//end of for of transaction
+ }//end of else 
+}//end of function
 
 
  
