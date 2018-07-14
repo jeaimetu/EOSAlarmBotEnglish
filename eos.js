@@ -1,5 +1,5 @@
 var Eos = require('eosjs') // Eos = require('./src')
-var blockParse = require('./blockParse');
+var blockParse = require('./blockParse.js');
 
 var botClient = require('./bot.js');
 var url = process.env.MONGODB_URI;
@@ -154,7 +154,7 @@ function checkAccount(result){
    		for(j=0;j<trx.actions.length;j++){
     			if(chainLogging == true)
     				console.log("action length", trx.actions.length);
-    			if(trx.actions[j] ==  undefined)
+    			if(trx.actions[j] ==  undefined && trx.actions[j].length != 0)
      				continue;
     
   			var type = trx.actions[j].name;
@@ -181,14 +181,14 @@ function checkAccount(result){
   			}else if(type == "sellram" || type == "updateauth"){
   				account = data.account;
   			}else{
-   				account = blockParse.getAccountInfo (data);
+   				account = blockParse.getAccountInfo(data);
   			}//end of else
   
-  			if(account != null){
+  			if(account != null && type != ddos && type != tweet){
    				console.log("calling sendalarm in eosjs", account);
    				saveData(result.block_num, account, data, type);
    				account = null;
- 			}//end of if
+ 			  }//end of if
    		}//end of for, actions
  	}//end of for of transaction
  }//end of else 
