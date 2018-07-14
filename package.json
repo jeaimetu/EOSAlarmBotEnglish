@@ -4,7 +4,7 @@
   "description": "Telegram bot example using Telegraf with easy configuration steps. Node v8+.",
   "main": "index.js",
   "scripts": {
-    "start": "node --inspect https://eosalarme.herokuapp.com:9229 index.js"
+    "start": "node --inspect  index.js"
   },
   "author": "Finalgalaxy",
   "license": "ISC",
