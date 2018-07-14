@@ -27,7 +27,7 @@ function getLatestBlock(){
   if(previousReadBlock <  startIndex){
    //idx = startIndex;
    //read block
-   console.log("callong saveBlockInfo for block number");
+   console.log("callong saveBlockInfo for block number", startIndex);
    saveBlockInfo(startIndex);
   }else{
    setTimeout(getLatestBlock, runTimer);
