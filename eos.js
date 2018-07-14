@@ -4,7 +4,7 @@ var blockParse = require('./blockParse');
 var botClient = require('./bot.js');
 var url = process.env.MONGODB_URI;
 
-const chainLogging = false;
+const chainLogging = true;
 const runTimer = 350;
 
 // EOS
