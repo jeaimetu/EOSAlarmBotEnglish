@@ -37,6 +37,113 @@ function getLatestBlock(){
  });
 }
 
+
+function saveData(block, account, data, type){
+  var fData = formatData(data, type);
+  botClient.sendAlarm(account, fData);
+ /* Temporary disable saving data to MongoDB due to the size limit
+  MongoClient.connect(url, function(err, db) {
+   var dbo = db.db("heroku_9472rtd6");
+   var fData = formatData(data, type);
+   botClient.sendAlarm(account, fData);
+   var myobj = { block : block, account : account, data : fData, report : false };
+   dbo.collection("alarm").insertOne(myobj, function(err, res){
+    if (err) throw err;
+    //console.log("1 document inserted");
+    db.close();   
+   });
+  }); 
+  */
+}
+ 
+function checkAccount(result){
+   //idx++;
+ if(result.transactions.length == 0){
+ 	return;
+ }else{
+ 	if(chainLogging == true)
+  		console.log("transaction length ", result.transactions.length);
+  	for(i = 0;i<result.transactions.length;i++){
+  	//check transaction type
+  		var trx = result.transactions[i].trx.transaction;
+  		if(trx == undefined)
+   			continue;
+   		for(j=0;j<trx.actions.length;j++){
+    			if(chainLogging == true)
+    				console.log("action length", trx.actions.length);
+    			if(trx.actions[j] ==  undefined && trx.actions[j].length != 0)
+     				continue;
+    
+  			var type = trx.actions[j].name;
+  			var data = trx.actions[j].data; 
+      //filtering malicious event
+      if(type == "ddos" || type == "tweet")
+       continue;
+  			var account = null;
+  			if(type == "transfer" || type == "issue" ){
+  				account = data.to;
+  			}else if(type == "newaccount"){
+  				account = data.creator;
+  			}else if(type == "voteproducer"){
+  				account = data.voter;  
+  			}else if(type == "undelegatebw" || type == "delegatebw"){
+  				account = data.from;
+  			}else if(type == "ddos"){
+  				account = trx.actions[0].account;
+  			}else if(type == "bidname"){
+  				account = data.bidder;
+  			}else if(type == "awakepet" || type == "feedpet" || type == "createpet"){
+  				account = trx.actions[j].authorization[0].actor;
+  			}else if(type == "refund"){
+  				account = data.owner;
+  			}else if(type == "buyram"){
+  				account = data.payer;
+  			}else if(type == "sellram" || type == "updateauth"){
+  				account = data.account;
+  			}else{
+   				;
+      /* delete this to save memory
+      account = blockParse.getAccountInfo(data);
+      */
+  			}//end of else
+  
+  			if(account != null && type != "ddos" && type != "tweet"){     
+   				//console.log("calling sendalarm in eosjs", account);
+   				//saveData(result.block_num, account, data, type);
+      //change to direct to call to save memory
+       var fData = formatData(data, type);
+       botClient.sendAlarm(account, fData);
+   				account = null;
+ 			  }//end of if
+   		}//end of for, actions
+ 	}//end of for of transaction
+ }//end of else 
+}//end of function
+
+
+ 
+function saveBlockInfo(idx){
+ //console.log("saveBlockInfo for ",idx);
+ eos.getBlock(idx).then(result => {
+  retryCount = 0;
+  if(chainLogging == true)
+   console.log("read block suceess for block number", idx);
+  checkAccount(result);
+  //saving the latest success block number.
+  previousReadBlock = idx;
+  idx++;
+  setTimeout(getLatestBlock, runTimer);
+  })
+ .catch((err) => {
+
+  if(chainLogging == true)
+   console.log("getblockfailed");
+
+  console.log(err);
+  setTimeout(getLatestBlock, runTimer);
+ }); // end of getblock
+} //end of function
+
 function formatData(data, type){
   if(type == "transfer"){
    msg = "Transfer Event";
@@ -117,105 +224,6 @@ function formatData(data, type){
  return msg;
  
 }
-function saveData(block, account, data, type){
-  var fData = formatData(data, type);
-  botClient.sendAlarm(account, fData);
- /* Temporary disable saving data to MongoDB due to the size limit
-  MongoClient.connect(url, function(err, db) {
-   var dbo = db.db("heroku_9472rtd6");
-   var fData = formatData(data, type);
-   botClient.sendAlarm(account, fData);
-   var myobj = { block : block, account : account, data : fData, report : false };
-   dbo.collection("alarm").insertOne(myobj, function(err, res){
-    if (err) throw err;
-    //console.log("1 document inserted");
-    db.close();   
-   });
-  }); 
-  */
-}
- 
-function checkAccount(result){
-   //idx++;
- if(result.transactions.length == 0){
- 	return;
- }else{
- 	if(chainLogging == true)
-  		console.log("transaction length ", result.transactions.length);
-  	for(i = 0;i<result.transactions.length;i++){
-  	//check transaction type
-  		var trx = result.transactions[i].trx.transaction;
-  		if(trx == undefined)
-   			continue;
-   		for(j=0;j<trx.actions.length;j++){
-    			if(chainLogging == true)
-    				console.log("action length", trx.actions.length);
-    			if(trx.actions[j] ==  undefined && trx.actions[j].length != 0)
-     				continue;
-    
-  			var type = trx.actions[j].name;
-  			var data = trx.actions[j].data; 
-      //filtering malicious event
-      if(type == "ddos" || type == "tweet")
-       continue;
-  			var account = null;
-  			if(type == "transfer" || type == "issue" ){
-  				account = data.to;
-  			}else if(type == "newaccount"){
-  				account = data.creator;
-  			}else if(type == "voteproducer"){
-  				account = data.voter;  
-  			}else if(type == "undelegatebw" || type == "delegatebw"){
-  				account = data.from;
-  			}else if(type == "ddos"){
-  				account = trx.actions[0].account;
-  			}else if(type == "bidname"){
-  				account = data.bidder;
-  			}else if(type == "awakepet" || type == "feedpet" || type == "createpet"){
-  				account = trx.actions[j].authorization[0].actor;
-  			}else if(type == "refund"){
-  				account = data.owner;
-  			}else if(type == "buyram"){
-  				account = data.payer;
-  			}else if(type == "sellram" || type == "updateauth"){
-  				account = data.account;
-  			}else{
-   				account = blockParse.getAccountInfo(data);
-  			}//end of else
-  
-  			if(account != null && type != "ddos" && type != "tweet"){     
-   				//console.log("calling sendalarm in eosjs", account);
-   				saveData(result.block_num, account, data, type);
-   				account = null;
- 			  }//end of if
-   		}//end of for, actions
- 	}//end of for of transaction
- }//end of else 
-}//end of function
-
-
- 
-function saveBlockInfo(idx){
- //console.log("saveBlockInfo for ",idx);
- eos.getBlock(idx).then(result => {
-  retryCount = 0;
-  if(chainLogging == true)
-   console.log("read block suceess for block number", idx);
-  checkAccount(result);
-  //saving the latest success block number.
-  previousReadBlock = idx;
-  idx++;
-  setTimeout(getLatestBlock, runTimer);
-  })
- .catch((err) => {
-
-  if(chainLogging == true)
-   console.log("getblockfailed");
-
-  console.log(err);
-  setTimeout(getLatestBlock, runTimer);
- }); // end of getblock
-} //end of function
                         
  setTimeout(getLatestBlock, runTimer);
 
