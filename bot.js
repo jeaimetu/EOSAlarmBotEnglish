@@ -11,7 +11,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGODB_URI;
 
 // EOS
-Eos = require('eosjs-api')
+EosApi = require('eosjs-api')
 eosconfig = {
  httpEndpoint: "https://mainnet.eoscalgary.io"
 }
