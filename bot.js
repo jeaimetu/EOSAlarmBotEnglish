@@ -112,11 +112,10 @@ async function getCetosBalance(account){
 
 
 async function getTokenBalance(account, cb){
- let [addBalance, dacBalance, cetosBalance,cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance, atdBalance,
+ let [addBalance, dacBalance, cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance, atdBalance,
       octBalance, iqBalance, pglBalance, poorBalance, chlBalance] = 
      await Promise.all([getAddBalance(account), 
                         getDacBalance(account), 
-                        getCetosBalance(account),
                         getCetBalance(account),
                         getTokenBalanceEach(account, "ednazztokens"),
                         getTokenBalanceEach(account, "horustokenio"),            
@@ -230,12 +229,6 @@ if(eoxBalance != null){
   msg += "POOR : 0";
  msg += "\n";
  
- if(cetosBalance != null){
-    t = cetosBalance.split(" ");
- msg += t[1] + " : " + t[0];}
-else
-  msg += "CETOS : 0"; 
-    msg += "\n";
  
    if(horusBalance != null){
     t = horusBalance.split(" ");
