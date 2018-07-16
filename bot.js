@@ -509,9 +509,9 @@ function balance(ctx){
      console.log("calling getAccount", ctx.session.id);
      eos.getAccount(ctx.session.id).then(result => {
       console.log("getAccount", result);
-      console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
-      v1 = result.self_delegated_bandwidth.net_weight.split(" ");
-      v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
+      console.log(result.total_resources.net_weight, result.total_resources.cpu_weight, result.voter_info.unstaking)
+      v1 = result.total_resources.net_weight.split(" ");
+      v2 = result.total_resources.cpu_weight.split(" ");
      eos.getTableRows({json : true,
                  code : "eosio",
                  scope: ctx.session.id,
@@ -534,10 +534,10 @@ function balance(ctx){
       msg += "Unstaked : " + parseFloat(v3[0]);
       msg += " EOS\n";
       msg += "Staking for CPU : "
-      msg += result.self_delegated_bandwidth.cpu_weight;
+      msg += result.total_resources.cpu_weight;
       msg += "\n";
       msg += "Staking for NET : "
-      msg += result.self_delegated_bandwidth.net_weight;
+      msg += result.total_resources.net_weight;
       msg += "\n";
       msg += "Refund : ";
       msg += refund + " EOS";
@@ -717,3 +717,4 @@ bot.telegram.getMe().then((bot_informations) => {
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
+setInterval(sendAlarm, 100);
