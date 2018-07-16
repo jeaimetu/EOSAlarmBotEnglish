@@ -401,43 +401,6 @@ bot.use(session())
 //bot.use(Telegraf.log())
 
 
-
-module.exports.sendAlarm = function(account, msg){
- 
- console.log("Memory heap usage ", process.memoryUsage().heapTotal/(1024*1024));
- console.log("Memory rss usage ", process.memoryUsage().rss/(1024*1024));
-
-  
-  
-    
- //get chatid
- //console.log("account msg",account, msg);
- MongoClient.connect(url, function(err, db) {
-  var dbo = db.db("heroku_9472rtd6");
-  var findquery = {eosid : account};
-  dbo.collection("customers").find(findquery).toArray(function(err, result){
-   if(result == null || result.length == 0){
-    //console.log("no matched account for ", account);
-    db.close();
-    return true;
-   }else{
-     //send message
-    for(i = 0;i < result.length; i++){
-     console.log("try to send message to ", result[i].chatid);
-     bot.telegram.sendMessage(result[i].chatid, msg).catch((error) => {
-      console.log(error);
-     });
-    }//end of for
-    db.close();
-    return false;
-   }//end of else
-  });//end of findOne
-   
- });//end of mongoclient 
-}
-
-
-
 bot.start((ctx) => {
  
   // Save etc values
@@ -714,6 +677,36 @@ bot.telegram.getMe().then((bot_informations) => {
     bot.options.username = bot_informations.username;
     console.log("Server has initialized bot nickname. Nick: "+bot_informations.username);
 });
+
+function sendAlarm(){
+	console.log("Memory heap usage ", process.memoryUsage().heapTotal/(1024*1024));
+	console.log("Memory rss usage ", process.memoryUsage().rss/(1024*1024));
+
+	MongoClient.connect(url, function(err, db) {
+		var dbo = db.db("heroku_9472rtd6");
+		var findquery = {report  : false};
+		dbo.collection("alarm").findOne(findquery, function(err, result){
+			if(result == null){
+				db.close();
+			}else{
+				//get chatid
+
+				bot.telegram.sendMessage(result.chatid, result.data).catch((error) => {
+					console.log(error);
+				});
+				var ObjectID = require('mongodb').ObjectID;
+				var o_id = new ObjectID(result._id);
+				var updateQuery = { _id : o_id };
+				var updateObj = { $set: {report : true}};
+				dbo.collection("alarm").updateOne(updateQuery, updateObj).then((obj)=>{
+					console.log("update success", result.account);
+					db.close();
+				});													   
+
+			} //end of else
+		}); //end of findone alarm
+	});//end of MongoClient
+}
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
