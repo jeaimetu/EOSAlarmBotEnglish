@@ -416,10 +416,11 @@ bot.start((ctx) => {
   ctx.session.language = ctx.message.from.language_code
  
   reset(ctx)
-  let msg = makeMessage(ctx)
+
   
   loadData(ctx, id => {
    ctx.session.id = id;
+	    let msg = makeMessage(ctx)
    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
   })
   
