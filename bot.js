@@ -114,7 +114,7 @@ async function getCetosBalance(account){
 async function getTokenBalance(account, cb){
  let [dabBalance, addBalance, dacBalance, cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance, atdBalance,
       octBalance, iqBalance, pglBalance, poorBalance, chlBalance, ridlBalance] = 
-     await Promise.all([getAddBalance(account),
+     await Promise.all([getTokenBalanceEach(account, "eoscafekorea"),
 			getAddBalance(account), 
                         getDacBalance(account), 
                         getCetBalance(account),
